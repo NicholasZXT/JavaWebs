@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+设置xml的约束文件http://mybatis.org/dtd/mybatis-3-mapper.dtd.
+约束文件作用： 定义和限制当前文件中可以使用的标签和属性，以及标签出现的顺序，保证符合mybatis的规范
+主配置的约束文件是 mybatis-3-config.dtd，mapper的约束文件是 mybatis-3-mapper.dtd
+-->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+mybatis 的主配置文件，其中主要做两件事：
+1. 配置数据库的连接信息
+2. 指定各个表的mapper配置
+-->
+<configuration>
+    <!--使用外部属性配置文件，resource:指定类路径下的某个属性配置文件-->
+    <!--这个配置必须放在最前面，否则会报错-->
+    <properties resource="jdbc.properties" />
+
+    <!--设置mybatis日志，name属性和值是固定的，value的值见官方文档-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--环境配置-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--配置数据源：创建Connection对象-->
+            <dataSource type="POOLED">
+                <!-- jdbc驱动及数据库连接配置-->
+                <!-- 明文硬编码的方式 -->
+<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/patents?useUnicode=true&amp;characterEncoding=utf-8"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="mysql2022"/>-->
+                <!-- 使用配置文件的方式 -->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--指定其他mapper文件的位置，找到其中的sql语句-->
+    <mappers>
+        <!--
+        使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.
+        一个mapper resource 指定一个mapper文件
+        -->
+        <mapper resource="com/zxt/javawebs/dao/StudentDao.xml"/>
+    </mappers>
+</configuration>
