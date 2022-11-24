@@ -1,13 +1,14 @@
 package com.zxt.javawebs;
 
 import org.junit.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.zxt.javawebs.service.SomeService;
 import com.zxt.javawebs.service.impl.SomeServiceImpl;
 
-public class AppTest
+import java.util.Date;
+
+public class AppTest1
 {
     @Test
     public void normalUse(){
@@ -67,6 +68,18 @@ public class AppTest
             System.out.println("容器中对象的名称：" + name);
         }
 
+    }
+
+    /**
+     * 创建非自定义的类对象，
+     */
+    @Test
+    public void test3(){
+        String config="beans.xml";
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(config);
+        // 获取非定义的对象
+        Date date = (Date) ctx.getBean("mydate");
+        System.out.println("date: "+date);
     }
 
 }
