@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--set注入-->
+    <bean id="myStudent" class="com.zxt.javawebs.di_xml.Student">
+        <!-- 基本类型，调用对应类的 set 方法进行赋值-->
+        <property name="name" value="李四"/>
+        <property name="age" value="22" />
+        <!-- 引用类型的赋值，使用 ref=[bean-id] -->
+        <property name="school" ref="mySchool" /><!--setSchool(mySchool)-->
+    </bean>
+    <!--声明School对象-->
+    <bean id="mySchool" class="com.zxt.javawebs.di_xml.School">
+        <property name="name" value="北京大学"/>
+        <property name="address" value="北京海淀区"/>
+    </bean>
+
+    <!--声明日期类-->
+    <bean id="mydate" class="java.util.Date">
+        <!-- 对于非自定义类，只要有对应的set方法也可以：setTime()-->
+        <property name="time" value="933295249276"/>
+    </bean>
+
+
+    <!-- 构造注入： Spring调用类的有参数构造方法，创建对象同时给属性赋值
+    语法：
+        <bean id="xxx" class="yyy">
+           <constructor-arg>: 表示一个构造方法的形参
+           标签有属性： name ：构造方法形参名；
+                      index：构造方法的参数位置
+                      value：简单类型的形参值
+                      ref：  引用类型的形参值
+        </bean>
+    -->
+    <!--构造注入，使用name属性-->
+    <bean id="myStudent1" class="com.zxt.javawebs.di_xml.Student">
+        <constructor-arg name="myage" value="22" />
+        <constructor-arg name="myname" value="李四"/>
+        <constructor-arg name="mySchool" ref="mySchool"/>
+    </bean>
+    <!--构造注入，使用index，参数的位置，构造方法参数从左往右位置是0,1,2-->
+    <bean id="myStudent2" class="com.zxt.javawebs.di_xml.Student">
+        <constructor-arg index="1" value="28"/>
+        <constructor-arg index="0" value="张三"/>
+        <constructor-arg index="2" ref="mySchool" />
+    </bean>
+    <!--构造注入，省略index属性-->
+    <bean id="myStudent3" class="com.zxt.javawebs.di_xml.Student">
+        <constructor-arg  value="张峰"/>
+        <constructor-arg  value="28"/>
+        <constructor-arg  ref="mySchool" />
+    </bean>
+
+
+    <!-- 引用类型自动注入： spring根据byName,byType规则给引用类型赋值
+      1. byName（按名称注入）：java类中引用类型的属性名称和spring容器中bean的id名称一样，且数据类型一样的， 这样的bean能够赋值给引用类型。
+      语法：
+       <bean id="xxx" class="yy" autowire="byName">
+          简单类型属性赋值
+       </bean>
+
+      2.byType（按类型注入）：java类中引用类型的数据类型和bean的class是同源的，这些的bean能够赋值给引用类型。
+        同源关系：
+        1. java中引用类型的数据类型和bean的class值是一样的。
+        2. java中引用类型的数据类型和bean的class值是父子类关系的。
+        3. java中引用类型的数据类型和bean的class值是接口和实现类关系的。
+       语法：
+       <bean id="xxx" class="yy" autowire="byType">
+          简单类型属性赋值
+       </bean>
+
+    注意： 使用引用类型自动注入时，xml配置文件中符合条件的对象，只能有一个，多于一个是报错的。
+    -->
+
+    <!-- byName 自动注入 -->
+    <bean id="myStudent4" class="com.zxt.javawebs.di_xml.Student" autowire="byName">
+        <property name="name" value="李四"/>
+        <property name="age" value="22" />
+        <!--引用类型 school 按名称自动注入-->
+        <!--<property name="school" ref="mySchool" />-->
+    </bean>
+    <!--为了支持上面的byName注入，这里的bean id 必须等于 Student里 school 属性名称一致-->
+    <bean id="school" class="com.zxt.javawebs.di_xml.School">
+        <property name="name" value="清华大学"/>
+        <property name="address" value="北京市海淀区"/>
+    </bean>
+
+    <!--导入其他配置文件
+    语法： <import resource="classpath:其他文件的路径" />
+        classpath:表示类路径。类文件所在的目录，spring通过类路径加载配置文件.
+    包含关系的配置文件，可使用通配符（*：表示任意字符）
+    注意：总的文件名称，不能包含在通配符范围内（applicationContext.xml不能叫做spring-applicationContext.xml）
+    -->
+    <import resource="classpath:di_xml/spring-*.xml" />
+
+
+</beans>
