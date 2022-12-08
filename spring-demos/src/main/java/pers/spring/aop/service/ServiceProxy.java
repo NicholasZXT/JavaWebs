@@ -25,9 +25,9 @@ public class ServiceProxy implements SomeService {
     }
 
     @Override
-    public void doOther() {
+    public void doOther(String item, int num) {
         System.out.println("日志功能，记录方法的执行时间="+new Date());
-        target.doOther();
+        target.doOther(item, num);
         System.out.println("事务功能，业务方法之后，提交事务");
     }
 }
