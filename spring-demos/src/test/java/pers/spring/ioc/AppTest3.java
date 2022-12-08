@@ -1,9 +1,9 @@
-package com.zxt.javawebs;
+package pers.spring.ioc;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.zxt.javawebs.di_annotation.Student;
+import pers.spring.ioc.di_annotation.Student;
 
 /**
  * 基于注解的DI使用

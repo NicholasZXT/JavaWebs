@@ -1,4 +1,4 @@
-package com.zxt.javawebs.di_annotation;
+package pers.spring.ioc.di_annotation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
