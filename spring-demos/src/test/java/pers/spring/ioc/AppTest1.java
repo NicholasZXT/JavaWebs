@@ -1,12 +1,12 @@
-package com.zxt.javawebs;
+package pers.spring.ioc;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.zxt.javawebs.service.SomeService;
-import com.zxt.javawebs.service.impl.SomeServiceImpl;
-
 import java.util.Date;
+
+import pers.spring.ioc.service.SomeService;
+import pers.spring.ioc.service.impl.SomeServiceImpl;
 
 public class AppTest1
 {

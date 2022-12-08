@@ -1,6 +1,6 @@
-package com.zxt.javawebs.service.impl;
+package pers.spring.ioc.service.impl;
 
-import com.zxt.javawebs.service.SomeService;
+import pers.spring.ioc.service.SomeService;
 
 public class SomeServiceImpl implements SomeService {
     /**

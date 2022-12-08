@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 学生模块的bean -->
-    <bean id="myStudent5" class="com.zxt.javawebs.di_xml.Student" autowire="byName">
+    <bean id="myStudent5" class="pers.spring.ioc.di_xml.Student" autowire="byName">
         <property name="name" value="张盎"/>
         <property name="age" value="26" />
     </bean>

@@ -1,9 +1,8 @@
-package com.zxt.javawebs;
+package pers.spring.ioc;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.zxt.javawebs.service.SomeService;
-import com.zxt.javawebs.service.impl.SomeServiceImpl;
+import pers.spring.ioc.service.SomeService;
 
 /**
  * Hello world!

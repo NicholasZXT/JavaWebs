@@ -1,4 +1,4 @@
-package com.zxt.javawebs.di_xml;
+package pers.spring.ioc.di_xml;
 
 public class Student {
 

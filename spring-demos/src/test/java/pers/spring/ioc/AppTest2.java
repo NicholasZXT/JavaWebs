@@ -1,11 +1,11 @@
-package com.zxt.javawebs;
+package pers.spring.ioc;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Date;
 
-import com.zxt.javawebs.di_xml.Student;
+import pers.spring.ioc.di_xml.Student;
 
 /**
  * 基于XML配置文件的注入（DI）

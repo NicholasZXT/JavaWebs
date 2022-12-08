@@ -11,18 +11,18 @@
      属性： base-package 注解在你的项目中的包名，框架会扫描这个包和子包中的所有类，找类中的所有注解，遇到注解后，按照注解表示的功能，去创建对象，给属性赋值。
      注意，声明组件扫描器时，需要在上面 beans 的属性里，增加 xmlns:context 的定义约束文件
     -->
-    <context:component-scan base-package="com.zxt.javawebs.di_annotation"/>
+    <context:component-scan base-package="pers.spring.ioc.di_annotation"/>
 
     <!--扫描多个包的三种方式-->
     <!--第一种，使用多次组件扫描器
-        <context:component-scan base-package="com.zxt.javawebs.di_annotation"/>
-        <context:component-scan base-package="com.zxt.javawebs.xml_annotation"/>
+        <context:component-scan base-package="pers.spring.ioc.di_annotation"/>
+        <context:component-scan base-package="pers.spring.ioc.xml_annotation"/>
     -->
     <!--第二种，使用分隔符( ;或,)，指定多个包
-        <context:component-scan base-package="com.zxt.javawebs.di_annotation;com.zxt.javawebs.xml_annotation"/>
+        <context:component-scan base-package="pers.spring.ioc.di_annotation;pers.spring.ioc.xml_annotation"/>
     -->
     <!--第三种：指定父包
-        <context:component-scan base-package="com.zxt.javawebs" />
+        <context:component-scan base-package="pers.spring.ioc" />
     -->
 
     <!--读取外部的属性配置文件
