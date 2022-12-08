@@ -20,12 +20,12 @@ public class SomeServiceImplV1 implements SomeService {
     }
 
     @Override
-    public void doOther() {
+    public void doOther(String item, int num) {
         //在业务方法开始时记录时间
         System.out.println("日志功能：记录方法的执行时间="+ new Date());
 
         // 业务逻辑代码
-        System.out.println("业务方法doOther，消减库存");
+        System.out.println("业务方法doOther,消减库存[" + item + "], 数量: " + num);
 
         //在业务方法之后，提交事务
         System.out.println("事务功能：提交事务处理");

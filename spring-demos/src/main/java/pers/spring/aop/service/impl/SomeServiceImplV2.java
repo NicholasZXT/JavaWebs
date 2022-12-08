@@ -13,7 +13,7 @@ public class SomeServiceImplV2 implements SomeService {
     }
 
     @Override
-    public void doOther() {
-        System.out.println("业务方法doOther，消减库存");
+    public void doOther(String item, int num) {
+        System.out.println("业务方法doOther,消减库存[" + item + "], 数量: " + num);
     }
 }
