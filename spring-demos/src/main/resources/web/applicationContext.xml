@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载外部的属性配置文件-->
+    <context:property-placeholder location="classpath:web/jdbc.properties" />
+
+    <!--声明数据源DataSource对象，这里使用的是阿里Druid数据源对象-->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!--声明SqlSessionFactoryBean，这个类的内部会创建SqlSessionFactory-->
+    <bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--指定上面的数据源对象-->
+        <property name="dataSource" ref="druidDataSource" />
+        <!--指定mybatis主配置文件，注意，这个mybatis.xml配置中的数据源和事务配置是不生效的-->
+        <property name="configLocation" value="classpath:web/mybatis.xml" />
+        <!--指定 Dao接口对应的 mapper 配置文件，如果上面的 mybatis.xml 配置文件里指定了 mapper位置，这里就不用再配置了-->
+        <!--<property name="mapperLocations" value="classpath:pers/spring/web/dao/*.xml" />-->
+    </bean>
+
+    <!--声明 Mapper扫描对象，它会扫描dao包中所有的mapper配置，生成对应的 dao接口代理对象，放入到spring容器中-->
+    <!--大致作用为：
+    循环basePackage所表示的包，把包中的每个接口都找到，调用SqlSession.getMapper把每个dao接口都创建出dao对象，再dao代理对象放在容器中
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--指定SqlSessionFactory对象的名称-->
+        <property name="sqlSessionFactoryBeanName" value="factory" />
+        <!--指定基本包，dao接口所在的包名-->
+        <property name="basePackage" value="pers.spring.web.dao" />
+    </bean>
+
+    <!--声明 StudentService 对象-->
+    <bean id="studentService" class="pers.spring.web.service.impl.StudentServiceImpl">
+        <!--这个 StudentServiceImpl 需要持有一个 StudentDao 的实现类对象，通过它来操作数据库-->
+        <!-- 这个 studentDao 代理对象就是上面的 MapperScannerConfigurer 生成的-->
+        <property name="studentDao" ref="studentDao" />
+    </bean>
+</beans>

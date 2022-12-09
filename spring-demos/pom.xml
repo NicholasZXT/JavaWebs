@@ -24,7 +24,8 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    <!--spring依赖-->
+
+    <!--spring核心依赖-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -36,6 +37,7 @@
       <artifactId>spring-aspects</artifactId>
       <version>5.2.5.RELEASE</version>
     </dependency>
+
     <!--下面这两个包在spring整合mybatis时都是必须的-->
     <!--spring事务依赖-->
     <dependency>
@@ -77,6 +79,27 @@
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper</artifactId>
       <version>5.1.10</version>
+    </dependency>
+
+    <!-- servlet依赖 -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- jsp依赖 -->
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.2.1-b03</version>
+      <scope>provided</scope>
+    </dependency>
+    <!--spring-web依赖（为了支持监听器）-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>5.2.5.RELEASE</version>
     </dependency>
   </dependencies>
 
