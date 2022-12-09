@@ -28,10 +28,10 @@ mybatis 的主配置文件，其中主要做两件事：
             <dataSource type="POOLED">
                 <!-- jdbc驱动及数据库连接配置-->
                 <!-- 明文硬编码的方式 -->
-<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
-<!--                <property name="url" value="jdbc:mysql://localhost:3306/patents?useUnicode=true&amp;characterEncoding=utf-8"/>-->
-<!--                <property name="username" value="root"/>-->
-<!--                <property name="password" value="mysql2022"/>-->
+                <!--<property name="driver" value="com.mysql.jdbc.Driver"/>-->
+                <!--<property name="url" value="jdbc:mysql://localhost:3306/patents?useUnicode=true&amp;characterEncoding=utf-8"/>-->
+                <!--<property name="username" value="root"/>-->
+                <!--<property name="password" value="mysql2022"/>-->
                 <!-- 使用配置文件的方式 -->
                 <property name="driver" value="${jdbc.driver}"/>
                 <property name="url" value="${jdbc.url}"/>
@@ -43,10 +43,15 @@ mybatis 的主配置文件，其中主要做两件事：
 
     <!--指定其他mapper文件的位置，找到其中的sql语句-->
     <mappers>
-        <!--
-        使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.
-        一个mapper resource 指定一个mapper文件
+        <!-- 使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.
+        一个mapper resource 指定一个mapper文件，mapper数量较少时使用
         -->
-        <mapper resource="com/zxt/javawebs/dao/StudentDao.xml"/>
+        <!--<mapper resource="com/zxt/javawebs/dao/StudentDao.xml"/>-->
+
+        <!-- 也可以使用 package 标签直接指定包，比较方便，但是有如下两个要求：
+          1. mapper文件和dao接口在同一目录
+          2. mapper文件和dao接口名称一致
+        -->
+        <package name="com.zxt.javawebs.dao" />
     </mappers>
 </configuration>
