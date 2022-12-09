@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+mybatis和spring集成时的配置文件，其中许多配置项都交给spring管理了，并不是一个完整的配置
+-->
+<configuration>
+    <!--使用外部属性配置文件，这个配置必须放在最前面，否则会报错-->
+    <!--因为下面的数据源配置不起作用，所以这里也没有必要读取外部配置了-->
+    <!--<properties resource="jdbc.properties" />-->
+
+    <!--设置mybatis日志，name属性和值是固定的，value的值见官方文档-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--环境配置-->
+    <!-- 但是和spring集成时使用的SqlSessionFactoryBean类不会读取这里配置的数据源，所以没有必要在这里写-->
+    <!--<environments default="development">-->
+    <!--    <environment id="development">-->
+    <!--        <transactionManager type="JDBC"/>-->
+    <!--        <dataSource type="POOLED">-->
+    <!--            <property name="driver" value="${jdbc.driver}"/>-->
+    <!--            <property name="url" value="${jdbc.url}"/>-->
+    <!--            <property name="username" value="${jdbc.username}"/>-->
+    <!--            <property name="password" value="${jdbc.password}"/>-->
+    <!--        </dataSource>-->
+    <!--    </environment>-->
+    <!--</environments>-->
+
+    <!--指定其他mapper文件的位置，找到其中的sql语句-->
+    <mappers>
+        <!--<mapper resource="pers/spring/mybatis/dao/StudentDao.xml"/>-->
+        <package name="pers.spring.mybatis.dao"/>
+    </mappers>
+</configuration>
