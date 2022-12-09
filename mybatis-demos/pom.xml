@@ -49,8 +49,10 @@
     <!--资源插件： 处理src/main/java目录中的xml，没有这个插件的话，mapper对应的xml文件就不会被打包，导致执行时找不到文件-->
     <resources>
       <resource>
-        <directory>src/main/java</directory><!--所在的目录-->
-        <includes><!--包括目录下的.properties,.xml 文件都会扫描到-->
+        <!--所在的目录-->
+        <directory>src/main/java</directory>
+        <includes>
+          <!--包括目录下的.properties,.xml 文件都会扫描到-->
           <include>**/*.properties</include>
           <include>**/*.xml</include>
         </includes>

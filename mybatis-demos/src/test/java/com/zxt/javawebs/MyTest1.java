@@ -10,7 +10,7 @@ import java.io.InputStream;
 import com.zxt.javawebs.domain.Student;
 import com.zxt.javawebs.utils.MyBatisUtil;
 
-public class MyTest {
+public class MyTest1 {
     // 下面这三个测试用例，都没有用到 StudentDao 接口，只是为了展示 mybatis 的使用过程
     @Test
     public void testSelectStudentById() throws IOException {
