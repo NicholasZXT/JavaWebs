@@ -1,17 +1,17 @@
-package pers.spring.mybatis;
+package pers.spring.web;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.List;
 
-import pers.spring.mybatis.domain.Student;
-import pers.spring.mybatis.service.StudentService;
+import pers.spring.web.domain.Student;
+import pers.spring.web.service.StudentService;
 
-public class MyTest {
+public class SpringWebTest {
     @Test
     public void test01(){
-        String config="mybatis/applicationContext.xml";
+        String config="web/applicationContext.xml";
         ApplicationContext ctx = new ClassPathXmlApplicationContext(config);
 
         StudentService service  = (StudentService) ctx.getBean("studentService");

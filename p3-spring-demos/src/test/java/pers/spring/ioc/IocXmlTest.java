@@ -10,14 +10,14 @@ import pers.spring.ioc.di_xml.Student;
 /**
  * 基于XML配置文件的注入（DI）
  */
-public class AppTest2 {
+public class IocXmlTest {
 
     /**
      * set注入方式
      */
     @Test
     public void test01(){
-        String config= "di_xml/applicationContext.xml";
+        String config= "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // 获取学生
@@ -34,7 +34,7 @@ public class AppTest2 {
      */
     @Test
     public void test02(){
-        String config= "di_xml/applicationContext.xml";
+        String config= "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // 获取构造注入创建的学生
@@ -51,7 +51,7 @@ public class AppTest2 {
      */
     @Test
     public void test03(){
-        String config= "di_xml/applicationContext.xml";
+        String config= "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // 获取引用类型按照 ByName 自动注入的学生
@@ -65,10 +65,10 @@ public class AppTest2 {
     @Test
     public void test04(){
         // 只需要指定总的配置文件
-        String config= "di_xml/applicationContext.xml";
+        String config= "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
-        // di_xml/spring-student.xml 配置文件中导入的Student对象
+        // ioc/di_xml/spring-student.xml 配置文件中导入的Student对象
         Student student = (Student) ctx.getBean("myStudent5");
         System.out.println("student4："+student);
     }

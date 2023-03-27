@@ -17,7 +17,6 @@ import java.util.Date;
 @Aspect
 public class MyAspect {
     //接下来定义方法，表示切面的具体功能
-
     /**
      前置通知方法的定义：方法是public，返回值void，方法名称自定义，方法参数可有可无，如果有，第一个参数必须是 JoinPoint.
      @Before：前置通知

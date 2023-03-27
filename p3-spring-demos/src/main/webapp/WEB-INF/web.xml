@@ -15,7 +15,7 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
 
-    <!--声明监听器，默认监听器：创建容器对象时，读取的配置文件： /WEB-INF/spring-beans.xml-->
+    <!--声明监听器：指定创建容器对象时，读取的配置文件： /WEB-INF/spring-beans.xml-->
     <!--自定义容器使用的配置文件路径，context-param: 上下文参数，用于给监听器提供参数的-->
     <context-param>
         <!--contextConfigLocation：名称是固定的，表示自定义spring配置文件的路径-->
@@ -23,6 +23,7 @@
         <!--自定义配置文件的路径-->
         <param-value>classpath:web/applicationContext.xml</param-value>
     </context-param>
+    <!--spring-web包提供的监听器类-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

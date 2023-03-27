@@ -8,14 +8,14 @@ import pers.spring.aop.service.impl.SomeServiceImplV1;
 import pers.spring.aop.service.ServiceProxy;
 import pers.spring.aop.handler.MyAspect;
 
-public class AppTest {
+public class AopTest {
 
     /**
      * 使用 Service 的方式
      */
     @Test
     public void test01(){
-        // 通常使用service的方式，直接调用接口的实现类
+        // 通常使用service的方式，直接实例化接口的实现类，调用其中的接口方法
         // SomeServiceImplV1.doSome() 方法中，业务逻辑和非业务逻辑的代码混合在一起
         SomeService service = new SomeServiceImplV1();
         service.doSome("item-1", 10);
