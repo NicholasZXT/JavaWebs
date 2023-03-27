@@ -34,12 +34,12 @@ public class QueryStudentServlet extends HttpServlet {
 
         // 直接使用监听器已经创建好的容器对象， 从ServletContext作用域获取容器
         WebApplicationContext ctx  = null;
-        String key = WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
+        String webAppContextKey = WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE;
         ServletContext sc  = getServletContext(); // ServletContext, servlet中的方法
-        //ServletContext sc = request.getServletContext();// HttpServletRequest对象的方法
+        //ServletContext sc = request.getServletContext(); // HttpServletRequest对象的方法
 
         // 获取spring容器
-        Object attr  = sc.getAttribute(key);
+        Object attr  = sc.getAttribute(webAppContextKey);
         if( attr != null){
             ctx = (WebApplicationContext) attr;
         }

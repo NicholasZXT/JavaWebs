@@ -29,7 +29,7 @@
 
     <!--声明 Mapper扫描对象，它会扫描dao包中所有的mapper配置，生成对应的 dao接口代理对象，放入到spring容器中-->
     <!--大致作用为：
-    循环basePackage所表示的包，把包中的每个接口都找到，调用SqlSession.getMapper把每个dao接口都创建出dao对象，再dao代理对象放在容器中
+    循环扫描basePackage所表示的包，把包中的每个接口都找到，调用SqlSession.getMapper把每个dao接口都创建出dao对象，再dao代理对象放在容器中
     -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!--指定SqlSessionFactory对象的名称-->

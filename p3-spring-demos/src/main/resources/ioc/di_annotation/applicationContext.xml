@@ -28,6 +28,6 @@
     <!--读取外部的属性配置文件
       property-placeholder:读取properties这样的文件
     -->
-    <context:property-placeholder location="classpath:/di_annotation/myconf.properties" />
+    <context:property-placeholder location="classpath:/ioc/di_annotation/myconf.properties" />
 
 </beans>
