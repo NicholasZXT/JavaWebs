@@ -6,7 +6,7 @@
 
     <!--set注入-->
     <!--实体类必须要实现set和get方法，也就是符合Bean的规范-->
-    <bean id="myStudent" class="pers.spring.ioc.di_xml.Student">
+    <bean id="myStudent" class="pers.zxt.spring.ioc.di_xml.Student">
         <!-- 基本类型，调用对应类的 set 方法进行赋值-->
         <property name="name" value="李四"/>
         <property name="age" value="22" />
@@ -14,7 +14,7 @@
         <property name="school" ref="mySchool" /><!--setSchool(mySchool)-->
     </bean>
     <!--声明School对象-->
-    <bean id="mySchool" class="pers.spring.ioc.di_xml.School">
+    <bean id="mySchool" class="pers.zxt.spring.ioc.di_xml.School">
         <property name="name" value="北京大学"/>
         <property name="address" value="北京海淀区"/>
     </bean>
@@ -35,19 +35,19 @@
         </bean>
     -->
     <!--构造注入，使用name属性-->
-    <bean id="myStudent1" class="pers.spring.ioc.di_xml.Student">
+    <bean id="myStudent1" class="pers.zxt.spring.ioc.di_xml.Student">
         <constructor-arg name="myage" value="22" />
         <constructor-arg name="myname" value="李四"/>
         <constructor-arg name="mySchool" ref="mySchool"/>
     </bean>
     <!--构造注入，使用index，参数的位置，构造方法参数从左往右位置是0,1,2-->
-    <bean id="myStudent2" class="pers.spring.ioc.di_xml.Student">
+    <bean id="myStudent2" class="pers.zxt.spring.ioc.di_xml.Student">
         <constructor-arg index="1" value="28"/>
         <constructor-arg index="0" value="张三"/>
         <constructor-arg index="2" ref="mySchool" />
     </bean>
     <!--构造注入，省略index属性-->
-    <bean id="myStudent3" class="pers.spring.ioc.di_xml.Student">
+    <bean id="myStudent3" class="pers.zxt.spring.ioc.di_xml.Student">
         <constructor-arg  value="张峰"/>
         <constructor-arg  value="28"/>
         <constructor-arg  ref="mySchool" />
@@ -71,14 +71,14 @@
        注意： 使用引用类型自动注入时，xml配置文件中符合条件的对象，只能有一个，多于一个是会报错的。
     -->
     <!-- byName 自动注入 -->
-    <bean id="myStudent4" class="pers.spring.ioc.di_xml.Student" autowire="byName">
+    <bean id="myStudent4" class="pers.zxt.spring.ioc.di_xml.Student" autowire="byName">
         <property name="name" value="李四"/>
         <property name="age" value="22" />
         <!--引用类型 school 按名称自动注入-->
         <property name="school" ref="school2" />
     </bean>
     <!--为了支持上面的byName注入，这里的bean id 必须等于 Student里 school 属性名称一致-->
-    <bean id="school2" class="pers.spring.ioc.di_xml.School">
+    <bean id="school2" class="pers.zxt.spring.ioc.di_xml.School">
         <property name="name" value="清华大学"/>
         <property name="address" value="北京市海淀区"/>
     </bean>

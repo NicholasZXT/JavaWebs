@@ -29,7 +29,7 @@ mybatis和spring集成时的配置文件，其中许多配置项都交给spring�
 
     <!--指定其他mapper文件的位置，找到其中的sql语句-->
     <mappers>
-        <!--<mapper resource="pers/spring/web/dao/StudentDao.xml"/>-->
-        <package name="pers.spring.web.dao"/>
+        <!--<mapper resource="pers/zxt/spring/web/dao/StudentDao.xml"/>-->
+        <package name="pers.zxt.spring.web.dao"/>
     </mappers>
 </configuration>

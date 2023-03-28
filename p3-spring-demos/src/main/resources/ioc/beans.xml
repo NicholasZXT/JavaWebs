@@ -10,9 +10,9 @@
      class：类的全限定名称，spring通过反射机制创建对象，不能是接口
     spring根据id，class，使用反射机制创建对象，然后把对象放入到spring的一个map对象，map.put(id,对象).
     -->
-    <bean id="someService" class="pers.spring.ioc.service.impl.SomeServiceImpl" />
+    <bean id="someService" class="pers.zxt.spring.ioc.service.impl.SomeServiceImpl" />
     <!-- 同一个类可以创建多个对象  -->
-    <bean id="someService1" class="pers.spring.ioc.service.impl.SomeServiceImpl" />
+    <bean id="someService1" class="pers.zxt.spring.ioc.service.impl.SomeServiceImpl" />
 
     <!--创建非自定义对象-->
     <bean id="mydate" class="java.util.Date" />

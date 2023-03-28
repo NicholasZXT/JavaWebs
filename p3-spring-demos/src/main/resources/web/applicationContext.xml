@@ -35,11 +35,11 @@
         <!--指定SqlSessionFactory对象的名称-->
         <property name="sqlSessionFactoryBeanName" value="factory" />
         <!--指定基本包，dao接口所在的包名-->
-        <property name="basePackage" value="pers.spring.web.dao" />
+        <property name="basePackage" value="pers.zxt.spring.web.dao" />
     </bean>
 
     <!--声明 StudentService 对象-->
-    <bean id="studentService" class="pers.spring.web.service.impl.StudentServiceImpl">
+    <bean id="studentService" class="pers.zxt.spring.web.service.impl.StudentServiceImpl">
         <!--这个 StudentServiceImpl 需要持有一个 StudentDao 的实现类对象，通过它来操作数据库-->
         <!-- 这个 studentDao 代理对象就是上面的 MapperScannerConfigurer 生成的-->
         <property name="studentDao" ref="studentDao" />
