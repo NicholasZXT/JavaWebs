@@ -187,8 +187,9 @@
 - 应用服务器和WEB服务器的关系？
   - 应用服务器实现了JavaEE的所有规范。(JavaEE有13个不同的规范。)
   - WEB服务器只实现了JavaEE中的Servlet + JSP两个核心的规范。
-  - 通过这个讲解说明了：应用服务器是包含WEB服务器的。
+  - 通过这个讲解说明了：**应用服务器是包含WEB服务器的**。
   - 用过JBOSS服务器的同学应该很清楚，JBOSS中内嵌了一个Tomcat服务器。
+
 - Tomcat下载
   - apache官网地址：https://www.apache.org/
   - tomcat官网地址：https://tomcat.apache.org
@@ -196,7 +197,7 @@
   - tomcat还有另外一个名字：catalina（catalina是美国的一个岛屿，风景秀丽，据说作者是在这个风景秀丽的小岛上开发了一个轻量级的WEB服务器，体积小，运行速度快，因此tomcat又被称为catalina）
   - tomcat的logo是一只公猫（寓意表示Tomcat服务器是轻巧的，小巧的，果然，体积小，运行速度快，只实现了Servlet+JSP规范）
   - tomcat是java语言写的。
-  - tomcat服务器要想运行，必须先又jre（Java的运行时环境）
+  - tomcat服务器要想运行，必须先有jre（Java的运行时环境）
 - Tomcat服务器要想运行，需要先有jre，所以要先安装JDK，配置java运行环境。
   - JAVA_HOME=C:\Program Files\Java\jdk-17.0.1
   - PATH=%JAVA_HOME%\bin
@@ -241,21 +242,20 @@
 ## 实现一个最基本的web应用（这个web应用中没有java小程序）
 
 - 第一步：找到CATALINA_HOME\webapps目录
-  
   - 因为所有的webapp要放到webapps目录下。（没有为什么，这是Tomcat服务器的要求。如果不放到这里，Tomcat服务器找不到你的应用。）
+
 - 第二步：在CATALINA_HOME\webapps目录下新建一个子目录，起名：oa
-  
   - 这个目录名oa就是你这个webapp的名字。
+
 - 第三步：在oa目录下新建资源文件，例如：index.html
-  
   - 编写index.html文件的内容。
+
 - 第四步：启动Tomcat服务器
+
 - 第五步：打开浏览器，在浏览器地址栏上输入这样的URL：
-  
-- http://127.0.0.1:8080/oa/index.html
+  - http://127.0.0.1:8080/oa/index.html
   
 - 思考一个问题：
-
   - 我们在浏览器上直接输入一个URL，然后回车。这个动作和超链接一样吗？既然是一样的，我们完全可以使用超链接。
 
     ```html
@@ -281,6 +281,7 @@
   - WEB Server的开发团队（WEB Server这个软件也是太多了：Tomcat、Jetty、WebLogic、JBOSS、WebSphere....）
   - DB Server的开发团队（DB Server这个软件也是太多了：Oracle、MySQL.....）
   - webapp的开发团队（WEB应用是我们做为JavaWEB程序员开发的）
+
 - 角色和角色之间需要遵守哪些规范，哪些协议
   - webapp的开发团队   和    WEB Server的开发团队  之间有一套规范: JavaEE规范之一Servlet规范。
     - Servlet规范的作用是什么？
@@ -349,7 +350,7 @@
     - Servlet接口（Servlet.class文件）是Oracle提供的。（最原始的是sun公司提供的。）
     - Servlet接口是JavaEE的规范中的一员。
     - Tomcat服务器实现了Servlet规范，所以Tomcat服务器也需要使用Servlet接口。Tomcat服务器中应该有这个接口，Tomcat服务器的CATALINA_HOME\lib目录下有一个servlet-api.jar，解压这个servlet-api.jar之后，你会看到里面有一个Servlet.class文件。
-    - 重点：从JakartaEE9开始，Servlet接口的全名变了：jakarta.servlet.Servlet
+    - 重点：**从JakartaEE9开始，Servlet接口的全名变了：jakarta.servlet.Servlet**
     - 注意：编写这个Java小程序的时候，java源代码你愿意在哪里就在哪里，位置无所谓，你只需要将java源代码编译之后的class文件放到classes目录下即可。
 
   - 第七步：编译我们编写的HelloServlet
@@ -395,17 +396,11 @@
       		<!--当前这个路径可以随便写-->
       		<url-pattern>/fdsa/fd/saf/d/sa/fd/sa/fd</url-pattern>
       	</servlet-mapping>
-      	
       </web-app>
-      
       ```
-
-      
-
   - 第十步：启动Tomcat服务器
 
   - 第十一步：打开浏览器，在浏览器地址栏上输入一个url，这个URL必须是：
-
     - http://127.0.0.1:8080/crm/fdsa/fd/saf/d/sa/fd/sa/fd   
     - 非常重要的一件事：浏览器上的请求路径不能随便写，这个请求路径必须和web.xml文件中的url-pattern一致。
     - 注意：浏览器上的请求路径和web.xml文件中的url-pattern的唯一区别就是：浏览器上的请求路径带项目名：/crm
@@ -430,7 +425,6 @@
     ```
 
   - 浏览器发送请求，到最终服务器调用Servlet中的方法，是怎样的一个过程？（以下这个过程描述的很粗糙。其中还有很多步骤我省略了。）
-
     - 用户输入URL，或者直接点击超链接：http://127.0.0.1:8080/crm/fdsa/fd/saf/d/sa/fd/sa/fd  
     - 然后Tomcat服务器接收到请求，截取路径：/crm/fdsa/fd/saf/d/sa/fd/sa/fd  
     - Tomcat服务器找到crm项目
@@ -438,18 +432,20 @@
     - Tomcat服务器通过反射机制，创建com.bjpowernode.servlet.HelloServlet的对象。
     - Tomcat服务器调用com.bjpowernode.servlet.HelloServlet对象的service方法。
 
-## 关于JavaEE的版本
+## 关于JavaEE的版本-KEY
 
 - JavaEE目前最高版本是 JavaEE8
 - JavaEE被Oracle捐献了，Oracle将JavaEE规范捐献给Apache了。
 - Apache把JavaEE换名了，以后不叫JavaEE了，以后叫做 jakarta EE。
 - 以后没有JavaEE了。以后都叫做Jakarta EE。
 - JavaEE8版本升级之后的"JavaEE 9"，不再是"JavaEE9"这个名字了，叫做JakartaEE9
-- JavaEE8的时候对应的Servlet类名是：javax.servlet.Servlet
-- JakartaEE9的时候对应的Servlet类名是：jakarta.servlet.Servlet （包名都换了）
-- 如果你之前的项目还是在使用javax.servlet.Servlet，那么你的项目无法直接部署到Tomcat10+版本上。你只能部署到Tomcat9-版本上。在Tomcat9以及Tomcat9之前的版本中还是能够识别javax.servlet这个包。
+- JavaEE8的时候对应的Servlet类名是：`javax.servlet.Servlet`
+- JakartaEE9的时候对应的Servlet类名是：`jakarta.servlet.Servlet` （包名都换了）
+- 如果你之前的项目还是在使用`javax.servlet.Servlet`，那么你的项目**无法直接部署到Tomcat10+版本上**，你只能部署到Tomcat9-版本上。
+  在Tomcat9以及Tomcat9之前的版本中还是能够识别`javax.servlet`这个包。
 
-
+> 具体到API上，servlet-api在4.0版本以前是由oracle维护的，对应的包名为 `jakarta.servlet.*` ；而5.0之后的版本由Apache维护，对应的包名
+> 改为了 `jakarta.servlet.*`. 而 Tomcat 支持 servlet-api:4.x 的最高版本就是 9.X。
 
 ## 解决Tomcat服务器在DOS命令窗口中的乱码问题（控制台乱码）
 
@@ -475,12 +471,10 @@ public void service(ServletRequest request, ServletResponse response){
 ## 在集成开发环境当中开发Servlet程序
 
 - 集成开发工具很多，其中目前使用比较多的是：
-
   - IntelliJ IDEA（这个居多，IDEA在提示功能方面要强于Eclipse，也就是说IDEA使用起来比Eclipse更加智能，更好用。JetBrain公司开发的。收费的。）
   - Eclipse（这个少一些），Eclipse目前还是有团队使用，只不过处于减少的趋势，自己从事工作之后，可能会遇到。Eclipse是IBM团队开发的。Eclipse寓意是“日食”。“日食”表示将太阳吃掉。太阳是SUN。IBM团队开发Eclipse的寓意是吞并SUN公司，但是2009年的时候SUN公司被Oracle公司并购了。IBM并没有成功并购SUN公司。
 
 - 使用IDEA集成开发工具开发Servlet
-
   - 第一步：New Project（我比较习惯先创建一个Empty Project【空工程】，然后在空工程下新建Module【模块】，这不是必须的，只是一种习惯，你可以直接新建非空的Project），这个Empty Project起名为：javaweb（不是必须的，只是一个名字而已。一般情况下新建的Project的名字最好和目录的名字一致。）
   - 第二步：新建模块（File --> new --> Module...）
     - 这里新建的是一个普通的JavaSE模块（这里先不要新建Java Enterprise模块）
@@ -494,7 +488,7 @@ public void service(ServletRequest request, ServletResponse response){
   - 第四步（非必须）：根据Web Application生成的资源中有index.jsp文件，这里我选择删除这个index.jsp文件。
   - 第五步：编写Servlet（StudentServlet）
     - class StudentServlet implements Servlet
-    - 这个时候发现Servlet.class文件没有。怎么办？将CATALINA_HOME/lib/servlet-api.jar和jsp-api.jar添加到classpath当中（这里的classpath说的是IDEA的classpath）
+    - 这个时候发现Servlet.class文件没有。怎么办？将`CATALINA_HOME/lib/servlet-api.jar`和`jsp-api.jar`添加到classpath当中（这里的classpath说的是IDEA的classpath）
       - File --> Project Structrue --> Modules --> + 加号 --> Add JARS....
     - 实现jakarta.servlet.Servlet接口中的5个方法。
   - 第六步：在Servlet当中的service方法中编写业务代码（我们这里连接数据库了。）
@@ -519,18 +513,12 @@ public void service(ServletRequest request, ServletResponse response){
       
   </web-app>
   ```
-
   
-
   - 第九步：给一个html页面，在HTML页面中编写一个超链接，用户点击这个超链接，发送请求，Tomcat执行后台的StudentServlet。
-
     - student.html
-
     - 这个文件不能放到WEB-INF目录里面，只能放到WEB-INF目录外面。
-
     - student.html文件的内容
-
-    - ```html
+  ```html
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -542,12 +530,9 @@ public void service(ServletRequest request, ServletResponse response){
           <a href="/xmm/servlet/student">student list</a>
       </body>
       </html>
-      ```
-
-      
+  ```
 
   - 第十步：让IDEA工具去关联Tomcat服务器。关联的过程当中将webapp部署到Tomcat服务器当中。
-
     - IDEA工具右上角，绿色小锤子右边有一个：Add Configuration
     - 左上角加号，点击Tomcat Server --> local
     - 在弹出的界面中设置服务器Server的参数（基本上不用动）
@@ -555,11 +540,11 @@ public void service(ServletRequest request, ServletResponse response){
     - 修改 Application context为：/xmm
 
   - 第十一步：启动Tomcat服务器
-
     - 在右上角有绿色的箭头，或者绿色的小虫子，点击这个绿色的小虫子，可以采用debug的模式启动Tomcat服务器。
     - 我们开发中建议适用debug模式启动Tomcat
 
   - 第十二步：打开浏览器，在浏览器地址栏上输入：http://localhost:8080/xmm/student.html
+
 
 ## Servlet对象的生命周期
 
