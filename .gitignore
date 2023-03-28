@@ -11,5 +11,6 @@
 *.zip
 *.tar.gz
 *.rar
+*.iml
 # 忽略所有target文件夹
 target/
