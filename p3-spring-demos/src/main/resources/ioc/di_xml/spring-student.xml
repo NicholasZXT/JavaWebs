@@ -5,7 +5,7 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 学生模块的bean -->
-    <bean id="myStudent5" class="pers.spring.ioc.di_xml.Student" autowire="byName">
+    <bean id="myStudent5" class="pers.zxt.spring.ioc.di_xml.Student" autowire="byName">
         <property name="name" value="张盎"/>
         <property name="age" value="26" />
     </bean>
