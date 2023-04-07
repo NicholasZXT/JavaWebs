@@ -16,19 +16,20 @@
         启动tomcat报错，读取这个文件 /WEB-INF/springmvc-servlet.xml（/WEB-INF/myweb-servlet.xml）
         springmvc创建容器对象时，读取的配置文件默认是/WEB-INF/<servlet-name>-servlet.xml .
     -->
+    <!--注册中央调度器-->
     <servlet>
         <servlet-name>hello</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--自定义springmvc读取的配置文件的位置-->
         <init-param>
-            <!--springmvc的配置文件的位置的属性-->
+            <!--设置springmvc配置文件位置的属性-->
             <param-name>contextConfigLocation</param-name>
-            <!--指定自定义文件的位置-->
-            <param-value>classpath:hello/hello-springmvc.xml</param-value>
+            <!-- 用于练习springmvc -->
+            <!--<param-value>classpath:hello/hello-springmvc.xml</param-value>-->
+            <!-- 用于练习SSM整合 -->
+            <param-value>classpath:ssm/dispatcherServlet.xml</param-value>
         </init-param>
-        <!--在tomcat启动时创建Servlet对象.
-        load-on-startup: 表示tomcat启动后创建对象的顺序。它的值是整数，数值越小，tomcat创建对象的时间越早。 大于等于0的整数。
-        -->
+        <!--在tomcat启动时创建Servlet对象. load-on-startup: 表示tomcat启动后创建对象的顺序，值是非负整数，数值越小，tomcat创建对象的时间越早-->
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -42,6 +43,16 @@
         -->
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
+
+    <!--下面这个用于ssm整合练习，和springmvc本身没有关系-->
+    <!--注册spring的监听器，用于创建spring容器-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:ssm/applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <!--注册声明过滤器，解决post请求乱码的问题-->
     <filter>
