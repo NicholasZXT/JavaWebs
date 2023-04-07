@@ -2,20 +2,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       https://www.springframework.org/schema/context/spring-context.xsd">
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--声明组件扫描器-->
+    <!--声明组件扫描器，扫描Controller注解标识的类-->
     <context:component-scan base-package="pers.zxt.springmvc.hello" />
 
-    <!--声明 springmvc框架中的视图解析器， 帮助开发人员设置视图文件的路径-->
+    <!--声明 springmvc框架中的视图解析器，帮助开发人员设置视图文件的路径和扩展名-->
     <bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--前缀：视图文件的路径-->
         <property name="prefix" value="/WEB-INF/view/" />
         <!--后缀：视图文件的扩展名-->
         <property name="suffix" value=".jsp" />
     </bean>
+
+    <!--将Controller方法返回的Object转换成JSON需要由消息转换器 HttpMessageConverter 完成，这里开启-->
+    <!--注解驱动实现的功能是 完成java对象到json，xml，text，二进制等数据格式的转换，下面的配置加入后，会自动创建HttpMessageConverter接口
+     的7个实现类对象，包括 MappingJackson2HttpMessageConverter（使用jackson工具库中的ObjectMapper实现java对象转为json字符串）-->
+    <mvc:annotation-driven />
 
 </beans>

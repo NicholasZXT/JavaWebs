@@ -23,4 +23,4 @@ ch01-hello-springmvc: 第一个springmvc项目。
 
 7. 创建springmvc的配置文件（spring的配置文件一样）
    1. 声明组件扫描器， 指定@Contorller注解所在的包名 
-   2. 声明视图解析器。帮助处理视图的
+   2. 声明视图解析器，帮助处理视图的解析
