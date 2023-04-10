@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+mybatis和spring集成时的配置文件，其中许多配置项都交给spring管理了，并不是一个完整的配置
+-->
 <configuration>
     <!--settings：控制mybatis全局行为-->
-    <!-- <settings>
-         &lt;!&ndash;设置mybatis输出日志&ndash;&gt;
-         <setting name="logImpl" value="STDOUT_LOGGING"/>
-     </settings>-->
+    <!--设置mybatis日志，name属性和值是固定的，value的值见官方文档-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
 
     <!--设置别名-->
     <typeAliases>

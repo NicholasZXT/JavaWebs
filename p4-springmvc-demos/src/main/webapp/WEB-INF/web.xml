@@ -46,13 +46,13 @@
 
     <!--下面这个用于ssm整合练习，和springmvc本身没有关系-->
     <!--注册spring的监听器，用于创建spring容器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:ssm/applicationContext.xml</param-value>
     </context-param>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
 
     <!--注册声明过滤器，解决post请求乱码的问题-->
     <filter>

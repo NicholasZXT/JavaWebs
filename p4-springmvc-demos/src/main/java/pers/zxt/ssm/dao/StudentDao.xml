@@ -3,9 +3,10 @@
 
 <mapper namespace="pers.zxt.ssm.dao.StudentDao">
     <select id="selectStudents" resultType="Student">
-        select id, name, age from student order by id desc
+        select id, name, age, grade from students order by id desc
     </select>
+
     <insert id="insertStudent">
-        insert into student(name,age) values(#{name},#{age})
+        insert into students(name, age, grade) values(#{name}, #{age}, #{grade})
     </insert>
 </mapper>
