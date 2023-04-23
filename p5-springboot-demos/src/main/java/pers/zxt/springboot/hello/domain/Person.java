@@ -1,4 +1,4 @@
-package pers.zxt.springboot.config.domain;
+package pers.zxt.springboot.hello.domain;
 
 public class Person {
 
