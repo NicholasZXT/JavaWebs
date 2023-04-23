@@ -1,4 +1,4 @@
-package pers.zxt.springboot.config.domain;
+package pers.zxt.springboot.hello.domain;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

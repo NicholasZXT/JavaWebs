@@ -1,0 +1,21 @@
+# 在代码中，可以使用 @Value("${homeDir}") 注解 的方式引用配置文件中的值
+server:
+  port: 8082
+
+# 使用 ${属性名} 引用yml中定义的属性
+homeDir: /home/user
+dirs:
+  docDir: ${homeDir}/document
+  tempDir: ${homeDir}/tmp
+
+# 定义数据模型，用于bean对象的属性注入
+datasource:
+  driver: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost/springboot_db
+  username: root
+  password: root666123
+
+# 切换对应环境的配置文件，配置文件名必须为 application-{env-name}.yml
+spring:
+  profiles:
+    active: local
