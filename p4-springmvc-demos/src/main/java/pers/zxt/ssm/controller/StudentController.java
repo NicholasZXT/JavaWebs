@@ -13,6 +13,8 @@ import pers.zxt.ssm.service.StudentService;
 @RequestMapping("/student")
 public class StudentController {
 
+    // 这里的 Service 对象是存放在spring容器而不是spring-mvc容器中的，但是因为 spring容器 是 spring-mvc容器的父容器
+    // 所以这里通过 autowire 的方式，自动注入了
     @Resource
     private StudentService service;
 

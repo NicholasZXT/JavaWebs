@@ -45,7 +45,7 @@
     </servlet-mapping>
 
     <!--下面这个用于ssm整合练习，和springmvc本身没有关系-->
-    <!--注册spring的监听器，用于创建spring容器-->
+    <!--注册spring的监听器，用于创建spring容器，注意，这个spring容器要先于上面的spring-mvc容器而创建-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
