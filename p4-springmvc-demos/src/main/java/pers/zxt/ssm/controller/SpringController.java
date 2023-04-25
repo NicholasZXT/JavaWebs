@@ -26,7 +26,13 @@ public class SpringController implements ApplicationContextAware {
         this.context=(WebApplicationContext) applicationContext;
     }
 
-    @RequestMapping(value = "/containers", method = RequestMethod.GET)
+    @RequestMapping(value = "/hello.do", method = RequestMethod.GET)
+    @ResponseBody
+    public String hello(){
+        return "Hello, Here is Spring containers demo in SpringMVC.";
+    }
+
+    @RequestMapping(value = "/containers.do", method = RequestMethod.GET)
     @ResponseBody
     public String getSpringContainers(){
         ServletContext sc = this.context.getServletContext();
@@ -35,7 +41,7 @@ public class SpringController implements ApplicationContextAware {
         String[] beans = webApplicationContext.getBeanDefinitionNames();
         StringBuilder res = new StringBuilder();
         for(String bean: beans){
-            res.append(bean).append(",").append("\n");
+            res.append(bean).append(",").append("<br>");
         }
         // 返回 spring 容器中的所有 bean 对象名称
         return res.toString();
