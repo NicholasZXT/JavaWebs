@@ -1,11 +1,11 @@
-package pers.zxt.ssm.service.impl;
+package pers.zxt.springmvc.ssm.service.impl;
 
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-import pers.zxt.ssm.domain.Student;
-import pers.zxt.ssm.service.StudentService;
-import pers.zxt.ssm.dao.StudentDao;
+import pers.zxt.springmvc.ssm.domain.Student;
+import pers.zxt.springmvc.ssm.service.StudentService;
+import pers.zxt.springmvc.ssm.dao.StudentDao;
 
 @Service
 public class StudentServiceImpl implements StudentService {

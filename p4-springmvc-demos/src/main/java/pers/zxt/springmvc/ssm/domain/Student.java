@@ -1,4 +1,4 @@
-package pers.zxt.ssm.domain;
+package pers.zxt.springmvc.ssm.domain;
 
 public class Student {
 

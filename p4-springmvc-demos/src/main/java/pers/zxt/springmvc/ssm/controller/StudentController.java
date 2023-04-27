@@ -1,13 +1,12 @@
-package pers.zxt.ssm.controller;
+package pers.zxt.springmvc.ssm.controller;
 
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import pers.zxt.ssm.domain.Student;
-import pers.zxt.ssm.service.StudentService;
+import pers.zxt.springmvc.ssm.domain.Student;
+import pers.zxt.springmvc.ssm.service.StudentService;
 
 @Controller
 @RequestMapping("/student")

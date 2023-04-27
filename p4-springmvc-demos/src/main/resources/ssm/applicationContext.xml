@@ -29,11 +29,11 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 指定上面创建的 声明SqlSessionFactoryBean 对象的名称-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-        <property name="basePackage" value="pers.zxt.ssm.dao" />
+        <property name="basePackage" value="pers.zxt.springmvc.ssm.dao" />
     </bean>
 
     <!--声明service的注解@Service所在的包名位置，用于创建Service对象并放入spring容器中-->
-    <context:component-scan base-package="pers.zxt.ssm.service" />
+    <context:component-scan base-package="pers.zxt.springmvc.ssm.service" />
 
     <!--事务配置：注解的配置， aspectj的配置-->
 </beans>
