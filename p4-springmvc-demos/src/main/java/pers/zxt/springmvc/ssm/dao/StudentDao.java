@@ -1,7 +1,7 @@
-package pers.zxt.ssm.dao;
+package pers.zxt.springmvc.ssm.dao;
 
 import java.util.List;
-import pers.zxt.ssm.domain.Student;
+import pers.zxt.springmvc.ssm.domain.Student;
 
 public interface StudentDao {
 

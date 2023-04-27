@@ -1,4 +1,4 @@
-package pers.zxt.ssm.controller;
+package pers.zxt.springmvc.ssm.controller;
 
 import javax.servlet.ServletContext;
 import org.springframework.beans.BeansException;

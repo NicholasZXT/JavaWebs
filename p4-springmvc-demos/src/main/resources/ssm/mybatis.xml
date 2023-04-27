@@ -13,7 +13,7 @@ mybatis和spring集成时的配置文件，其中许多配置项都交给spring�
     <!--设置别名-->
     <typeAliases>
         <!--name:实体类所在的包名(不是实体类的包名也可以)-->
-        <package name="pers.zxt.ssm.domain"/>
+        <package name="pers.zxt.springmvc.ssm.domain"/>
     </typeAliases>
 
     <!-- sql mapper(sql映射文件)的位置-->
@@ -24,6 +24,6 @@ mybatis和spring集成时的配置文件，其中许多配置项都交给spring�
            1. mapper文件名称和dao接口名必须完全一样，包括大小写
            2. mapper文件和dao接口必须在同一目录
         -->
-        <package name="pers.zxt.ssm.dao"/>
+        <package name="pers.zxt.springmvc.ssm.dao"/>
     </mappers>
 </configuration>
