@@ -18,6 +18,8 @@ import org.springframework.context.ApplicationContext;
  */
 @SpringBootApplication
 public class MyApplication {
+
+    // 启动的时候，注意加上命令行参数 --spring.config.location=classpath:/springboot-conf/
     public static void main(String[] args) {
         // main方法里启动springboot应用的通用代码
         //SpringApplication.run(MyApplication.class,args);
