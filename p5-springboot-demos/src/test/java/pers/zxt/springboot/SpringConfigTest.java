@@ -24,7 +24,7 @@ public class SpringConfigTest
     }
 
     /**
-     * 使用JavaConfig
+     * 使用 JavaConfig 作为spring容器配置文件
      */
     @Test
     public void test02(){

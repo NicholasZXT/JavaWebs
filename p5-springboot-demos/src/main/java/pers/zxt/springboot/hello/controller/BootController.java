@@ -13,7 +13,8 @@ import pers.zxt.springboot.hello.MyDataSource;
 @Controller
 public class BootController {
 
-    // 访问配置文件中的值，这个操作一般在service或者dao里执行，这里为了方便演示，就直接在controller里访问了
+    // 访问 springboot-hello/application.yml 配置文件中的值
+    // 这个操作一般在service或者dao里执行，这里为了方便演示，就直接在controller里访问了
     // -------------------------------
     // 访问配置文件中的单个值
     @Value("${server.port}")
