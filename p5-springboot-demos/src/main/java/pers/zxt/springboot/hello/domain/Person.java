@@ -1,5 +1,6 @@
 package pers.zxt.springboot.hello.domain;
 
+// 普通的 Java Bean 对象，在 springconf/applicationContext.xml 中被引入
 public class Person {
 
     private String cardId;
