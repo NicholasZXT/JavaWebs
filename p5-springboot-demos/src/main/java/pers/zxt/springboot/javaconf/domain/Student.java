@@ -1,4 +1,4 @@
-package pers.zxt.springboot.hello.domain;
+package pers.zxt.springboot.javaconf.domain;
 
 // 普通的 Java Bean 对象，在 springconf/beans.xml 中被引入
 public class Student {

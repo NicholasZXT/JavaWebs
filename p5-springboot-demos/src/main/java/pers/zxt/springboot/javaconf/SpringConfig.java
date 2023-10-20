@@ -1,7 +1,7 @@
-package pers.zxt.springboot.hello;
+package pers.zxt.springboot.javaconf;
 
 import org.springframework.context.annotation.*;
-import pers.zxt.springboot.hello.domain.Student;
+import pers.zxt.springboot.javaconf.domain.Student;
 
 /**
  * @Configuration: 表示当前类是作为spring容器的配置文件使用的，相当于 bean.xml
@@ -11,13 +11,13 @@ import pers.zxt.springboot.hello.domain.Student;
  * 下面的配置中 引入 了如下的 bean 对象：
  *   1. springconf/applicationContext.xml 中定义的 person
  *   2. springconf/beans.xml 中定义的 myStudent
- *   3. 通过 ComponetScan 扫描到的 pers.zxt.springboot.hello.domain.Teacher 对象，使用注解的方式定义，
+ *   3. 通过 ComponetScan 扫描到的 pers.zxt.springboot.javaconf.domain.Teacher 对象，使用注解的方式定义，
  *      并且从 springconf/config.properties 中获取值
  */
 @Configuration
 @ImportResource(value={"classpath:springconf/applicationContext.xml", "classpath:springconf/beans.xml"})
 @PropertySource(value="classpath:springconf/config.properties")
-@ComponentScan(basePackages= "pers.zxt.springboot.hello.domain")
+@ComponentScan(basePackages= "pers.zxt.springboot.javaconf.domain")
 public class SpringConfig
 {
     public static void main( String[] args )
