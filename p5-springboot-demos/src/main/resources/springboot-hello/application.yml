@@ -2,6 +2,12 @@
 server:
   port: 8082
 
+# 配置日志级别
+logging:
+  level:
+#    root: DEBUG
+    root: INFO
+
 # 使用 ${属性名} 引用yml中定义的属性
 homeDir: /home/user
 dirs:
@@ -15,7 +21,15 @@ datasource:
   username: root
   password: root666123
 
-# 切换对应环境的配置文件，配置文件名必须为 application-{env-name}.yml
+# spring配置
 spring:
+  # mybatis-spring-boot-starter 依赖需要的配置 —— hello 包中并不会用到，但是由于整个module的 POM 文件中引入了，所以必须需要配置
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: mysql2022
+
+  # 切换对应环境的配置文件，配置文件名必须为 application-{env-name}.yml
   profiles:
     active: local
