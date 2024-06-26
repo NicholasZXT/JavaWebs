@@ -4,11 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>pers.zxt.springcloud</groupId>
-  <artifactId>springcloud-demos</artifactId>
+  <groupId>pers.zxt.netty</groupId>
+  <artifactId>netty-demos</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>springcloud-demos</name>
+  <name>netty-demos</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
