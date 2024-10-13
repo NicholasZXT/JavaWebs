@@ -37,7 +37,7 @@ public class QueryStudentServlet extends HttpServlet {
         // 下面这种创建spring容器的方式，每次请求都会创建，开销太大
         // -------------------------------------------------------------------
         //创建容器，获取service
-        //String config= "spring-beans.xml";
+        //String config= "spring-start-beans.xml";
         //ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
         // -------------------------------------------------------------------
 
