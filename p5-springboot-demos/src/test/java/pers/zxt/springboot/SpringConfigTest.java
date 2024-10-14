@@ -17,7 +17,7 @@ public class SpringConfigTest
      */
     @Test
     public void test01(){
-        String config="springconf/beans.xml";
+        String config= "spring-config/beans.xml";
         ApplicationContext ctx = new ClassPathXmlApplicationContext(config);
         Student student = (Student) ctx.getBean("myStudent");
         System.out.println("容器（xml配置）中的对象："+student);

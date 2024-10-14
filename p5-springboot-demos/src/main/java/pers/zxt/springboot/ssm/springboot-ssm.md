@@ -1,4 +1,4 @@
-springboot整合mybatis几个关键点：
+SpringBoot整合mybatis几个关键点：
 
 1. 引入 mybatis-spring-boot-starter 和 MySQL 驱动
 2. 告诉 mybatis 哪里去寻找 dao 接口，有两种方式：

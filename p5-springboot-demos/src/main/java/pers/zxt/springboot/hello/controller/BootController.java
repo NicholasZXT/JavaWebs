@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pers.zxt.springboot.hello.MyDataSource;
 
-// 使用 @Controller 注解标识当前类作为 dispatchController 使用
+// 使用 @Controller 注解标识当前类作为 Spring-MVC 的 次级Controller 使用
 @Controller
 public class BootController {
 
