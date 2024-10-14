@@ -15,8 +15,8 @@ import pers.zxt.springboot.javaconf.domain.Student;
  *      并且从 springconf/config.properties 中获取值
  */
 @Configuration
-@ImportResource(value={"classpath:springconf/applicationContext.xml", "classpath:springconf/beans.xml"})
-@PropertySource(value="classpath:springconf/config.properties")
+@ImportResource(value={"classpath:spring-config/applicationContext.xml", "classpath:spring-config/beans.xml"})
+@PropertySource(value= "classpath:spring-config/config.properties")
 @ComponentScan(basePackages= "pers.zxt.springboot.javaconf.domain")
 public class SpringConfig
 {
@@ -26,10 +26,10 @@ public class SpringConfig
     }
 
     /**
-     * 创建方法，方法的返回值是对象。在方法的上面加入@Bean，方法的返回值对象就注入到容器中。
-     * @Bean: 把对象注入到spring容器中。 作用相当于<bean>
-     *     位置：方法的上面
-     *     说明：@Bean,不指定对象的名称，则默认bean id 为方法名，可以使用name来指定bean对象的名称
+     * 创建方法，方法的返回值是对象。在方法的上面加入 @Bean 注解，方法的返回值对象就注入到容器中。
+     * @Bean: 把对象注入到spring容器中，作用相当于 <bean>
+     *   位置：方法的上面
+     *   说明：@Bean 注解不指定对象的名称时，则默认 bean id 为方法名，可以使用 name 属性来指定 bean对象的名称
      */
     @Bean
     public Student createStudent(){
