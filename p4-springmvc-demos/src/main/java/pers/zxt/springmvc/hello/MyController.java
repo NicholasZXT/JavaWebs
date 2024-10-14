@@ -109,8 +109,8 @@ public class MyController {
      */
 
     /**
-     * Controller方法返回void，响应ajax请求。
-     * 手工实现ajax返回json数据：
+     * Controller方法返回void，响应Ajax请求。
+     * 手工实现Ajax返回json数据：
      *  1. java对象转为json；
      *  2. 通过HttpServletResponse输出json数据
      */
@@ -125,7 +125,7 @@ public class MyController {
         ObjectMapper om  = new ObjectMapper();
         json = om.writeValueAsString(student);
         System.out.println("student转换的json===="+json);
-        //输出数据，响应ajax的请求
+        //输出数据，响应Ajax的请求
         response.setContentType("application/json;charset=utf-8");
         PrintWriter pw  = response.getWriter();
         pw.println(json);
@@ -134,17 +134,17 @@ public class MyController {
     }
 
     /**
-     * 处理器方法返回一个Student，通过框架转为json，响应ajax请求
+     * 处理器方法返回一个Student，通过框架转为json，响应Ajax请求
      * @ResponseBody:
      *  作用：把处理器方法返回对象转为json后，通过HttpServletResponse输出给浏览器。
      *  位置：方法的定义上面，和其它注解没有顺序的关系。
      * 返回对象框架的处理流程：
-     *  1. 框架会把返回Student类型，调用框架的中ArrayList<HttpMessageConverter>中每个类的 canWrite() 方法
+     *  1. 框架会把返回的 Student类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的 canWrite() 方法
      *     检查哪个 HttpMessageConverter接口 的实现类能处理Student类型的数据——这里是 MappingJackson2HttpMessageConverter
      *  2.框架会调用实现类的 write()方法 —— 这里是 MappingJackson2HttpMessageConverter 的write()方法，
-     *    把 Student对象转为json，调用Jackson的ObjectMapper实现转为json
+     *    把 Student对象 转为json，调用Jackson的ObjectMapper实现转为json
      *    contentType: application/json;charset=utf-8
-     *  3.框架会调用 @ResponseBody 把 2的结果数据输出到浏览器，ajax请求处理完成
+     *  3.框架会调用 @ResponseBody 把 2的结果数据输出到浏览器，Ajax请求处理完成
      */
     @ResponseBody
     @RequestMapping(value={"/studentJson.do"}, method=RequestMethod.GET)
@@ -178,14 +178,14 @@ public class MyController {
      * 默认使用“text/plain;charset=ISO-8859-1”作为contentType,导致中文有乱码，
      * 解决方案：给RequestMapping增加一个属性 produces, 使用这个属性指定新的contentType.
      * 返回对象框架的处理流程：
-     *  1. 框架会把返回String类型，调用框架的中ArrayList<HttpMessageConverter>中每个类的canWrite()方法
+     *  1. 框架会把返回String类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的canWrite()方法
      *     检查那个HttpMessageConverter接口的实现类能处理String类型的数据--StringHttpMessageConverter
      *  2.框架会调用实现类的write（）， StringHttpMessageConverter的write()方法
      *    把字符按照指定的编码处理 text/plain;charset=ISO-8859-1
-     *  3.框架会调用@ResponseBody把2的结果数据输出到浏览器， ajax请求处理完成
+     *  3.框架会调用@ResponseBody把2的结果数据输出到浏览器， Ajax请求处理完成
      */
-    @RequestMapping(value = "/stringData.do", produces = "text/plain;charset=utf-8")
     @ResponseBody
+    @RequestMapping(value = "/stringData.do", produces = "text/plain;charset=utf-8")
     public String doStringData(){
         return "Hello SpringMVC 返回对象，表示数据";
     }

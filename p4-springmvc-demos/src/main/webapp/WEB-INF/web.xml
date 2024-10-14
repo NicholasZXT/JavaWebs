@@ -3,18 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <!--声明，注册springmvc的核心对象DispatcherServlet，需要在tomcat服务器启动后，创建DispatcherServlet对象的实例。
+    <!--声明并注册 Spring-MVC 的核心对象 DispatcherServlet，需要在tomcat服务器启动后，创建 DispatcherServlet 对象的实例。
         为什么要创建DispatcherServlet对象的实例呢？
-        因为DispatcherServlet在他的创建过程中，会同时创建springmvc容器对象，读取springmvc的配置文件，把这个配置文件中的对象都创建好，
+        因为DispatcherServlet的创建过程中，会同时创建 Spring-MVC 容器对象，读取Spring-MVC的配置文件，把这个配置文件中的对象（所有次级Controller对象）都创建好，
         当用户发起请求时就可以直接使用对象了。
-        servlet的初始化会执行init（）方法，DispatcherServlet在init（）中执行的操作为：{
+        servlet的初始化会执行init（）方法，DispatcherServlet 在init（）中执行的操作为：{
            //创建容器，读取配置文件
            WebApplicationContext ctx = new ClassPathXmlApplicationContext("springmvc.xml");
            //把容器对象放入到ServletContext中
            getServletContext().setAttribute(key, ctx);
         }
         启动tomcat报错，读取这个文件 /WEB-INF/springmvc-servlet.xml（/WEB-INF/myweb-servlet.xml）
-        springmvc创建容器对象时，读取的配置文件默认是/WEB-INF/<servlet-name>-servlet.xml .
+        Spring-MVC 创建容器对象时，读取的配置文件默认是/WEB-INF/<servlet-name>-servlet.xml .
     -->
     <!--注册中央调度器-->
     <servlet>
@@ -44,8 +44,11 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
-    <!--下面这个用于ssm整合练习，和springmvc本身没有关系-->
-    <!--注册spring的监听器，用于创建spring容器，注意，这个spring容器要先于上面的spring-mvc容器而创建-->
+    <!--下面这个用于SSM整合练习，和Spring-MVC本身没有关系-->
+    <!--注册Spring的监听器，用于创建 Spring容器。
+    注意，这个 Spring容器 要先于上面的 Spring-MVC 容器而创建，因为上面 Spring-MVC 创建的 DispatcherServlet 本质上还是一个 HttpServlet，
+    而监听器创建的对象是在所有 HttpServlet 对象创建之前。
+    -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
