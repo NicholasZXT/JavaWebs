@@ -12,7 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * 要想在 spring-mvc 容器里的 controller 类里，获取 spring容器 对象的应用，必须要实现 ApplicationContextAware 接口
+ * 要想在 Spring-MVC 容器的 controller 类里，获取 Spring容器 对象的应用，必须要实现 ApplicationContextAware 接口
  */
 @Controller
 @RequestMapping("/spring")
