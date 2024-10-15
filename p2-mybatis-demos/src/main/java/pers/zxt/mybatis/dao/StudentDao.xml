@@ -9,7 +9,7 @@
 mapper是根标签，重要属性为namespace：命名空间，必须有值，且是唯一值，不能为空，推荐使用Dao接口的全限定名称。
 namespace作用：参与识别sql语句的作用，也就是用来找到SQL语句的位置
 -->
-<mapper namespace="pers.zxt.javawebs.dao.StudentDao">
+<mapper namespace="pers.zxt.mybatis.dao.StudentDao">
 <!--在mapper里面可以写 <insert>,<update>,<delete>,<select>等标签，各个标签表示对应的SQL操作-->
     <!-- 查询一个学生Student
      <select>标签属性如下：
@@ -17,18 +17,18 @@ namespace作用：参与识别sql语句的作用，也就是用来找到SQL语�
      resultType: 告诉mybatis，执行sql语句，把数据赋值给哪个类型的java对象，这里使用的java对象的全限定名称
      #{studentId}: 占位符，表示从java程序中传入过来的数据
     -->
-    <select id="selectStudentById" resultType="pers.zxt.javawebs.domain.Student">
-        select id, name, email, age from students where id = #{StudentId}
+    <select id="selectStudentById" resultType="pers.zxt.mybatis.domain.Student">
+        select id, name, age, grade from students where id = #{StudentId}
     </select>
 
     <!-- 插入对象
-       insert into student values(1003,"李峰","lifeng@qq.com",26)
+       insert into student values(1003,"李峰",7,"一年级")
        如果传入给mybatis是一个java对象，使用#{属性名} 获取此属性的值。
        属性值放到 #{} 占位符的位置, mybatis执行此属性对应的getXXX().
        例如 #{id} ，执行getId();
     -->
     <insert id="insertStudent">
-        insert into students values(#{id},#{name},#{email},#{age})
+        insert into students values(#{id},#{name},#{age},#{grade})
     </insert>
 </mapper>
 

@@ -25,13 +25,13 @@ public class MyTest1 {
         // 4.获取 SqlSession 对象
         SqlSession session = factory.openSession();
 
-        // 5.指定要执行的sql语句的 id
-        //  sql的 id = namespace + "." + select|update|insert|delete标签的id属性值
-        String sqlId = "StudentDao" + "." + "selectStudentById";
+        // 5.指定要执行的sql语句的 id = namespace + "." + select|update|insert|delete标签的id属性值
+        String namespace = "pers.zxt.mybatis.dao.StudentDao";
+        String sqlId = namespace + "." + "selectStudentById";
 
         // 6.通过SqlSession的方法，执行sql语句，传入的值会被插入SQL语句中的占位符
-        Student student = session.selectOne(sqlId, 1);
-        System.out.println("使用mybatis查询一个学生："+student);
+        Student student = session.selectOne(sqlId, 1001);
+        System.out.println("test for selectStudentById: " + student);
 
         // 7.关闭SqlSession对象
         session.close();
@@ -44,14 +44,15 @@ public class MyTest1 {
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = factory.openSession();
 
-        String sqlId = "StudentDao" + "." + "insertStudent";
+        String namespace = "pers.zxt.mybatis.dao.StudentDao";
+        String sqlId = namespace + "." + "insertStudent";
         Student student = new Student();
-        student.setId(2);
+        student.setId(1009);
         student.setName("李四");
-        student.setEmail("1231414214");
+        student.setGrade("初三");
         student.setAge(15);
         int rows = session.insert(sqlId, student);
-        System.out.println("使用mybatis插入一个学生的结果：" + rows);
+        System.out.println("test for insertStudent: " + rows);
 
         //mybatis默认执行sql语句是  手工提交事务模式，在做insert，update，delete 后需要提交事务
         session.commit();
@@ -63,9 +64,10 @@ public class MyTest1 {
         // 使用工具类来创建session
         SqlSession session = MyBatisUtil.getSqlSession();
 
-        String sqlId = "StudentDao" + "." + "selectStudentById";
-        Student student = session.selectOne(sqlId, 1);
-        System.out.println("使用mybatis查询一个学生："+student);
+        String namespace = "pers.zxt.mybatis.dao.StudentDao";
+        String sqlId = namespace + "." + "selectStudentById";
+        Student student = session.selectOne(sqlId, 1001);
+        System.out.println("test for selectStudentById: " + student);
         session.close();
     }
 }
