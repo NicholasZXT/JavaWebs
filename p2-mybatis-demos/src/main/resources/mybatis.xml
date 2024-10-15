@@ -46,12 +46,12 @@ mybatis 的主配置文件，其中主要做两件事：
         <!-- 使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.
         一个mapper resource 指定一个mapper文件，mapper数量较少时使用
         -->
-        <!--<mapper resource="com/zxt/javawebs/dao/StudentDao.xml"/>-->
+        <!--<mapper resource="pers/zxt/mybatis/dao/StudentDao.xml"/>-->
 
         <!-- 也可以使用 package 标签直接指定包，比较方便，但是有如下两个要求：
           1. mapper文件和dao接口在同一目录
           2. mapper文件和dao接口名称一致
         -->
-        <package name="com.zxt.javawebs.dao" />
+        <package name="pers.zxt.mybatis.dao" />
     </mappers>
 </configuration>

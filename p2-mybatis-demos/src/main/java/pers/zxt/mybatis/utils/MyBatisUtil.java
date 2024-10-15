@@ -14,17 +14,18 @@ public class MyBatisUtil {
 
     private static SqlSessionFactory factory  = null;
 
+    // 在类的静态初始化块里读取mybatis配置文件，初始化一个 SqlSessionFactory 对象
     static {
         String config="mybatis.xml";
         try {
-            InputStream inputStream  =Resources.getResourceAsStream(config);
+            InputStream inputStream = Resources.getResourceAsStream(config);
             factory  = new SqlSessionFactoryBuilder().build(inputStream);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //创建方法，获取SqlSession对象
+    //静态方法，获取SqlSession对象
     public static SqlSession getSqlSession(){
         SqlSession session = null;
         if( factory != null ){

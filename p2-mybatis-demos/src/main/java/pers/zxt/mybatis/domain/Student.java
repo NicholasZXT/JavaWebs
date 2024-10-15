@@ -7,8 +7,8 @@ public class Student {
     //属性名和数据库中的列名一样
     private Integer id;
     private String name;
-    private String email;
     private Integer age;
+    private String grade;
 
     // 各个属性的get和set方法
     public Integer getId() {
@@ -27,14 +27,6 @@ public class Student {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Integer getAge() {
         return age;
     }
@@ -43,13 +35,20 @@ public class Student {
         this.age = age;
     }
 
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
     @Override
     public String toString() {
-        return " 学生实体的信息{" +
+        return " Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
+                ", age='" + age + '\'' +
+                ", grade='" + grade + '\'' +
                 '}';
     }
 }

@@ -13,7 +13,7 @@ public class MyTest2 {
     public void testSelectOne(){
         // 接口类型  变量  =  new 接口的实现类();
         StudentDao  dao  = new StudentDaoImpl();
-        Student student  = dao.selectStudentById(1);
+        Student student  = dao.selectStudentById(1001);
         System.out.println("通过dao执行方法获取的对象：" + student);
     }
 
@@ -33,13 +33,13 @@ public class MyTest2 {
         //1.获取SqlSession
         SqlSession session = MyBatisUtil.getSqlSession();
         //2.获取dao的代理
-        // 需要传入 StudentDao 这个接口类的 class
+        // 需要传入 StudentDao 这个接口的 class
         StudentDao dao = session.getMapper(StudentDao.class);
         // dao代理的实现类
         System.out.println("dao.class: " + dao.getClass().getName());
         // 通过代理对象执行接口，从而执行对应的SQL语句
-        Student student = dao.selectStudentById(1);
-        System.out.println("student = " + student);
+        Student student = dao.selectStudentById(1001);
+        System.out.println("selectStudentById by mapper proxy :" + student);
         //3.关闭SqlSession对象
         session.close();
     }
