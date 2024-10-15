@@ -62,12 +62,56 @@
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>2.1.4</version>
     </dependency>
+    <!--mybatis-plus起步依赖-->
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>3.5.3</version>
+    </dependency>
     <!--mysql驱动-->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <scope>runtime</scope>
     </dependency>
+
+    <!-- SpringBoot集成 Swagger，一般不推荐直接导入 Swagger依赖 原始的坐标。 -->
+    <!--
+     Swagger 有两个版本 2.0 和 3.0 版，参考文档 https://www.cnblogs.com/antLaddie/p/17418078.html 的说明，总结如下：
+     Swagger 2.0 版本通常使用 springfox 来集成，在 Spring Boot 2.3及以下 版本推荐使用；
+     Swagger 3.0 版本推荐使用 springdoc 来集成，在 Spring Boot 2.4及以上 版本中推荐使用，后续会逐渐取代springfox-boot-starter工具包。
+     不过对于 springdoc 来说，又分为 springdoc-openapi-v1 版本和 springdoc-openapi-v2 版本，两者的依赖名称变化参考如下官方文档：
+     https://springdoc.org/#migrating-from-springdoc-v1。
+    -->
+    <!-- springdoc-openapi-v1 依赖坐标，目前使用比较广泛 -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>1.6.9</version>
+    </dependency>
+    <!-- springdoc-openapi-v2 依赖坐标，2022年才发布，比较新 -->
+<!--    <dependency>-->
+<!--      <groupId>org.springdoc</groupId>-->
+<!--      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--      <version>2.2.0</version>-->
+<!--    </dependency>-->
+    <!-- Swagger 2.0 的集成通常使用 springfox 提供的如下两个依赖坐标 -->
+<!--    <dependency>-->
+<!--      <groupId>io.springfox</groupId>-->
+<!--      <artifactId>springfox-swagger2</artifactId>-->
+<!--      <version>2.9.2</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>io.springfox</groupId>-->
+<!--      <artifactId>springfox-swagger-ui</artifactId>-->
+<!--      <version>2.9.2</version>-->
+<!--    </dependency>-->
+    <!--  springfox 也提供了 Swagger 3.0 的支持，但是自从 2020 年之后就没有更新了，不推荐 -->
+<!--    <dependency>-->
+<!--      <groupId>io.springfox</groupId>-->
+<!--      <artifactId>springfox-boot-starter</artifactId>-->
+<!--      <version>3.0.0</version>-->
+<!--    </dependency>-->
 
   </dependencies>
 
