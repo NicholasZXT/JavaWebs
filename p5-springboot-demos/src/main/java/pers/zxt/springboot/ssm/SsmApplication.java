@@ -10,10 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(basePackages = {"pers.zxt.springboot.ssm.dao"})
-public class Application {
+public class SsmApplication {
 
     // 启动的时候，注意加上命令行参数 --spring.config.location=classpath:/springboot-ssm/
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(SsmApplication.class, args);
     }
 }
