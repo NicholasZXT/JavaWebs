@@ -20,6 +20,11 @@ mybatis 的主配置文件，其中主要做两件事：
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 
+    <!-- 分页插件，实际上就是一个拦截器，需要配置在 environments 之前 -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+
     <!--环境配置-->
     <environments default="development">
         <environment id="development">

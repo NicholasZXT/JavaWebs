@@ -1,5 +1,6 @@
 package pers.zxt.mybatis.dao;
 
+import java.util.List;
 import pers.zxt.mybatis.domain.Student;
 
 /**
@@ -13,6 +14,8 @@ public interface StudentDao {
 
     int insertStudent(Student student);
 
+    List<Student> selectAllStudents();
+
     ////where
     //List<Student> selectWhere(Student student);
     //
@@ -22,5 +25,5 @@ public interface StudentDao {
     ////foreach-2
     //List<Student> selectForeachTwo(List<Student> studentList);
     //
-    //List<Student> selectAllStudents();
+
 }

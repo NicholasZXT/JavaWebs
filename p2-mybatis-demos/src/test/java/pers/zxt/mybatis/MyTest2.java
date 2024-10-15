@@ -1,7 +1,10 @@
 package pers.zxt.mybatis;
 
+import java.util.List;
 import org.junit.Test;
 import org.apache.ibatis.session.SqlSession;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.Page;
 import pers.zxt.mybatis.utils.MyBatisUtil;
 import pers.zxt.mybatis.domain.Student;
 import pers.zxt.mybatis.dao.StudentDao;
@@ -42,5 +45,24 @@ public class MyTest2 {
         System.out.println("selectStudentById by mapper proxy :" + student);
         //3.关闭SqlSession对象
         session.close();
+    }
+
+    // 分页插件的使用
+    @Test
+    public void testPage(){
+        SqlSession session = MyBatisUtil.getSqlSession();
+        StudentDao dao = session.getMapper(StudentDao.class);
+        // 在查询语句之前，调用 PageHelper 的分页方法即可
+        Page<Student> page = PageHelper.startPage(1, 3);
+        List<Student> students = dao.selectAllStudents();
+        students.forEach(System.out::println);
+        // 还需要关闭一下
+        page.close();
+        System.out.println("---------------------------------------------");
+        // 再翻一页
+        page = PageHelper.startPage(2, 3);
+        students = dao.selectAllStudents();
+        students.forEach(System.out::println);
+        page.close();
     }
 }

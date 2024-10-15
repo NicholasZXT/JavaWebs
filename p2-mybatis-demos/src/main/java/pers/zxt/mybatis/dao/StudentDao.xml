@@ -30,5 +30,10 @@ namespace作用：参与识别sql语句的作用，也就是用来找到SQL语�
     <insert id="insertStudent">
         insert into students values(#{id},#{name},#{age},#{grade})
     </insert>
+
+    <!-- 返回所有记录，配合分页插件使用 -->
+    <select id="selectAllStudents" resultType="pers.zxt.mybatis.domain.Student">
+        select id, name, age, grade from students
+    </select>
 </mapper>
 

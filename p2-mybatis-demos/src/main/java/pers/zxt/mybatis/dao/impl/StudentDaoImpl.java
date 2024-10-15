@@ -4,6 +4,7 @@ import pers.zxt.mybatis.dao.StudentDao;
 import pers.zxt.mybatis.domain.Student;
 import pers.zxt.mybatis.utils.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
+import java.util.List;
 
 /**
  * DAO接口的实现类，这个类虽然实现了DAO接口的方法，但是其中并没有做什么有意义的内容，实际的查询逻辑还是mapper文件中的SQL
@@ -31,5 +32,16 @@ public class StudentDaoImpl implements StudentDao {
         session.commit();
         session.close();
         return rows;
+    }
+
+    @Override
+    public List<Student> selectAllStudents() {
+        SqlSession session = MyBatisUtil.getSqlSession();
+        String namespace = "pers.zxt.mybatis.dao.StudentDao";
+        String sqlId = namespace + "." + "selectAllStudents";
+        List<Student> students = session.selectList(sqlId);
+        session.commit();
+        session.close();
+        return students;
     }
 }
