@@ -80,16 +80,27 @@
      Swagger 有两个版本 2.0 和 3.0 版，参考文档 https://www.cnblogs.com/antLaddie/p/17418078.html 的说明，总结如下：
      Swagger 2.0 版本通常使用 springfox 来集成，在 Spring Boot 2.3及以下 版本推荐使用；
      Swagger 3.0 版本推荐使用 springdoc 来集成，在 Spring Boot 2.4及以上 版本中推荐使用，后续会逐渐取代springfox-boot-starter工具包。
-     不过对于 springdoc 来说，又分为 springdoc-openapi-v1 版本和 springdoc-openapi-v2 版本，两者的依赖名称变化参考如下官方文档：
-     https://springdoc.org/#migrating-from-springdoc-v1。
+     不过对于 springdoc 来说，又分为 springdoc-openapi-v1 版本和 springdoc-openapi-v2 版本（SpringBoot-3必须使用这个），
+     两者的 依赖名称变化 和 常用注解变化 参考官方文档：https://springdoc.org/#migrating-from-springdoc-v1。
     -->
-    <!-- springdoc-openapi-v1 依赖坐标，目前使用比较广泛 -->
+    <!-- springdoc-openapi-v1 依赖坐标，目前使用比较广泛。
+    此依赖会导入Swagger3.0的原生依赖：
+    io.swagger.core.v3:swagger-core
+      Swagger 3.x规范的核心实现，提供了一组Java API，用于生成和处理OpenAPI规范文件。
+      它包括Swagger的核心功能，例如Model、Schema、Parameter、Response等，是构建Swagger API的必要条件。
+    io.swagger.core.v3:swagger-annotations
+      用于编写Swagger API文档的Java注解库，提供了一组注解，用于描述API元数据。
+      例如，@Operation、@Parameter、@ApiResponse等注解基本包含了OpenAPI规范中的所有元素。
+    io.swagger.core.v3:swagger-models
+      Swagger 3.x规范的Java模型库，提供了一组Java模型类，用于表示OpenAPI规范文件。
+      它包含了OpenAPI规范中的所有数据模型，例如PathItem、Operation、Parameter、Components等。
+    -->
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-ui</artifactId>
       <version>1.6.9</version>
     </dependency>
-    <!-- springdoc-openapi-v2 依赖坐标，2022年才发布，比较新 -->
+    <!-- springdoc-openapi-v2 依赖坐标，2022年才发布，比较新，它用于代替上面v1版本的 springdoc-openapi-ui -->
 <!--    <dependency>-->
 <!--      <groupId>org.springdoc</groupId>-->
 <!--      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
