@@ -1,15 +1,27 @@
 package pers.zxt.springboot.ssm;
 
 import org.springframework.boot.SpringBootConfiguration;
-import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.Explode;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.enums.ParameterStyle;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
- * Springdoc 配置 Swagger 的第 2 种方式，使用注解。
+ * Springdoc 配置 Swagger 的第 2 种方式，使用注解，比较常用。
+ * 此时使用的是 io.swagger.v3.oas.annotations 里提供的各个 **注解** 来构造 Swagger 所需要的信息。
  * 默认访问URL: http://localhost:8081/swagger-ui/index.html
  */
 @SpringBootConfiguration
@@ -17,15 +29,15 @@ import io.swagger.v3.oas.annotations.servers.Server;
     // API的基本信息，包括标题、版本号、描述、联系人等
     info = @Info(
         title = "Swagger3.0 (Open API) 框架学习示例文档",       // Api接口文档标题（必填）
-        description = "学习Swagger框架而用来定义测试的文档",      // Api接口文档描述
+        description = "Some Description",                    // Api接口文档描述
         version = "1.2.1",                                   // Api接口版本
         termsOfService = "https://example.com/",             // Api接口的服务条款地址
-        contact = @Contact(
-            name = "蚂蚁小哥",                            // 作者名称
-            email = "xiaofeng@qq.com",                  // 作者邮箱
-            url = "https://www.cnblogs.com/antLaddie/"  // 介绍作者的URL地址
+        contact = @Contact(                                // 设置联系人信息
+            name = "DocAuthor",                            // 作者名称
+            email = "example@email.com",                   // 作者邮箱
+            url = "https://example.com/"                   // 介绍作者的URL地址
         ),
-        license = @License(                                                // 设置联系人信息
+        license = @License(
             name = "Apache 2.0",                                       // 授权名称
             url = "https://www.apache.org/licenses/LICENSE-2.0.html"   // 授权信息
         )
@@ -35,7 +47,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         @Server(url = "http://192.168.2.235/demo/", description = "本地服务器一服务")
     },
     // 外部文档信息
-    externalDocs = @ExternalDocumentation(description = "更多内容请查看该链接", url = "xxx")
+    externalDocs = @ExternalDocumentation(description = "更多内容请查看该链接", url = "https://other.example.com/")
 )
 public class SwaggerOpenApiConfigAnno {
 }
