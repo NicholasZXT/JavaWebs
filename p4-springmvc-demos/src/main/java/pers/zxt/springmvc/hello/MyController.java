@@ -104,8 +104,8 @@ public class MyController {
      * Controller方法的返回值只能是如下几种格式：
      * 1. ModelAndView：如上所示
      * 2. String：此时的字符串表示的是视图，既可以是视图名称，也可以是完整的视图路径，比如 show.jsp 之类的
-     * 3. void：为空，多用于Ajax响应
-     * 4. 自定义的Object，REST-full风格的JSON就属于此类
+     * 3. void：为空，此时方法参数需要使用 HttpServletResponse，调用其中的getWriter()直接在Response中写入数据，多用于Ajax响应
+     * 4. 自定义的Object，REST-full风格的JSON就属于此类 —— KEY
      */
 
     /**
@@ -141,10 +141,10 @@ public class MyController {
      * 返回对象框架的处理流程：
      *  1. 框架会把返回的 Student类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的 canWrite() 方法
      *     检查哪个 HttpMessageConverter接口 的实现类能处理Student类型的数据——这里是 MappingJackson2HttpMessageConverter
-     *  2.框架会调用实现类的 write()方法 —— 这里是 MappingJackson2HttpMessageConverter 的write()方法，
+     *  2.框架会调用实现类的 write()方法 —— 这里是 MappingJackson2HttpMessageConverter 的 write() 方法，
      *    把 Student对象 转为json，调用Jackson的ObjectMapper实现转为json
      *    contentType: application/json;charset=utf-8
-     *  3.框架会调用 @ResponseBody 把 2的结果数据输出到浏览器，Ajax请求处理完成
+     *  3.框架会调用 @ResponseBody 把 2 中的结果数据输出到浏览器，Ajax请求处理完成
      */
     @ResponseBody
     @RequestMapping(value={"/studentJson.do"}, method=RequestMethod.GET)
@@ -178,11 +178,11 @@ public class MyController {
      * 默认使用“text/plain;charset=ISO-8859-1”作为contentType,导致中文有乱码，
      * 解决方案：给RequestMapping增加一个属性 produces, 使用这个属性指定新的contentType.
      * 返回对象框架的处理流程：
-     *  1. 框架会把返回String类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的canWrite()方法
-     *     检查那个HttpMessageConverter接口的实现类能处理String类型的数据--StringHttpMessageConverter
-     *  2.框架会调用实现类的write（）， StringHttpMessageConverter的write()方法
-     *    把字符按照指定的编码处理 text/plain;charset=ISO-8859-1
-     *  3.框架会调用@ResponseBody把2的结果数据输出到浏览器， Ajax请求处理完成
+     *  1. 框架会把返回String类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的 canWrite() 方法
+     *     检查哪个HttpMessageConverter接口的实现类能处理String类型的数据——此时应该是 StringHttpMessageConverter 实现类
+     *  2. 框架会调用实现类的 write() —— 这里是 StringHttpMessageConverter.write() 方法
+     *     把字符按照指定的编码处理 text/plain;charset=ISO-8859-1
+     *  3. 框架会调用 @ResponseBody 把 2中 的结果数据输出到浏览器，Ajax请求处理完成
      */
     @ResponseBody
     @RequestMapping(value = "/stringData.do", produces = "text/plain;charset=utf-8")
