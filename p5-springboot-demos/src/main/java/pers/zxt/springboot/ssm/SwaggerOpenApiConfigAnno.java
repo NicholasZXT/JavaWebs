@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * 此时使用的是 io.swagger.v3.oas.annotations 里提供的各个 **注解** 来构造 Swagger 所需要的信息。
  * 此种方式不需要使用 @SpringBootConfiguration 注解，因为 @OpenAPIDefinition 注解就足够让 SpringDoc 获取到配置了。
  * 并且似乎 注解的优先级 > Bean方式的优先级。
- * 默认访问URL: http://localhost:8081/swagger-ui/index.html
+ * 默认访问URL: http://localhost:8100/swagger-ui/index.html
  */
 //@SpringBootConfiguration
 @OpenAPIDefinition(
