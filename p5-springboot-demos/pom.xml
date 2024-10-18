@@ -75,6 +75,12 @@
       <scope>runtime</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.22</version>
+    </dependency>
+
     <!-- SpringBoot集成 Swagger，一般不推荐直接导入 Swagger依赖 原始的坐标。 -->
     <!--
      Swagger 有两个版本 2.0 和 3.0 版，参考文档 https://www.cnblogs.com/antLaddie/p/17418078.html 的说明，总结如下：
