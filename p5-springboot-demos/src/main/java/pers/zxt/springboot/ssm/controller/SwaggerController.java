@@ -55,9 +55,7 @@ public class SwaggerController {
             description = "Some descriptions...",
             tags = {"client"}
     )
-    //@GetMapping(value = "/test/client")
-    //@GetMapping(value = "/client/test")
-    @GetMapping(value = "/client")    // 只有这个URL才能显示在 Swagger-UI 上
+    @GetMapping(value = "/test/client")
     public String testClient(){
         Client client = new Client();
         client.setClientId("random-id");
@@ -66,7 +64,6 @@ public class SwaggerController {
         //return client;
     }
 
-    // TODO 以下接口没有问题，能正常工作，但是在 Swagger 的 Group-Basic 页面里无法看到对应的接口文档，原因未知
     @Operation(
             method = "Get",
             summary = "Query one client by ID",
@@ -96,7 +93,7 @@ public class SwaggerController {
     public Map<String, Object> selectAllClientsV1(
             // 获取 GET 请求中的查询参数方式一
             @RequestParam(value = "page") int page,
-            @RequestParam(value = "size")int size
+            @RequestParam(value = "size") int size
     ){
         System.out.println("page: " + page + ", size: " + size);
         Map<String, Object> res = new HashMap<>();

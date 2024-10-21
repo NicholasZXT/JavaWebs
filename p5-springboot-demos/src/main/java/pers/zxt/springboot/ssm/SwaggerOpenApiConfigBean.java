@@ -98,9 +98,9 @@ public class SwaggerOpenApiConfigBean {
                 // 设置此分组接口要排除的package
                 //.packagesToExclude("")
                 // 设置此分组接口匹配的URL路径
-                .pathsToMatch("/springdoc/g1/*")
+                .pathsToMatch("/springdoc/g1/**")
                 // 设置此分组接口需要排除的URL路径
-                .pathsToExclude("/students/*")
+                .pathsToExclude("/students/**")
                 // 下面这两个暂时不清楚是指的啥意思
                 //.producesToMatch("")
                 //.consumesToMatch("")
@@ -117,8 +117,8 @@ public class SwaggerOpenApiConfigBean {
                 //.addOpenApiCustomiser(openApi -> openApi.openapi("3.0.3").info(new Info().title("Title From GroupedOpenApiForG2")))
                 .packagesToScan("pers.zxt.springboot.ssm.controller")
                 //.packagesToExclude("")
-                .pathsToMatch("/springdoc/g2/*")
-                .pathsToExclude("/students/*")
+                .pathsToMatch("/springdoc/g2/**")
+                .pathsToExclude("/students/**")
                 .build();
         return groupedOpenApi;
     }
@@ -130,9 +130,10 @@ public class SwaggerOpenApiConfigBean {
                 .group("basic")
                 .displayName("Group-Basic")
                 .packagesToScan("pers.zxt.springboot.ssm.controller")
-                .pathsToMatch("/swagger/basic/*")
-                //.pathsToMatch("/springdoc/g2/*")
-                .pathsToExclude("/students/*")
+                // 注意，下面的URL路径匹配中，必须要使用两个 *，只用一个 * 表示的是只匹配下一层的任意URL，无法匹配到多层URL -------- KEY
+                //.pathsToMatch("/swagger/basic/*")
+                .pathsToMatch("/swagger/basic/**")
+                .pathsToExclude("/students/**")
                 .build();
         return groupedOpenApi;
     }
