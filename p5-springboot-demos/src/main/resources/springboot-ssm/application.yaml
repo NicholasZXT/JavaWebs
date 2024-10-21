@@ -21,14 +21,14 @@ springdoc:
     path: /v3/api-docs
   packages-to-scan: pers.zxt.springboot.ssm.controller
 #  packages-to-exclude: p1,p2
-#  paths-to-match: /swagger/basic/*
+#  paths-to-match: /swagger/basic/**
   paths-to-exclude: /students/*
 # 下面的分组配置，相当于代码里的 GroupedOpenApi，不能有重复的 group 配置，不过这里配置自定义程度没有使用 GroupedOpenApi 高，不太推荐这里配置分组
-  group-configs: # 下面是一个数组
-    -
-      group: group3
-      display-name: Group_3
-      packages-to-scan: pers.zxt.springboot.ssm.controller
-      paths-to-match: /springdoc/g2/*
-      paths-to-exclude: /students/*
+#  group-configs: # 下面是一个数组
+#    -
+#      group: group3
+#      display-name: Group_3
+#      packages-to-scan: pers.zxt.springboot.ssm.controller
+#      paths-to-match: /springdoc/g2/**
+#      paths-to-exclude: /students/**
 #      packages-to-exclude: p1,p2
