@@ -101,9 +101,10 @@ public class SwaggerOpenApiConfigBean {
                 .pathsToMatch("/springdoc/g1/**")
                 // 设置此分组接口需要排除的URL路径
                 .pathsToExclude("/students/**")
-                // 下面这两个暂时不清楚是指的啥意思
-                //.producesToMatch("")
-                //.consumesToMatch("")
+                // API接收的消息格式
+                .consumesToMatch(new String[]{"application/json", "application/xml", "application/x-www-form-urlencoded"})
+                // API返回的消息格式
+                .producesToMatch(new String[]{"application/json"})
                 .build();
         return groupedOpenApi;
     }

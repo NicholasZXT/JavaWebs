@@ -33,6 +33,15 @@ import pers.zxt.springboot.ssm.domain.QueryPage;
  * 专门用于展示 Springdoc 集成 Swagger 的 Controller。
  * SpringDoc 也是使用的 Swagger 提供的原生注解，参见如下的官方文档：
  * [Swagger 2.X Annotations](https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations)
+ * 常用注解如下：
+ * + @Operation: 最重要的注解，用于方法上标识需要输出文档的视图函数。
+ *    它里面也有如下注解对应的参数，可以直接设置对应的属性，不过优先级没有下面直接使用注解的方式高。
+ * + @Parameter
+ * + @RequestBody
+ * + @ApiResponse / @ApiResponses
+ * + @Tag
+ * + @Content
+ * + @Schema
  */
 @RestController(value = "Swagger Basic Controller")
 @RequestMapping(value = "/swagger/basic")
@@ -42,7 +51,16 @@ public class SwaggerController {
             method = "Get",
             summary = "Test Swagger Controller",
             description = "Some descriptions...",
-            tags = {"client"}
+            tags = {"client"},
+            responses = {
+                    @ApiResponse(
+                            description = "List<String>",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = List.class)
+                            )
+                    )
+            }
     )
     @GetMapping(value = "/test")
     public List<String> testCase() {
@@ -53,7 +71,16 @@ public class SwaggerController {
             method = "Get",
             summary = "Test Client",
             description = "Some descriptions...",
-            tags = {"client"}
+            tags = {"client"},
+            responses = {
+                    @ApiResponse(
+                            description = "String",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = String.class)
+                            )
+                    )
+            }
     )
     @GetMapping(value = "/test/client")
     public String testClient(){
@@ -68,7 +95,27 @@ public class SwaggerController {
             method = "Get",
             summary = "Query one client by ID",
             description = "Some descriptions...",
-            tags = {"client"}
+            tags = {"client"},
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "Client ID",
+                            required = true,
+                            // 参数解析位置
+                            in = ParameterIn.PATH,
+                            schema = @Schema(implementation = Integer.class)
+                    )
+            },
+            responses = {
+                    @ApiResponse(
+                            description = "Client",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = String.class)
+                            )
+                    ),
+                    @ApiResponse(responseCode = "404", description = "Client not found")
+            }
     )
     @GetMapping(value = "/client/{id}")
     public Client selectOneClient(
@@ -89,10 +136,16 @@ public class SwaggerController {
             description = "Some descriptions...",
             tags = {"client"}
     )
+    @ApiResponse(
+            description = "Client Bean",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Client.class))
+    )
     @GetMapping(value = "/client/list/v1")
     public Map<String, Object> selectAllClientsV1(
-            // 获取 GET 请求中的查询参数方式一
+            // 获取 GET 请求中的查询参数方式一，使用 @RequestParam 注解，@Parameter 是 SpringDoc 的参数注解
+            @Parameter(name = "page", in = ParameterIn.QUERY, description = "page", required = false, schema = @Schema(implementation = Integer.class))
             @RequestParam(value = "page") int page,
+            @Parameter(name = "size", in = ParameterIn.QUERY, description = "size", required = false, schema = @Schema(implementation = Integer.class))
             @RequestParam(value = "size") int size
     ){
         System.out.println("page: " + page + ", size: " + size);
@@ -132,11 +185,22 @@ public class SwaggerController {
             method = "Post",
             summary = "Add a client and echo it.",
             description = "Some descriptions...",
-            tags = {"client"}
+            tags = {"client"},
+            responses = {
+                    @ApiResponse(
+                            description = "Client Bean",
+                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Client.class))
+                    )
+            }
     )
     @PostMapping(value = "/client/add")
     public Client addOneClient(
             // 获取 POST 请求体的内容
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Client Bean",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Client.class)),
+                    required = true
+            )
             @RequestBody Client client
     ){
         System.out.println("new client: " + client);
