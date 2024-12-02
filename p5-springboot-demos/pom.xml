@@ -107,28 +107,31 @@
       <version>1.6.9</version>
     </dependency>
     <!-- springdoc-openapi-v2 依赖坐标，2022年才发布，比较新，它用于代替上面v1版本的 springdoc-openapi-ui -->
-<!--    <dependency>-->
-<!--      <groupId>org.springdoc</groupId>-->
-<!--      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
-<!--      <version>2.2.0</version>-->
-<!--    </dependency>-->
-    <!-- Swagger 2.0 的集成通常使用 springfox 提供的如下两个依赖坐标 -->
-<!--    <dependency>-->
-<!--      <groupId>io.springfox</groupId>-->
-<!--      <artifactId>springfox-swagger2</artifactId>-->
-<!--      <version>2.9.2</version>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>io.springfox</groupId>-->
-<!--      <artifactId>springfox-swagger-ui</artifactId>-->
-<!--      <version>2.9.2</version>-->
-<!--    </dependency>-->
-    <!--  springfox 也提供了 Swagger 3.0 的支持，但是自从 2020 年之后就没有更新了，不推荐 -->
-<!--    <dependency>-->
-<!--      <groupId>io.springfox</groupId>-->
-<!--      <artifactId>springfox-boot-starter</artifactId>-->
-<!--      <version>3.0.0</version>-->
-<!--    </dependency>-->
+    <!--<dependency>-->
+    <!--  <groupId>org.springdoc</groupId>-->
+    <!--  <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+    <!--  <version>2.2.0</version>-->
+    <!--</dependency>-->
+
+    <!-- Swagger 2.0 的集成通常使用 springfox 提供的如下两个依赖坐标。
+      2.9.2使用的最多，发布于2018，当前最新是3.0.0版本，2020年发布
+    -->
+    <!--<dependency>-->
+    <!--  <groupId>io.springfox</groupId>-->
+    <!--  <artifactId>springfox-swagger2</artifactId>-->
+    <!--  <version>2.9.2</version>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+    <!--  <groupId>io.springfox</groupId>-->
+    <!--  <artifactId>springfox-swagger-ui</artifactId>-->
+    <!--  <version>2.9.2</version>-->
+    <!--</dependency>-->
+    <!--  springfox 也提供了 Swagger 3.0 的支持，但是只有下面这一个版本，并且自从 2020 年之后就没有更新了，不推荐 -->
+    <!--<dependency>-->
+    <!--  <groupId>io.springfox</groupId>-->
+    <!--  <artifactId>springfox-boot-starter</artifactId>-->
+    <!--  <version>3.0.0</version>-->
+    <!--</dependency>-->
 
   </dependencies>
 
