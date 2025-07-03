@@ -3,6 +3,7 @@
 *.class
 # Log file
 *.log
+/logs/
 # Package Files #
 *.jar
 *.war
