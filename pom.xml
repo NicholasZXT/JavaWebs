@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>pers.zxt.javawebs</groupId>
+    <artifactId>javawebs</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+    <name>javawebs</name>
+
+    <modules>
+        <!--<module>p0-java-in-actions</module>-->
+        <!--<module>p1-servlet-demos</module>-->
+        <!--<module>p2-mybatis-demos</module>-->
+        <!--<module>p3-spring-demos</module>-->
+        <!--<module>p4-springmvc-demos</module>-->
+        <!--<module>p5-springboot-demos</module>-->
+        <!--<module>p6-springcloud-demos</module>-->
+        <!--<module>p7-netty-demos</module>-->
+        <!--<module>p8-shiro-demos</module>-->
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+</project>
