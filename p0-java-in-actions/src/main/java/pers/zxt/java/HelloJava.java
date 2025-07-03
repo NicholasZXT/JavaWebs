@@ -4,7 +4,7 @@ package pers.zxt.java;
  * Hello world!
  *
  */
-public class App 
+public class HelloJava
 {
     public static void main( String[] args )
     {
