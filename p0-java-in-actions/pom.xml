@@ -29,18 +29,31 @@
             <scope>test</scope>
         </dependency>
           <!-- ***************************************************** -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.22</version>
         </dependency>
-        <!-- Alibaba fastJSON -->
+
+        <!-- Alibaba FastJSON: https://github.com/alibaba/fastjson2 -->
+        <!--
+            FastJSON 1.x 版本已经不再维护，推荐使用 FastJSON 2.x 。
+            FastJSON 1.x 升级 2.x 可以参考 https://github.com/alibaba/fastjson2/wiki/fastjson_1_upgrade_cn
+        -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.68</version>
-            <scope>compile</scope>
+            <!-- 1.x 最后一个版本，发布于 2022.5.23 -->
+            <version>1.2.83</version>
         </dependency>
+        <!-- FastJSON 2.x 版本，和上面的package可以同时引入 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.53</version>
+        </dependency>
+
         <!-- Jackson 工具，下面的依赖会自动引入 jackson-core 和 jackson-annotations -->
         <!-- 这里手动引入时，版本需要特别注意，可能会和 Spark 引入的Jackson有冲突-->
         <dependency>
