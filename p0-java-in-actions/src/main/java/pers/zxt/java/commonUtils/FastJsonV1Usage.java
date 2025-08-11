@@ -9,8 +9,8 @@ import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
- * FastJSON的基本使用API如上所示：
- * (1) JSON 类是最常用的入口，常用方法如下：
+ * FastJSON-v1.x的基本使用API如上所示：
+ * (1) JSON 抽象类是最常用的入口，常用静态方法如下：
  *   序列化方法（有各种重载形式）：
  *    + public static String toJSONString(Object object, SerializerFeature... features)
  *      将Java对象序列化为JSON字符串，支持各种各种Java基本类型和JavaBean
@@ -34,7 +34,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
  * (7) serializer.SerializerFeature，枚举类，用于在 JSON.toJSONString() 方法中配置序列化时的行为
  */
 
-public class FastJsonDemos {
+public class FastJsonV1Usage {
     public static void main(String[] args) {
         String json_str1 = "{\"k1\": \"v1\", \"k2\": 2, \"k3\": \"v3\"}";
         String json_str2 = "[{\"k1\": \"v1\", \"k2\": 2}, {\"k3\": \"v3\", \"k4\": 4}]";
