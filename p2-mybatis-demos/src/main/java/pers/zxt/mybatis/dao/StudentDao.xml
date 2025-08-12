@@ -14,7 +14,7 @@ namespace作用：参与识别sql语句的作用，也就是用来找到SQL语�
     <!-- 查询一个学生Student
      <select>标签属性如下：
      id: 要执行的sql语句的唯一标识，是一个自定义字符串，推荐使用dao接口中的方法名称 —— 这样可以使用 mybatis 的 DAO动态代理
-     resultType: 告诉mybatis，执行sql语句，把数据赋值给哪个类型的java对象，这里使用的java对象的全限定名称
+     resultType: 告诉mybatis，执行sql语句，把数据赋值给哪个类型的java对象，这里使用java对象的全限定名称
      #{studentId}: 占位符，表示从java程序中传入过来的数据
     -->
     <select id="selectStudentById" resultType="pers.zxt.mybatis.domain.Student">

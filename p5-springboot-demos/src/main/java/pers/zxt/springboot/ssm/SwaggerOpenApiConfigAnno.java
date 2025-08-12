@@ -23,7 +23,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  * Springdoc 配置 Swagger 的第 2 种方式，使用注解，比较常用。
  * 此时使用的是 io.swagger.v3.oas.annotations 里提供的各个 **注解** 来构造 Swagger 所需要的信息。
  * 此种方式不需要使用 @SpringBootConfiguration 注解，因为 @OpenAPIDefinition 注解就足够让 SpringDoc 获取到配置了。
- * 并且似乎 注解的优先级 > Bean方式的优先级。
+ * 并且似乎 **注解配置优先级 > Bean配置优先级** 。
  * 默认访问URL: http://localhost:8100/swagger-ui/index.html
  */
 //@SpringBootConfiguration
@@ -35,7 +35,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
         version = "1.2.1",                                   // Api接口版本
         termsOfService = "https://example.com/",             // Api接口的服务条款地址
         contact = @Contact(                                // 设置联系人信息
-            name = "DocAuthor",                            // 作者名称
+            name = "DocAuthorAnnotation",                            // 作者名称
             email = "example@email.com",                   // 作者邮箱
             url = "https://example.com/"                   // 介绍作者的URL地址
         ),

@@ -91,21 +91,21 @@
          两者的 依赖名称变化 和 常用注解变化 参考官方文档：https://springdoc.org/#migrating-from-springdoc-v1。
         -->
         <!-- springdoc-openapi-v1 依赖坐标，目前使用比较广泛。
-        此依赖会导入Swagger3.0的原生依赖：
-        io.swagger.core.v3:swagger-core
-          Swagger 3.x规范的核心实现，提供了一组Java API，用于生成和处理OpenAPI规范文件。
-          它包括Swagger的核心功能，例如Model、Schema、Parameter、Response等，是构建Swagger API的必要条件。
-        io.swagger.core.v3:swagger-annotations
-          用于编写Swagger API文档的Java注解库，提供了一组注解，用于描述API元数据。
-          例如，@Operation、@Parameter、@ApiResponse等注解基本包含了OpenAPI规范中的所有元素。
-        io.swagger.core.v3:swagger-models
-          Swagger 3.x规范的Java模型库，提供了一组Java模型类，用于表示OpenAPI规范文件。
-          它包含了OpenAPI规范中的所有数据模型，例如PathItem、Operation、Parameter、Components等。
+            此依赖会导入Swagger3.0的原生依赖：
+            io.swagger.core.v3:swagger-core
+              Swagger 3.x规范的核心实现，提供了一组Java API，用于生成和处理OpenAPI规范文件。
+              它包括Swagger的核心功能，例如Model、Schema、Parameter、Response等，是构建Swagger API的必要条件。
+            io.swagger.core.v3:swagger-annotations
+              用于编写Swagger API文档的Java注解库，提供了一组注解，用于描述API元数据。
+              例如，@Operation、@Parameter、@ApiResponse等注解基本包含了OpenAPI规范中的所有元素。
+            io.swagger.core.v3:swagger-models
+              Swagger 3.x规范的Java模型库，提供了一组Java模型类，用于表示OpenAPI规范文件。
+              它包含了OpenAPI规范中的所有数据模型，例如PathItem、Operation、Parameter、Components等。
         -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.9</version>
+            <version>1.7.0</version>
         </dependency>
         <!-- springdoc-openapi-v2 依赖坐标，2022年才发布，比较新，它用于代替上面v1版本的 springdoc-openapi-ui -->
         <!--<dependency>-->
@@ -115,7 +115,7 @@
         <!--</dependency>-->
 
         <!-- Swagger 2.0 的集成通常使用 springfox 提供的如下两个依赖坐标。
-          2.9.2使用的最多，发布于2018，当前最新是3.0.0版本，2020年发布
+          2.9.2使用的最多，发布于2018，当前最新是3.0.0版本，2020年发布。
         -->
         <!--<dependency>-->
         <!--  <groupId>io.springfox</groupId>-->
@@ -137,12 +137,23 @@
     </dependencies>
 
     <build>
-        <!--resources打包 dao 的 mapper 配置文件-->
+        <!-- resources 打包 dao 的 mapper 配置文件-->
         <resources>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!-- 下面是resource插件默认的资源目录，但是设置了上面的目录之后，就覆盖了默认资源目录，需要手动设置，否则不会打包-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.yaml</include>
                 </includes>
             </resource>
         </resources>
