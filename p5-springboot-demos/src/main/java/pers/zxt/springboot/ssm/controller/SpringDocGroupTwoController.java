@@ -28,6 +28,10 @@ public class SpringDocGroupTwoController {
             description = "Some descriptions...",
             tags = {"client"}
     )
+    @ApiResponse(
+            description = "List<String>",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
+    )
     @GetMapping(value = "/list")
     public List<String> listClients() {
         return Arrays.asList("First Client", "Second Client");
@@ -38,6 +42,10 @@ public class SpringDocGroupTwoController {
             summary = "Return Clients",
             description = "Some descriptions...",
             tags = {"client"}
+    )
+    @ApiResponse(
+            description = "List<String>",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
     )
     @GetMapping(value = "/listv2")
     public List<String> listClientsV2() {

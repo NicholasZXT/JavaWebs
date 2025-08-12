@@ -48,8 +48,9 @@ mybatis 的主配置文件，其中主要做两件事：
 
     <!--指定其他mapper文件的位置，找到其中的sql语句-->
     <mappers>
-        <!-- 使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.
-        一个mapper resource 指定一个mapper文件，mapper数量较少时使用
+        <!--
+          使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.
+          一个mapper resource 指定一个mapper文件，mapper数量较少时使用
         -->
         <!--<mapper resource="pers/zxt/mybatis/dao/StudentDao.xml"/>-->
 

@@ -1,6 +1,6 @@
 package pers.zxt.springboot.ssm;
 
-
+import java.util.Arrays;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +14,7 @@ public class SsmApplication {
 
     // 启动的时候，注意加上命令行参数 --spring.config.location=classpath:/springboot-ssm/
     public static void main(String[] args) {
+        System.out.println("启动参数：" + Arrays.toString(args));
         SpringApplication.run(SsmApplication.class, args);
     }
 }

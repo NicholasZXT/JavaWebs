@@ -12,11 +12,11 @@ import java.io.InputStream;
  */
 public class MyBatisUtil {
 
-    private static SqlSessionFactory factory  = null;
+    private static SqlSessionFactory factory = null;
 
     // 在类的静态初始化块里读取mybatis配置文件，初始化一个 SqlSessionFactory 对象
     static {
-        String config="mybatis.xml";
+        String config = "mybatis.xml";
         try {
             InputStream inputStream = Resources.getResourceAsStream(config);
             factory  = new SqlSessionFactoryBuilder().build(inputStream);
@@ -29,9 +29,9 @@ public class MyBatisUtil {
     public static SqlSession getSqlSession(){
         SqlSession session = null;
         if( factory != null ){
-            session =factory.openSession();
+            session = factory.openSession();
             // 开启自动事务
-            //session =factory.openSession(true);
+            //session = factory.openSession(true);
         }
         return session;
     }
