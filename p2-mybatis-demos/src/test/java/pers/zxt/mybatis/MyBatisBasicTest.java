@@ -10,18 +10,25 @@ import java.io.InputStream;
 import pers.zxt.mybatis.domain.Student;
 import pers.zxt.mybatis.utils.MyBatisUtil;
 
-public class MyTest1 {
-    // 下面这三个测试用例，都没有用到 StudentDao 接口，只是为了展示 mybatis 的使用过程
+/**
+ * 下面三个测试用例，都没有用到 StudentDao 接口，只是为了展示 mybatis 的基本使用过程
+ */
+public class MyBatisBasicTest {
+
     @Test
     public void testSelectStudentById() throws IOException {
         //调用mybatis某个对象的方法，执行mapper文件中的sql语句
         //mybatis核心类： SqlSessionFactory
+
         // 1.定义mybatis主配置文件的位置，从类路径开始的相对路径
-        String config="mybatis.xml";
+        String config = "mybatis.xml";
+
         // 2.读取主配置文件，使用 mybatis 框架中的 Resources 类
         InputStream inputStream = Resources.getResourceAsStream(config);
+
         // 3.创建 SqlSessionFactory 对象，使用 SqlSessionFactoryBuidler 类
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
+
         // 4.获取 SqlSession 对象
         SqlSession session = factory.openSession();
 
@@ -39,7 +46,7 @@ public class MyTest1 {
 
     @Test
     public void testInsertStudent() throws IOException {
-        String config="mybatis.xml";
+        String config = "mybatis.xml";
         InputStream inputStream = Resources.getResourceAsStream(config);
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = factory.openSession();
@@ -59,6 +66,9 @@ public class MyTest1 {
         session.close();
     }
 
+    /**
+     * 使用工具类来创建session
+     */
     @Test
     public void testMybatisUtil(){
         // 使用工具类来创建session

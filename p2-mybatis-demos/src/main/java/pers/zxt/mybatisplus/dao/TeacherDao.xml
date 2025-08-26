@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.zxt.mybatisplus.dao.TeacherDao">
+
+    <select id="selectTeacherById" resultType="pers.zxt.mybatisplus.domain.Teacher">
+        select id, name, age, grade from teachers where id = #{TeacherId}
+    </select>
+
+    <insert id="insertTeacher">
+        insert into teachers values(#{id}, #{name}, #{age}, #{grade})
+    </insert>
+
+    <select id="selectAllTeachers" resultType="pers.zxt.mybatisplus.domain.Teacher">
+        select id, name, age, grade from teachers
+    </select>
+
+</mapper>
+

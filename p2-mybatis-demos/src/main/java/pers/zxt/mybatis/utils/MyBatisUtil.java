@@ -29,6 +29,7 @@ public class MyBatisUtil {
     public static SqlSession getSqlSession(){
         SqlSession session = null;
         if( factory != null ){
+            // SqlSession 的实例不是线程安全的，应当每个请求线程各自持有一个
             session = factory.openSession();
             // 开启自动事务
             //session = factory.openSession(true);

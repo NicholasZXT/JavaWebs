@@ -6,26 +6,33 @@
 -->
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <!--
-mybatis 的主配置文件，其中主要做两件事：
+mybatis 的主配置文件，可配置项参考官方文档 https://mybatis.org/mybatis-3/zh_CN/configuration.html 。
+其中主要做两件事：
 1. 配置数据库的连接信息
 2. 指定各个表的mapper配置
 -->
 <configuration>
-    <!--使用外部属性配置文件，resource:指定类路径下的某个属性配置文件-->
-    <!--这个配置必须放在最前面，否则会报错-->
+    <!--  properties 配置块
+      这个配置必须放在最前面，否则会报错。
+      这里引用了外部属性配置文件，resource:指定类路径下的某个属性配置文件
+    -->
     <properties resource="jdbc.properties" />
 
-    <!--设置mybatis日志，name属性和值是固定的，value的值见官方文档-->
+    <!-- settings 配置块 -->
     <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 设置mybatis日志的委托类，可选值：SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING -->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="defaultFetchSize" value="100"/>
     </settings>
 
-    <!-- 分页插件，实际上就是一个拦截器，需要配置在 environments 之前 -->
+    <!-- plugins 配置块，允许在映射语句执行过程中的某一点进行拦截调用 -->
     <plugins>
+        <!-- 分页插件，实际上就是一个拦截器，需要配置在 environments 之前 -->
         <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
     </plugins>
 
-    <!--环境配置-->
+    <!-- 环境配置块 -->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -37,7 +44,7 @@ mybatis 的主配置文件，其中主要做两件事：
                 <!--<property name="url" value="jdbc:mysql://localhost:3306/patents?useUnicode=true&amp;characterEncoding=utf-8"/>-->
                 <!--<property name="username" value="root"/>-->
                 <!--<property name="password" value="mysql2022"/>-->
-                <!-- 使用配置文件的方式 -->
+                <!-- 使用配置文件的方式，引用自开头的 properties 块里的预定义变量 -->
                 <property name="driver" value="${jdbc.driver}"/>
                 <property name="url" value="${jdbc.url}"/>
                 <property name="username" value="${jdbc.username}"/>
@@ -46,7 +53,7 @@ mybatis 的主配置文件，其中主要做两件事：
         </environment>
     </environments>
 
-    <!--指定其他mapper文件的位置，找到其中的sql语句-->
+    <!-- mapper 配置块：用于指定SQL映射语句的位置 -->
     <mappers>
         <!--
           使用mapper的resource属性指定mapper文件的路径，这个路径是从target/classes路径开启的，使用/分割路径.

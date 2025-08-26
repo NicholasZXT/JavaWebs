@@ -274,7 +274,7 @@
 
 ## 对于一个动态的web应用来说，一个请求和响应的过程有多少个角色参与，角色和角色之间有多少个协议
 
-![BS结构系统的通信原理2](D:\course\01-Servlet\文档\BS结构系统的通信原理2.png)
+![BS结构系统的通信原理2](imgs/BS结构系统的通信原理2.png)
 
 - 有哪些角色（在整个BS结构的系统当中，有哪些人参与进去了）
   - 浏览器软件的开发团队（浏览器软件太多了：谷歌浏览器、火狐浏览器、IE浏览器....）
@@ -289,7 +289,7 @@
   - Browser  和   WebServer之间有一套传输协议：HTTP协议。（超文本传输协议。）
   - webapp开发团队  和  DB Server的开发团队之间有一套规范：JDBC规范。
 
-![BS结构系统的角色和协议](D:\course\01-Servlet\文档\BS结构系统的角色和协议.png)
+![BS结构系统的角色和协议](imgs/BS结构系统的角色和协议.png)
 
 - Servlet规范是一个什么规范？
   - 遵循Servlet规范的webapp，这个webapp就可以放在不同的WEB服务器中运行。（因为这个webapp是遵循Servlet规范的。）
@@ -567,7 +567,7 @@ public void service(ServletRequest request, ServletResponse response){
   - 我们自己new的Servlet对象是不受WEB容器管理的。
   - WEB容器创建的Servlet对象，这些Servlet对象都会被放到一个集合当中（HashMap），只有放到这个HashMap集合中的Servlet才能够被WEB容器管理，自己new的Servlet对象不会被WEB容器管理。（自己new的Servlet对象不在容器当中）
   - web容器底层应该有一个HashMap这样的集合，在这个集合当中存储了Servlet对象和请求路径之间的关系
-  - ![WEB容器中的Map集合](D:\course\01-Servlet\文档\WEB容器中的Map集合.png)
+  - ![WEB容器中的Map集合](imgs/WEB容器中的Map集合.png)
 
 - 研究：服务器在启动的Servlet对象有没有被创建出来（默认情况下）？
 
@@ -1481,7 +1481,7 @@ public abstract class HttpServlet extends GenericServlet {
 
     - 第一步：写一个Servlet
 
-      - ```java
+        ```java
         public class WelcomeServlet extends HttpServlet {
             @Override
             protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -1492,28 +1492,26 @@ public abstract class HttpServlet extends GenericServlet {
         }
         ```
 
-        
-
     - 第二步：在web.xml文件中配置servlet
 
-      - ```xml
-            <servlet>
-                <servlet-name>welcomeServlet</servlet-name>
-                <servlet-class>com.bjpowernode.javaweb.servlet.WelcomeServlet</servlet-class>
-            </servlet>
-            <servlet-mapping>
-                <servlet-name>welcomeServlet</servlet-name>
-                <url-pattern>/fdsa/fds/a/fds/af/ds/af/dsafdsafdsa</url-pattern>
-            </servlet-mapping>
-        ```
+    ```xml
+        <servlet>
+            <servlet-name>welcomeServlet</servlet-name>
+            <servlet-class>com.bjpowernode.javaweb.servlet.WelcomeServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>welcomeServlet</servlet-name>
+            <url-pattern>/fdsa/fds/a/fds/af/ds/af/dsafdsafdsa</url-pattern>
+        </servlet-mapping>
+    ```
 
     - 第三步：在web.xml文件中配置欢迎页
 
-      - ```xml
-            <welcome-file-list>
-                <welcome-file>fdsa/fds/a/fds/af/ds/af/dsafdsafdsa</welcome-file>
-            </welcome-file-list>
-        ```
+    ```xml
+        <welcome-file-list>
+            <welcome-file>fdsa/fds/a/fds/af/ds/af/dsafdsafdsa</welcome-file>
+        </welcome-file-list>
+    ```
 
         
 
@@ -1531,17 +1529,17 @@ public abstract class HttpServlet extends GenericServlet {
 
 - HttpServletRequest接口的父接口：ServletRequest
 
-  - ```java
-    public interface HttpServletRequest extends ServletRequest {}
-    ```
+```java
+public interface HttpServletRequest extends ServletRequest {}
+```
 
 - HttpServletRequest接口的实现类谁写的? HttpServletRequest对象是谁给创建的？
 
   - 通过测试：org.apache.catalina.connector.RequestFacade 实现了 HttpServletRequest接口
 
-    - ```java
-      public class RequestFacade implements HttpServletRequest {}
-      ```
+    ```java
+    public class RequestFacade implements HttpServletRequest {}
+    ```
 
   - 测试结果说明：Tomcat服务器（WEB服务器、WEB容器）实现了HttpServletRequest接口，还是说明了Tomcat服务器实现了Servlet规范。而对于我们javaweb程序员来说，实际上不需要关心这个，我们只需要面向接口编程即可。我们关心的是HttpServletRequest接口中有哪些方法，这些方法可以完成什么功能！！！！
 
@@ -1562,7 +1560,7 @@ public abstract class HttpServlet extends GenericServlet {
 
   - 怎么获取前端浏览器用户提交的数据？
 
-    - ```java
+      ```java
       Map<String,String[]> getParameterMap() 这个是获取Map
       Enumeration<String> getParameterNames() 这个是获取Map集合中所有的key
       String[] getParameterValues(String name) 根据key获取Map集合的value
@@ -1576,7 +1574,7 @@ public abstract class HttpServlet extends GenericServlet {
 
       - 我会采用Map集合来存储：
 
-        - ```java
+          ```java
           Map<String,String>
               key存储String
               value存储String
@@ -1606,14 +1604,12 @@ public abstract class HttpServlet extends GenericServlet {
 
     - 先测试了4个常用的方法，获取请求参数的四个方法。
 
-      - ```java
+        ```java
         	Map<String,String[]> parameterMap = request.getParameterMap();
         	Enumeration<String> names = request.getParameterNames();
         	String[] values = request.getParameterValues("name");
         	String value = request.getParameter("name");
         ```
-
-        
 
     - request对象实际上又称为“请求域”对象。
 
@@ -1639,7 +1635,7 @@ public abstract class HttpServlet extends GenericServlet {
 
         - ServletContext当中有三个操作域的方法：
 
-          - ```java
+           ```java
             void setAttribute(String name, Object obj); // 向域当中绑定数据。
             Object getAttribute(String name); // 从域当中根据name获取数据。
             void removeAttribute(String name); // 将域当中绑定的数据移除
@@ -2065,8 +2061,6 @@ public abstract class HttpServlet extends GenericServlet {
         // 浏览器会自发的向服务器发送一次全新的请求：/oa/dept/list
         response.sendRedirect("/oa/dept/list");
         ```
-
-        
 
   - 形式上有什么区别？
 

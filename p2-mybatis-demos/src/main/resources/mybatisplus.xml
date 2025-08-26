@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--  properties 配置块 -->
+    <properties resource="jdbc.properties" />
+
+    <!-- settings 配置块 -->
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <!-- 设置mybatis日志的委托类，可选值：SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
+    <plugins>
+        <!-- 配置 MyBatis-Plus 插件 -->
+        <plugin interceptor="com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor">
+        </plugin>
+    </plugins>
+
+    <!-- 环境配置块 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--配置数据源：创建Connection对象-->
+            <dataSource type="POOLED">
+                <!-- 使用配置文件的方式，引用自开头的 properties 块里的预定义变量 -->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- mapper 配置块：用于指定SQL映射语句的位置 -->
+    <mappers>
+        <!--<mapper resource="pers/zxt/mybatisplus/dao/TeacherDao.xml"/>-->
+        <mapper class="pers.zxt.mybatisplus.dao.TeacherDao"/>
+        <!--<package name="pers.zxt.mybatisplus.dao" />-->
+    </mappers>
+</configuration>
