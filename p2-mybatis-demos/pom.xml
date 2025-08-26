@@ -13,7 +13,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- 需要手动设置jdk版本，模板里默认是1.7 -->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -23,26 +22,49 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13.1</version>
             <scope>test</scope>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.22</version>
+            <scope>compile</scope>
         </dependency>
         <!--mysql驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.31</version>
+            <version>8.0.32</version>
         </dependency>
+
         <!--mybatis依赖-->
+        <!--<dependency>-->
+        <!--    <groupId>org.mybatis</groupId>-->
+        <!--    <artifactId>mybatis</artifactId>-->
+        <!--    <version>3.5.6</version>-->
+        <!--</dependency>-->
+
+        <!-- 根据 mybatis-plus 官方文档的说法，如果引入了 mybatis-plus，则不要手动引入上面的 mybatis 依赖，以免版本不兼容 -->
+        <!--mybatis-plus依赖，配合Spring使用-->
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.5.1</version>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>3.5.5</version>
         </dependency>
+        <!--mybatis-plus依赖，单独使用-->
+        <!--<dependency>-->
+        <!--    <groupId>com.baomidou</groupId>-->
+        <!--    <artifactId>mybatis-plus-solon-plugin</artifactId>-->
+        <!--    <version>3.5.12</version>-->
+        <!--</dependency>-->
+
         <!--PageHelper依赖-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.1.10</version>
+            <version>5.3.1</version>
         </dependency>
     </dependencies>
 
@@ -50,14 +72,14 @@
         <!--资源插件： 处理src/main/java目录中的xml，没有这个插件的话，mapper对应的xml文件就不会被打包，导致执行时找不到文件-->
         <resources>
             <resource>
-                <!--所在的目录-->
+                <!-- 源码所在的目录-->
                 <directory>src/main/java</directory>
+                <filtering>false</filtering>
                 <includes>
                     <!--包括目录下的.properties,.xml 文件都会扫描到-->
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
                 </includes>
-                <filtering>false</filtering>
             </resource>
             <!--下面是resource插件默认的资源目录，但是设置了上面的目录之后，就覆盖了默认资源目录，需要手动设置，否则不会打包-->
             <resource>
