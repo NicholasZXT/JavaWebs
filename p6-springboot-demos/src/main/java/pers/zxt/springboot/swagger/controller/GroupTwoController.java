@@ -1,4 +1,4 @@
-package pers.zxt.springboot.ssm.controller;
+package pers.zxt.springboot.swagger.controller;
 
 import java.util.List;
 import java.util.Arrays;
@@ -19,10 +19,9 @@ import io.swagger.v3.oas.annotations.enums.Explode;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.enums.ParameterStyle;
 
-
-@RestController(value = "SpringDoc Controller Group One")
-@RequestMapping(value = "/springdoc/g1")
-public class SpringDocGroupOneController {
+@RestController(value = "SpringDoc Controller Group Two")
+@RequestMapping(value = "/springdoc/g2")
+public class GroupTwoController {
     @Operation(
             method = "Get",
             summary = "Return Clients",
@@ -38,4 +37,18 @@ public class SpringDocGroupOneController {
         return Arrays.asList("First Client", "Second Client");
     }
 
+    @Operation(
+            method = "Get",
+            summary = "Return Clients",
+            description = "Some descriptions...",
+            tags = {"client"}
+    )
+    @ApiResponse(
+            description = "List<String>",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))
+    )
+    @GetMapping(value = "/listv2")
+    public List<String> listClientsV2() {
+        return Arrays.asList("First Client", "Second Client");
+    }
 }

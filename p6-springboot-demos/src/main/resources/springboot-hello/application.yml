@@ -8,7 +8,7 @@ logging:
 #    root: DEBUG
     root: INFO
 
-# 使用 ${属性名} 引用yml中定义的属性
+# 使用 ${属性名} 引用 yml 中定义的属性
 homeDir: /home/user
 dirs:
   docDir: ${homeDir}/document

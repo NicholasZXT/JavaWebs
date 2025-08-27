@@ -12,7 +12,7 @@ import pers.zxt.springboot.hello.MyDataSource;
 
 // 使用 @Controller 注解标识当前类作为 Spring-MVC 的 次级Controller 使用
 @Controller
-public class BootController {
+public class SomeController {
 
     // 访问 springboot-hello/application.yml 配置文件中的值
     // 这个操作一般在service或者dao里执行，这里为了方便演示，就直接在controller里访问了

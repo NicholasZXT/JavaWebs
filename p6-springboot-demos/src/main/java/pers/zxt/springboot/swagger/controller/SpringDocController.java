@@ -1,4 +1,4 @@
-package pers.zxt.springboot.ssm.controller;
+package pers.zxt.springboot.swagger.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,26 +26,26 @@ import io.swagger.v3.oas.annotations.enums.Explode;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.enums.ParameterStyle;
 
-import pers.zxt.springboot.ssm.domain.Client;
-import pers.zxt.springboot.ssm.domain.QueryPage;
+import pers.zxt.springboot.swagger.domain.Client;
+import pers.zxt.springboot.swagger.domain.QueryPage;
 
 /**
  * 专门用于展示 Springdoc 集成 Swagger 的 Controller。
  * SpringDoc 也是使用的 Swagger 提供的原生注解，参见如下的官方文档：
  * [Swagger 2.X Annotations](https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations)
  * 常用注解如下：
- * + @Operation: 最重要的注解，用于方法上标识需要输出文档的视图函数。
- *    它里面也有如下注解对应的参数，可以直接设置对应的属性，不过优先级没有下面直接使用注解的方式高。
- * + @Parameter
- * + @RequestBody
- * + @ApiResponse / @ApiResponses
- * + @Tag
- * + @Content
- * + @Schema
+ *   - @Operation: 最重要的注解，用于方法上标识需要输出文档的视图函数。
+ *       它里面也有如下注解对应的参数，可以直接设置对应的属性，不过优先级没有下面直接使用注解的方式高。
+ *   - @Parameter
+ *   - @RequestBody
+ *   - @ApiResponse / @ApiResponses
+ *   - @Tag
+ *   - @Content
+ *   - @Schema
  */
 @RestController(value = "Swagger Basic Controller")
 @RequestMapping(value = "/swagger/basic")
-public class SwaggerController {
+public class SpringDocController {
 
     @Operation(
             method = "Get",

@@ -1,4 +1,5 @@
+profile: local
+
 server:
   port: 8084
 
-profile: local

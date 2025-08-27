@@ -1,28 +1,27 @@
-package pers.zxt.springboot.javaconf;
+package pers.zxt.springboot.config;
 
 import org.springframework.context.annotation.*;
-import pers.zxt.springboot.javaconf.domain.Student;
+import pers.zxt.springboot.config.domain.Student;
 
 /**
  * @Configuration: 表示当前类是作为spring容器的配置文件使用的，相当于 bean.xml
- * @ImportResource：表示引入 xml 定义的spring配置文件，导入其中定义的bean对象
- * @PropertySource：表示引入 properties 配置
- * @ComponentScan：表示spring容器的包扫描路径
+ * @ImportResource: 表示引入 xml 定义的spring配置文件，导入其中定义的bean对象
+ * @PropertySource: 表示引入 properties 配置
+ * @ComponentScan: 表示spring容器的包扫描路径
  * 下面的配置中 引入 了如下的 bean 对象：
- *   1. springconf/applicationContext.xml 中定义的 person
- *   2. springconf/beans.xml 中定义的 myStudent
- *   3. 通过 ComponetScan 扫描到的 pers.zxt.springboot.javaconf.domain.Teacher 对象，使用注解的方式定义，
- *      并且从 springconf/config.properties 中获取值
+ *   1. spring-config/applicationContext.xml 中定义的 person
+ *   2. spring-config/beans.xml 中定义的 myStudent
+ *   3. 通过 ComponetScan 扫描到的 pers.zxt.springboot.config.domain.Teacher 对象，使用注解的方式定义，
+ *      并且从 spring-config/config.properties 中获取值
  */
 @Configuration
 @ImportResource(value={"classpath:spring-config/applicationContext.xml", "classpath:spring-config/beans.xml"})
 @PropertySource(value= "classpath:spring-config/config.properties")
-@ComponentScan(basePackages= "pers.zxt.springboot.javaconf.domain")
+@ComponentScan(basePackages= "pers.zxt.springboot.config.domain")
 public class SpringConfig
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello SpringConfig!" );
+    public static void main(String[] args) {
+        System.out.println("Hello SpringConfig!");
     }
 
     /**
@@ -32,8 +31,8 @@ public class SpringConfig
      *   说明：@Bean 注解不指定对象的名称时，则默认 bean id 为方法名，可以使用 name 属性来指定 bean对象的名称
      */
     @Bean
-    public Student createStudent(){
-        Student s1  = new Student();
+    public Student createStudent() {
+        Student s1 = new Student();
         s1.setName("李四");
         s1.setAge(26);
         s1.setSex("男");
@@ -41,8 +40,8 @@ public class SpringConfig
     }
 
     @Bean(name="myStudent3")
-    public Student anotherStudent(){
-        Student s2  = new Student();
+    public Student anotherStudent() {
+        Student s2 = new Student();
         s2.setName("小红");
         s2.setAge(26);
         s2.setSex("女");

@@ -1,0 +1,34 @@
+server:
+  port: 8100
+
+logging:
+  level:
+#    root: DEBUG
+    root: INFO
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: mysql2022
+
+# SpringDoc的配置，配置项参考官方文档 https://springdoc.org/v1/#springdoc-openapi-core-properties
+springdoc:
+  api-docs:
+    enable: true
+    version: openapi_3_0
+    path: /v3/api-docs
+  packages-to-scan: pers.zxt.springboot.swagger.controller
+#  packages-to-exclude: p1,p2
+#  paths-to-match: /swagger/basic/**
+  paths-to-exclude: /students/*
+# 下面的分组配置，相当于代码里的 GroupedOpenApi，不能有重复的 group 配置，不过这里配置自定义程度没有使用 GroupedOpenApi 高，不太推荐这里配置分组
+#  group-configs: # 下面是一个数组
+#    -
+#      group: group3
+#      display-name: Group_3
+#      packages-to-scan: pers.zxt.springboot.swagger.controller
+#      paths-to-match: /springdoc/g2/**
+#      paths-to-exclude: /students/**
+#      packages-to-exclude: p1,p2
