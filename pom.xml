@@ -12,15 +12,15 @@
     <name>javawebs</name>
 
     <modules>
-        <!--<module>p0-java-in-actions</module>-->
-        <!--<module>p1-servlet-demos</module>-->
-        <!--<module>p2-mybatis-demos</module>-->
-        <!--<module>p3-spring-demos</module>-->
-        <!--<module>p4-springmvc-demos</module>-->
-        <!--<module>p5-springboot-demos</module>-->
-        <!--<module>p6-springcloud-demos</module>-->
-        <!--<module>p7-netty-demos</module>-->
+        <!--<module>p1-java-in-actions</module>-->
+        <!--<module>p2-servlet-demos</module>-->
+        <!--<module>p3-mybatis-demos</module>-->
+        <!--<module>p4-spring-demos</module>-->
+        <!--<module>p5-springmvc-demos</module>-->
+        <!--<module>p6-springboot-demos</module>-->
+        <!--<module>p7-springcloud-demos</module>-->
         <!--<module>p8-shiro-demos</module>-->
+        <!--<module>p9-netty-demos</module>-->
     </modules>
 
     <properties>
