@@ -5,8 +5,8 @@
          version="4.0">
     <!--
       声明并注册 Spring-MVC 的核心对象 DispatcherServlet，需要在tomcat服务器启动后，创建 DispatcherServlet 对象的实例。
-      为什么要创建DispatcherServlet对象的实例呢？
-      因为DispatcherServlet的创建过程中，会同时创建 Spring-MVC 容器对象，读取Spring-MVC的配置文件，
+      为什么要创建 DispatcherServlet 对象的实例呢？
+      因为 DispatcherServlet 的创建过程中，会同时创建 Spring-MVC容器 对象，读取Spring-MVC的配置文件，
       把这个配置文件中的对象（所有次级Controller对象）都创建好，当用户发起请求时就可以直接使用对象了。
       servlet的初始化会执行 init() 方法，DispatcherServlet 在 init() 中执行的操作为：{
          //创建容器，读取配置文件
@@ -17,15 +17,15 @@
       启动tomcat报错，读取这个文件 /WEB-INF/springmvc-servlet.xml（/WEB-INF/myweb-servlet.xml）
       Spring-MVC 创建容器对象时，读取的配置文件默认是/WEB-INF/<servlet-name>-servlet.xml .
     -->
-    <!--注册中央调度器-->
+    <!--注册中央调度器 DispatcherServlet-->
     <servlet>
         <servlet-name>hello</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!--自定义springmvc读取的配置文件的位置-->
+        <!--自定义SpringMVC读取的配置文件的位置-->
         <init-param>
-            <!--设置springmvc配置文件位置的属性-->
+            <!--设置SpringMVC配置文件位置的属性-->
             <param-name>contextConfigLocation</param-name>
-            <!-- 用于练习springmvc -->
+            <!-- 用于练习SpringMVC -->
             <!--<param-value>classpath:hello/hello-springmvc.xml</param-value>-->
             <!-- 用于练习SSM整合 -->
             <param-value>classpath:ssm/dispatcherServlet.xml</param-value>
@@ -45,17 +45,18 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
-    <!-- 下面这个用于SSM整合练习，和Spring-MVC本身没有关系 -->
+    <!-- 下面这个用于SSM整合练习，和Spring-MVC没有关系 -->
     <!--
-      注册Spring的监听器，用于创建 Spring核心容器。
-      注意，这个 Spring核心容器 要先于上面的 Spring-MVC 容器而创建，因为上面 Spring-MVC 创建的 DispatcherServlet 本质上还是一个 HttpServlet，
-      而监听器创建的对象是在所有 HttpServlet 对象创建之前。
+      注册Spring的监听器，用于创建 Spring核心容器（不是上面的 Spring-MVC容器）。
+      注意，这个 Spring核心容器 会 先于 上面的 Spring-MVC 容器而创建，
+      因为上面 Spring-MVC 创建的 DispatcherServlet 本质上还是一个 HttpServlet，而监听器创建的对象是在所有 HttpServlet 对象创建之前。
     -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
+        <!-- Spring核心容器的配置文件位置 -->
         <param-value>classpath:ssm/applicationContext.xml</param-value>
     </context-param>
 
