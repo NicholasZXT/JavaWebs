@@ -1,5 +1,9 @@
 package pers.zxt.springboot.hello;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -8,43 +12,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Component
 // 3.指定加载的数据，prefix指定配置文件（springboot-hello/application.yml）中的前缀
 @ConfigurationProperties(prefix = "datasource")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MyDataSource {
+
     private String driver;
     private String url;
     private String username;
     private String password;
-
-    public String getDriver() {
-        return driver;
-    }
-
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public String toString() {

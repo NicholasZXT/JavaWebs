@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!--声明bean对象-->
-    <bean id="myStudent" class="pers.zxt.springboot.javaconf.domain.Student">
+    <bean id="myStudent" class="pers.zxt.springboot.config.domain.Student">
         <property name="name" value="小可爱" />
         <property name="age" value="18" />
         <property name="sex" value="女" />

@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="person" class="pers.zxt.springboot.javaconf.domain.Person">
+    <bean id="person" class="pers.zxt.springboot.config.domain.Person">
         <property name="name" value="张三"/>
         <property name="age" value="29" />
         <property name="cardId" value="uw532423422"/>
@@ -14,5 +14,5 @@
     <!--导入其他bean配置 + 注解的包扫描配置-->
     <!--<import resource="classpath:springconf/beans.xml" />-->
     <!--<context:property-placeholder location="classpath:springconf/config.properties" />-->
-    <!--<context:component-scan base-package="pers.zxt.springboot.javaconf.domain" />-->
+    <!--<context:component-scan base-package="pers.zxt.springboot.config.domain" />-->
 </beans>
