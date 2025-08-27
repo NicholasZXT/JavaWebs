@@ -25,7 +25,7 @@
         <!--指定mybatis主配置文件，注意，这个mybatis.xml配置中的数据源和事务配置是不生效的-->
         <property name="configLocation"  value="classpath:ssm/mybatis.xml" />
     </bean>
-    <!--声明mybatis的扫描器，用于创建dao对象，并放入spring容器中-->
+    <!--声明mybatis的扫描器，用于创建dao对象，并放入 spring核心容器 中-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 指定上面创建的 声明SqlSessionFactoryBean 对象的名称-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />

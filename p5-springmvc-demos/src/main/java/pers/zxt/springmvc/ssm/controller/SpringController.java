@@ -18,12 +18,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @RequestMapping("/spring")
 public class SpringController implements ApplicationContextAware {
 
-    // 这个成员变量用于持有 spring容器 对象的应用
+    // 这个成员变量用于持有 spring核心容器 对象的引用
     private WebApplicationContext context;
+
     // ApplicationContextAware 接口的方法，用于给上面的 context 变量赋予 spring容器 对象的引用
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.context=(WebApplicationContext) applicationContext;
+        this.context = (WebApplicationContext) applicationContext;
     }
 
     @RequestMapping(value = "/hello.do", method = RequestMethod.GET)

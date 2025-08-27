@@ -10,12 +10,15 @@
        http://www.springframework.org/schema/mvc
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--声明组件扫描器，扫描Controller注解标识的类-->
+    <!--声明组件扫描器，扫描 @Controller 注解标识的类-->
     <context:component-scan base-package="pers.zxt.springmvc.ssm.controller" />
 
-    <!--将Controller方法返回的Object转换成JSON需要由消息转换器 HttpMessageConverter 完成，这里开启-->
-    <!--注解驱动实现的功能是 完成java对象到json，xml，text，二进制等数据格式的转换，下面的配置加入后，会自动创建HttpMessageConverter接口
-     的7个实现类对象，包括 MappingJackson2HttpMessageConverter（使用jackson工具库中的ObjectMapper实现java对象转为json字符串）-->
+    <!--将 Controller 方法返回的Object转换成JSON需要由消息转换器 HttpMessageConverter 完成，这里开启-->
+    <!--
+     注解驱动实现的功能是 完成java对象到json，xml，text，二进制等数据格式的转换.
+     下面的配置加入后，会自动创建 HttpMessageConverter 接口的7个实现类对象，
+     包括 MappingJackson2HttpMessageConverter（使用jackson工具库中的ObjectMapper实现java对象转为json字符串）
+     -->
     <mvc:annotation-driven/>
 
 </beans>

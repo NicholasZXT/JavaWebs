@@ -1,31 +1,30 @@
 package pers.zxt.springmvc.hello;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- *  @Controller:创建处理器对象，对象放在springmvc容器中。
- *  位置：在类的上面，和Spring中讲的@Service ,@Component类似
- *  能处理请求的都是控制器（处理器）： MyController能处理请求，叫做后端控制器（back controller）
- *  没有注解之前，需要实现各种不同的接口才能做控制器使用
- *  @RequestMapping: 请求映射
- *  位置：放在类的上面，此时 value 表示的是此类内部请求地址的公共部分，叫做模块名称
+ *  @Controller: 创建次级处理器对象，该对象会被放入 springmvc容器 中。
+ *    位置：在类的上面，和 Spring中的 @Service, @Component 注解类似
+ *    能处理请求的都是控制器（处理器）： MyController能处理请求，叫做后端控制器（back controller）
+ *    没有注解之前，需要实现各种不同的接口才能做控制器使用
+ *  @RequestMapping: URL路由
+ *    位置：放在类的上面，此时 value 表示的是此类内部请求地址的公共部分，叫做模块名称
  */
 @Controller
 @RequestMapping("/hello")
-public class MyController {
+public class HelloController {
     // 处理用户提交的请求，springmvc中是使用方法来处理的。
     // 方法是自定义的，可以有多种返回值，多种参数，方法名称自定义
     /**
@@ -42,7 +41,7 @@ public class MyController {
      */
     // method 值用于指定请求方式，只能填写框架定义好的枚举类型，不指定时，请求方式没有限制
     @RequestMapping(value={"/some.do","/first.do"}, method=RequestMethod.GET)
-    public ModelAndView doSome(){
+    public ModelAndView doSome() {
         // 此方法相当于 HttpServlet实现类中的 doGet() 方法 --> 调用业务相关的 service 类来处理请求
         // 这里省略了调用 service 处理some.do请求的过程，假设service调用处理完成了，只需要处理返回结果
         ModelAndView mv  = new ModelAndView();
@@ -134,10 +133,11 @@ public class MyController {
     }
 
     /**
-     * 处理器方法返回一个Student，通过框架转为json，响应Ajax请求
+     * 处理器方法返回一个 Student，通过框架转为json，响应Ajax请求
      * @ResponseBody:
      *  作用：把处理器方法返回对象转为json后，通过HttpServletResponse输出给浏览器。
      *  位置：方法的定义上面，和其它注解没有顺序的关系。
+     *
      * 返回对象框架的处理流程：
      *  1. 框架会把返回的 Student类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的 canWrite() 方法
      *     检查哪个 HttpMessageConverter接口 的实现类能处理Student类型的数据——这里是 MappingJackson2HttpMessageConverter
@@ -172,11 +172,12 @@ public class MyController {
 
     /**
      * 处理器方法返回的是String，但是表示的是数据，不是视图。
-     * 区分返回值String是数据，还是视图，看有没有@ResponseBody注解
+     * 区分返回值String是数据，还是视图，看有没有 @ResponseBody注解  --------- KEY
      * 如果有@ResponseBody注解，返回String就是数据，反之就是视图
      *
      * 默认使用“text/plain;charset=ISO-8859-1”作为contentType,导致中文有乱码，
      * 解决方案：给RequestMapping增加一个属性 produces, 使用这个属性指定新的contentType.
+     *
      * 返回对象框架的处理流程：
      *  1. 框架会把返回String类型，调用框架的中 ArrayList<HttpMessageConverter> 中每个类的 canWrite() 方法
      *     检查哪个HttpMessageConverter接口的实现类能处理String类型的数据——此时应该是 StringHttpMessageConverter 实现类
