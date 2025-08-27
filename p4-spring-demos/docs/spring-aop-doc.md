@@ -22,8 +22,8 @@
 
 
 `service.SomeService` 是接口，它有两个实现类：
-+ `service.impl.SomeServiceImplV1` 是不使用AOP方式的常规实现，每个方法中都混有非业务代码
-+ `service.impl.SomeServiceImplV2` 是去除了业务无关代码的实现，每个方法里都只有业务代码，其他代码交给AOP来添加
++ `service.impl.SomeServiceNormalImpl` 是不使用AOP方式的常规实现，每个方法中都混有非业务代码
++ `service.impl.SomeServiceAopImpl` 是去除了业务无关代码的实现，每个方法里都只有业务代码，其他代码交给AOP来添加
 
 `service.ServiceProxy`是通过代理来实现接口实现类功能，它展示的就是 AOP 的代理原理。  
 `service.ServiceProxyMock` + `handler.MyAspect`展示的就是AOP的简化。
