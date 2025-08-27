@@ -1,6 +1,6 @@
 package pers.zxt.spring.aop.service;
 
-import pers.zxt.spring.aop.service.impl.SomeServiceImplV2;
+import pers.zxt.spring.aop.service.impl.SomeServiceAopImpl;
 import pers.zxt.spring.aop.handler.MyAspect;
 
 /**
@@ -9,7 +9,7 @@ import pers.zxt.spring.aop.handler.MyAspect;
 public class ServiceProxyMock implements SomeService {
 
     // 实现了 Service 接口的类，其中的方法只实现了业务逻辑
-    SomeService target = new SomeServiceImplV2();
+    SomeService target = new SomeServiceAopImpl();
 
     // 切面类 ----- KEY
     MyAspect aspect  = new MyAspect();

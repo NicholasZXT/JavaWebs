@@ -17,7 +17,7 @@ public class IocXmlTest {
      */
     @Test
     public void test01(){
-        String config= "ioc/di_xml/applicationContext.xml";
+        String config = "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // 获取学生
@@ -34,7 +34,7 @@ public class IocXmlTest {
      */
     @Test
     public void test02(){
-        String config= "ioc/di_xml/applicationContext.xml";
+        String config = "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // 获取构造注入创建的学生
@@ -51,7 +51,7 @@ public class IocXmlTest {
      */
     @Test
     public void test03(){
-        String config= "ioc/di_xml/applicationContext.xml";
+        String config = "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // 获取引用类型按照 ByName 自动注入的学生
@@ -65,7 +65,7 @@ public class IocXmlTest {
     @Test
     public void test04(){
         // 只需要指定总的配置文件
-        String config= "ioc/di_xml/applicationContext.xml";
+        String config = "ioc/di_xml/applicationContext.xml";
         ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
 
         // ioc/di_xml/spring-student.xml 配置文件中导入的Student对象

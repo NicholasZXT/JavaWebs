@@ -1,10 +1,10 @@
 package pers.zxt.spring.aop.service;
 
 import java.util.Date;
-import pers.zxt.spring.aop.service.impl.SomeServiceImplV2;
+import pers.zxt.spring.aop.service.impl.SomeServiceAopImpl;
 
 /**
- *  调用ServiceProxy类方法时候， 调用真正的目标方法，并且增加了业务逻辑之外的功能。
+ *  调用ServiceProxy类方法时候，调用真正的目标方法，并且增加了业务逻辑之外的功能。
  *
  *  ServiceProxy叫做代理， 代理对目标的操作。
  *  创建代理，可以完成对目标方法的调用， 增减功能。
@@ -15,7 +15,8 @@ import pers.zxt.spring.aop.service.impl.SomeServiceImplV2;
 public class ServiceProxy implements SomeService {
 
     //真正的目标，也就是实现了 Service 接口的类，其中的方法只实现了业务逻辑
-    SomeService target = new SomeServiceImplV2();
+    SomeService target = new SomeServiceAopImpl();
+
     @Override
     public void doSome(String item, int num) {
         // 再封装一层 非业务逻辑代码

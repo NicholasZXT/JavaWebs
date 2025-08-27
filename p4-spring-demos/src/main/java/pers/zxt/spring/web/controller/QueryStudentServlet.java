@@ -37,12 +37,12 @@ public class QueryStudentServlet extends HttpServlet {
         // 下面这种创建spring容器的方式，每次请求都会创建，开销太大
         // -------------------------------------------------------------------
         //创建容器，获取service
-        //String config= "spring-start-beans.xml";
+        //String config = "spring-start-beans.xml";
         //ApplicationContext ctx  = new ClassPathXmlApplicationContext(config);
         // -------------------------------------------------------------------
 
         // 使用监听器已经创建好的容器对象，从ServletContext作用域获取容器，需要先获取 ServletContext 对象
-        ServletContext sc  = getServletContext(); // ServletContext, servlet中的方法
+        ServletContext sc = getServletContext(); // ServletContext, servlet中的方法
         //ServletContext sc = request.getServletContext(); // HttpServletRequest对象的方法
 
         // 从 ServletContext 对象中获取 spring 容器对象 有两种方式：
