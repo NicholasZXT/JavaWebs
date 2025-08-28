@@ -32,35 +32,39 @@
     </parent>
 
     <dependencies>
+        <!-- ================= 测试框架依赖 ================= -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
-        <!--用于测试SpringConfig的使用，有了下面的springboot依赖项之后，可以不用显式引入-->
-        <!--<dependency>-->
-        <!--  <groupId>org.springframework</groupId>-->
-        <!--  <artifactId>spring-context</artifactId>-->
-        <!--  <version>5.3.1</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
+        <!-- ================= 常用工具依赖 ================= -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.22</version>
         </dependency>
 
+        <!-- ================= Spring系列框架依赖 ================= -->
+        <!-- spring框架核心，用于测试SpringConfig的使用，有了下面的springboot依赖项之后，可以不用显式引入-->
+        <!--<dependency>-->
+        <!--  <groupId>org.springframework</groupId>-->
+        <!--  <artifactId>spring-context</artifactId>-->
+        <!--  <version>5.3.1</version>-->
+        <!--</dependency>-->
+
         <!--springboot的依赖项，这里选择是web的依赖项-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <!--处理ConfigurationProperties有关的元数据-->
         <dependency>
@@ -69,25 +73,72 @@
             <optional>true</optional>
         </dependency>
 
-        <!--mysql驱动-->
+        <!-- ================= 数据存储相关依赖 ================= -->
+        <!-- mysql驱动 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.32</version>
-            <!--<scope>runtime</scope>-->
         </dependency>
-        <!--mybatis起步依赖，不过由于下面引入了 mybatis-plus，所以建议不要手动引入 -->
+
+        <!-- mybatis起步依赖，不过由于下面引入了 mybatis-plus，所以建议不要手动引入 -->
         <!--<dependency>-->
         <!--    <groupId>org.mybatis.spring.boot</groupId>-->
         <!--    <artifactId>mybatis-spring-boot-starter</artifactId>-->
         <!--    <version>2.1.4</version>-->
         <!--</dependency>-->
-        <!--mybatis-plus起步依赖-->
+        <!-- mybatis-plus起步依赖 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.3</version>
         </dependency>
+
+        <!-- redis 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- ==================== SpringBoot 集成 数据校验 ==================== -->
+        <!--
+         Java中数据校验最主流和标准化的方案是 Bean Validation (JSR 380 / JSR 303) 及其参考实现 Hibernate Validator。
+           - JSR 380 / JSR 303 标准定义了校验注解和校验器的接口，需要引入相关依赖来使用校验注解，不过该依赖只定义了接口和注解，没有实现。
+           - Hibernate Validator 是 Bean Validation 的参考实现，也是目前最常用的实现，它实现了 validation-api 并提供了额外的功能。
+        -->
+        <!-- validation-api 依赖，一般也不需要显式声明，Hibernate Validator 会自动引入 -->
+        <!-- 对于 Java EE 8 及更早项目 (如 Spring Boot 2.x) -->
+        <!--<dependency>-->
+        <!--    <groupId>javax.validation</groupId>-->
+        <!--    <artifactId>validation-api</artifactId>-->
+        <!--    &lt;!&ndash; 最后一个版本，发布于 2017.11.9 &ndash;&gt;-->
+        <!--    <version>2.0.1.Final</version>-->
+        <!--</dependency>-->
+        <!-- 对于 Jakarta EE 9+ 项目 (如 Spring Boot 3.x) -->
+        <!--<dependency>-->
+        <!--    <groupId>jakarta.validation</groupId>-->
+        <!--    <artifactId>jakarta.validation-api</artifactId>-->
+        <!--    &lt;!&ndash; 版本可能随 Spring Boot 自动管理，这个版本使用最广泛，发布于 2022.4. &ndash;&gt;-->
+        <!--    <version>3.0.2</version>-->
+        <!--</dependency>-->
+
+        <!-- Hibernate Validator 依赖，一般不需要显式声明，由下面的 starter 引入即可 -->
+        <!--<dependency>-->
+        <!--    <groupId>org.hibernate.validator</groupId>-->
+        <!--    <artifactId>hibernate-validator</artifactId>-->
+        <!--    &lt;!&ndash; 版本通常由 Spring Boot 管理，这个版本使用也比较广泛 &ndash;&gt;-->
+        <!--    <version>8.0.1.Final</version>-->
+        <!--</dependency>-->
+
+        <!--
+          Hibernate Validator starter 依赖。
+          它会自动引入上面的jakarta.validation-api(或 javax.validation:validation-api)依赖 和 hibernate-validator 依赖
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
 
         <!-- ==================== SpringBoot 集成 Swagger ==================== -->
         <!--
@@ -170,6 +221,7 @@
 
         <pluginManagement>
             <plugins>
+                <!-- springboot 打包可执行jar包插件-->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
