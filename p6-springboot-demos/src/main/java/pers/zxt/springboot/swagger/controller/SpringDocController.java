@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 //import io.swagger.v3.oas.annotations.parameters.RequestBody;  // 这个和上面的冲突了，只能使用全限定类名
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+//import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.enums.Explode;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.enums.ParameterStyle;
 
+import pers.zxt.springboot.swagger.domain.User;
 import pers.zxt.springboot.swagger.domain.Client;
 import pers.zxt.springboot.swagger.domain.QueryPage;
 
@@ -33,11 +34,11 @@ import pers.zxt.springboot.swagger.domain.QueryPage;
  * 专门用于展示 Springdoc 集成 Swagger 的 Controller。
  * SpringDoc 也是使用的 Swagger 提供的原生注解，参见如下的官方文档：
  * [Swagger 2.X Annotations](https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations)
- * 常用注解如下：
+ * Controller里常用注解如下：
  *   - @Operation: 最重要的注解，用于方法上标识需要输出文档的视图函数。
  *       它里面也有如下注解对应的参数，可以直接设置对应的属性，不过优先级没有下面直接使用注解的方式高。
  *   - @Parameter
- *   - @RequestBody
+ *   - @io.swagger.v3.oas.annotations.parameters.RequestBody
  *   - @ApiResponse / @ApiResponses
  *   - @Tag
  *   - @Content
@@ -45,166 +46,106 @@ import pers.zxt.springboot.swagger.domain.QueryPage;
  */
 @RestController(value = "Swagger Basic Controller")
 @RequestMapping(value = "/swagger/basic")
+@Tag(name = "基本使用", description = "SpringDoc基本使用")
 public class SpringDocController {
 
     @Operation(
-            method = "Get",
-            summary = "Test Swagger Controller",
-            description = "Some descriptions...",
-            tags = {"client"},
-            responses = {
-                    @ApiResponse(
-                            description = "List<String>",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = List.class)
-                            )
-                    )
-            }
-    )
-    @GetMapping(value = "/test")
-    public List<String> testCase() {
-        return Arrays.asList("First Content", "Second Content");
-    }
-
-    @Operation(
-            method = "Get",
-            summary = "Test Client",
-            description = "Some descriptions...",
-            tags = {"client"},
-            responses = {
-                    @ApiResponse(
-                            description = "String",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = String.class)
-                            )
-                    )
-            }
-    )
-    @GetMapping(value = "/test/client")
-    public String testClient(){
-        Client client = new Client();
-        client.setClientId("random-id");
-        client.setClientName("random-name");
-        return client.toString();
-        //return client;
-    }
-
-    @Operation(
-            method = "Get",
-            summary = "Query one client by ID",
-            description = "Some descriptions...",
-            tags = {"client"},
-            parameters = {
-                    @Parameter(
-                            name = "id",
-                            description = "Client ID",
-                            required = true,
-                            // 参数解析位置
-                            in = ParameterIn.PATH,
-                            schema = @Schema(implementation = Integer.class)
-                    )
-            },
-            responses = {
-                    @ApiResponse(
-                            description = "Client",
-                            content = @Content(
-                                    mediaType = "application/json",
-                                    schema = @Schema(implementation = String.class)
-                            )
-                    ),
-                    @ApiResponse(responseCode = "404", description = "Client not found")
-            }
-    )
-    @GetMapping(value = "/client/{id}")
-    public Client selectOneClient(
-            // 获取 GET 请求中的路径参数
-            @PathVariable(value = "id") String id
-    ){
-        System.out.println("id: " + id);
-        Client client = new Client();
-        client.setClientId(id);
-        client.setClientName("Random");
-        //return client.toString();
-        return client;
-    }
-
-    @Operation(
-            method = "Get",
-            summary = "Query all clients by query param with @RequestParam.",
-            description = "Some descriptions...",
-            tags = {"client"}
-    )
-    @ApiResponse(
-            description = "Client Bean",
-            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Client.class))
-    )
-    @GetMapping(value = "/client/list/v1")
-    public Map<String, Object> selectAllClientsV1(
-            // 获取 GET 请求中的查询参数方式一，使用 @RequestParam 注解，@Parameter 是 SpringDoc 的参数注解
-            @Parameter(name = "page", in = ParameterIn.QUERY, description = "page", required = false, schema = @Schema(implementation = Integer.class))
-            @RequestParam(value = "page") int page,
-            @Parameter(name = "size", in = ParameterIn.QUERY, description = "size", required = false, schema = @Schema(implementation = Integer.class))
-            @RequestParam(value = "size") int size
-    ){
-        System.out.println("page: " + page + ", size: " + size);
-        Map<String, Object> res = new HashMap<>();
-        res.put("page", page);
-        res.put("size", size);
-        List<Client> clients = new ArrayList<>();
-        clients.add(new Client("id-1", "client-1"));
-        clients.add(new Client("id-2", "client-2"));
-        res.put("data", clients);
-        return res;
-    }
-
-    @Operation(
-            method = "Get",
-            summary = "Query all clients by query param with Bean.",
-            description = "Some descriptions...",
-            tags = {"client"}
-    )
-    @GetMapping(value = "/client/list/v2")
-    public Map<String, Object> selectAllClientsV2(
-            // 获取 GET 请求中的查询参数方式一，使用一个Bean
-            QueryPage queryPage
-    ){
-        System.out.println(queryPage);
-        Map<String, Object> res = new HashMap<>();
-        res.put("page", queryPage.getPage());
-        res.put("size", queryPage.getSize());
-        List<Client> clients = new ArrayList<>();
-        clients.add(new Client("id-3", "client-3"));
-        clients.add(new Client("id-4", "client-4"));
-        res.put("data", clients);
-        return res;
-    }
-
-    @Operation(
-            method = "Post",
-            summary = "Add a client and echo it.",
-            description = "Some descriptions...",
-            tags = {"client"},
-            responses = {
-                    @ApiResponse(
-                            description = "Client Bean",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Client.class))
-                    )
-            }
-    )
-    @PostMapping(value = "/client/add")
-    public Client addOneClient(
-            // 获取 POST 请求体的内容
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Client Bean",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = Client.class)),
-                    required = true
+        method = "Get",
+        tags = {"用户管理"},
+        summary = "获取所有用户",
+        description = "返回系统所有用户",
+        responses = {
+            @ApiResponse(
+                headers = {
+                    @Header(name = "X-Rate-Limit", description = "Call Limit", schema = @Schema(implementation = Integer.class))
+                },
+                description = "用户列表",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = User.class),
+                    array = @ArraySchema(schema = @Schema(implementation = User.class))
+                ),
+                responseCode = "200"
             )
-            @RequestBody Client client
-    ){
-        System.out.println("new client: " + client);
-        return client;
+        }
+    )
+    @GetMapping(value = "/users")
+    public List<User> getAllUsers() {
+        return Arrays.asList(
+            new User(1L, "Xiao Ming", "xiaoming@example.com", Arrays.asList("ADMIN", "USER")),
+            new User(2L, "Xiao Hong", "xiaohong@example.com", Arrays.asList("ADMIN", "User"))
+        );
+    }
+
+    @Operation(
+        method = "Get",
+        tags = {"用户管理"},
+        summary = "根据ID获取用户",
+        description = "根据ID获取用户",
+        // 用于集中申明参数
+        parameters = {
+            @Parameter(
+                name = "userId",  // 必须和方法的参数名一致
+                description = "待查询的用户ID",
+                required = true,
+                in = ParameterIn.PATH,
+                schema = @Schema(implementation = Long.class),
+                example = "1"
+            )
+        },
+        responses = {
+            @ApiResponse(
+                description = "用户",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = User.class)
+                ),
+                responseCode = "200"
+            )
+        }
+    )
+    @GetMapping("/user/{id}")
+    public User getUserById(
+        // 也可以在这里使用 @Parameter 注解
+        //@Parameter(description = "待查询的用户ID", required = true, example = "1")
+        @PathVariable("id") Long userId
+    ) {
+        return new User(userId, "SomeUser", "someuser@example.com", Arrays.asList("USER", "GUEST"));
+    }
+
+    @Operation(
+        method = "Post",
+        tags = {"用户管理"},
+        summary = "创建用户",
+        description = "创建用户",
+        // 定义请求体 schema，也可以在下面的方法参数里定义
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "用户ID",
+                required = true,
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = User.class)
+                )
+            ),
+        responses = {
+            @ApiResponse(
+                description = "用户",
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = User.class)
+                ),
+                responseCode = "200"
+            )
+        }
+    )
+    //@SecurityRequirement(name = "bearer-key") // 需要 JWT 认证
+    @PostMapping(value = "/user/create")
+    public User createUser(
+        // 也可以在这里使用注解
+        //@io.swagger.v3.oas.annotations.parameters.RequestBody()
+        @RequestBody User user
+    ) {
+        return user;
     }
 
 }
