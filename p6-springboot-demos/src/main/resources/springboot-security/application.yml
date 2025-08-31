@@ -1,0 +1,39 @@
+server:
+  port: 8100
+
+logging:
+  level:
+#    root: DEBUG
+    root: INFO
+
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: mysql2022
+
+############## SpringSecurity 配置 ##############
+
+
+# SpringDoc的配置，配置项参考官方文档 https://springdoc.org/v1/#springdoc-openapi-core-properties
+springdoc:
+  # 自定义 Swagger UI 路径 (可选)
+  swagger-ui:
+    path: /swagger-ui.html
+    # 启用或禁用 Swagger UI
+    # enabled: true
+
+  # OpenAPI 文档路径 (可选)
+  api-docs:
+    enable: true
+    version: openapi_3_0
+    path: /v3/api-docs
+
+  # 扫描/排除的包路径 (可选)
+  packages-to-scan: pers.zxt.springboot.security.controller
+#  packages-to-exclude: p1,p2
+
+  # 匹配/排除的接口路径 (可选)
+#  paths-to-match: /swagger/basic/**
+#  paths-to-exclude: /students/*
