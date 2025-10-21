@@ -1,29 +1,48 @@
 package pers.zxt.netty;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+//import io.netty.channel.*;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;         // 这是接口
+import io.netty.channel.DefaultChannelPipeline;  // 这是默认Pipeline实现类
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+//import io.netty.util.concurrent.Future;
+//import io.netty.util.concurrent.Promise;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufHolder;   // 接口，它有如下默认实现类
+import io.netty.buffer.DefaultByteBufHolder;
+import io.netty.buffer.ByteBufAllocator;   // 接口，它有如下两个实现类
+import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.buffer.UnpooledByteBufAllocator;
+import io.netty.buffer.Unpooled;      // 工具类
+import io.netty.buffer.ByteBufUtil;   // 工具类
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+//import java.util.concurrent.Future;
 
-public class HelloEchoClient {
+public class HelloNettyEchoClient {
 
     public static void main(String[] args) throws Exception {
         String host = "localhost"; // 默认主机
         int port = 8080;           // 默认端口
-        new HelloEchoClient(host, port).start();
+        new HelloNettyEchoClient(host, port).start();
     }
 
     private final String host;
     private final int port;
 
-    public HelloEchoClient(String host, int port) {
+    public HelloNettyEchoClient(String host, int port) {
         this.host = host;
         this.port = port;
     }
