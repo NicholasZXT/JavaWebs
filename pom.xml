@@ -18,9 +18,9 @@
         <!--<module>p4-spring-demos</module>-->
         <!--<module>p5-springmvc-demos</module>-->
         <!--<module>p6-springboot-demos</module>-->
-        <!--<module>p7-springcloud-demos</module>-->
-        <!--<module>p8-shiro-demos</module>-->
-        <!--<module>p9-netty-demos</module>-->
+        <!--<module>p7-shiro-demos</module>-->
+        <!--<module>p8-netty-demos</module>-->
+        <!--<module>p9-springcloud-demos</module>-->
     </modules>
 
     <properties>
