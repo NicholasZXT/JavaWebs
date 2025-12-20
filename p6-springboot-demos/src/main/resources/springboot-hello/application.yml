@@ -1,35 +1,83 @@
-# 在代码中，可以使用 @Value("${homeDir}") 注解 的方式引用配置文件中的值
+# ------------------------------
+# 1. 服务端口与上下文路径
+# ------------------------------
 server:
-  port: 8082
+  port: 8080                          # Web 服务监听端口
+  servlet:
+    context-path: /api                # 应用根路径（访问时需加 /api 前缀）
+  tomcat:
+    threads:
+      max: 200                        # Tomcat 最大工作线程数
+    connection-timeout: 5000          # 连接超时时间（毫秒）
 
-# 配置日志级别
+# ------------------------------
+# 2. Spring 核心配置
+# ------------------------------
+spring:
+  # 激活的 profile（可选值：dev, test, prod），配置文件名必须为 application-{env-name}.yml
+  profiles:
+    active: local
+
+  # 数据源配置（使用 HikariCP 连接池）
+  # mybatis-spring-boot-starter 依赖需要的配置 —— hello 包中并不会用到，但是由于整个module的 POM 文件中引入了，所以必须需要配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: 'mysql2022'                # 密码含特殊字符建议加引号
+    hikari:
+      maximum-pool-size: 20           # 连接池最大连接数
+      minimum-idle: 5                 # 最小空闲连接数
+      idle-timeout: 30000             # 空闲连接超时（毫秒）
+      connection-timeout: 20000       # 获取连接超时（毫秒）
+
+  # JPA / Hibernate 配置（若使用 Spring Data JPA）
+  # jpa:
+  #   hibernate:
+  #     ddl-auto: update                # 自动建表策略：none | update | create | create-drop
+  #   show-sql: true                    # 是否在控制台打印 SQL 语句
+  #   properties:
+  #     hibernate:
+  #       format_sql: true              # 格式化 SQL 输出
+  #       dialect: org.hibernate.dialect.MySQL8Dialect  # 指定数据库方言
+
+  # Redis 配置示例（需引入 spring-boot-starter-data-redis）
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2000ms                   # 超时时间（支持 Duration 格式）
+    lettuce:
+      pool:
+        max-active: 8                 # 最大活跃连接数
+        max-idle: 4                   # 最大空闲连接数
+
+  # 国际化消息配置
+  messages:
+    basename: i18n/messages           # 国际化资源文件路径（如 src/main/resources/i18n/messages.properties）
+    encoding: UTF-8
+
+# ------------------------------
+# 3. 日志配置
+# ------------------------------
 logging:
   level:
-#    root: DEBUG
+    # 根日志配置
     root: INFO
+    # root: DEBUG
+    # 指定包级别日志
+    org.springframework: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  # file:
+  #   name: logs/app.log          # 日志输出文件路径（相对项目根目录）
 
+# ------------------------------
+# 4. 值引用
+# ------------------------------
+# 在代码中，可以使用 @Value("${homeDir}") 注解 的方式引用配置文件中的值
 # 使用 ${属性名} 引用 yml 中定义的属性
 homeDir: /home/user
 dirs:
   docDir: ${homeDir}/document
   tempDir: ${homeDir}/tmp
-
-# 定义数据模型，用于bean对象的属性注入
-datasource:
-  driver: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost/springboot_db
-  username: root
-  password: root666123
-
-# spring配置
-spring:
-  # mybatis-spring-boot-starter 依赖需要的配置 —— hello 包中并不会用到，但是由于整个module的 POM 文件中引入了，所以必须需要配置
-  datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
-    username: root
-    password: mysql2022
-
-  # 切换对应环境的配置文件，配置文件名必须为 application-{env-name}.yml
-  profiles:
-    active: local
