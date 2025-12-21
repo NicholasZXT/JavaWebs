@@ -1,0 +1,53 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: service-order
+  profiles:
+    active: dev
+    # include: feign
+
+logging:
+  level:
+    root: INFO
+
+
+---
+# ---------- 开发环境 ----------
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+
+  # SpringCloud-Nacos 配置
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:public}
+
+---
+# ---------- 生产环境 ----------
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+      - nacos:hehe.properties?group=order
+
+  # SpringCloud-Nacos 配置
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:public}
