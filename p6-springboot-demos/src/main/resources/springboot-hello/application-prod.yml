@@ -1,0 +1,5 @@
+profile: test
+
+server:
+  port: 8090
+

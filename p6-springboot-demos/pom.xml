@@ -67,7 +67,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>${springboot.version}</version>
         </dependency>
-        <!--处理ConfigurationProperties有关的元数据-->
+        <!-- 处理ConfigurationProperties有关的元数据 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
