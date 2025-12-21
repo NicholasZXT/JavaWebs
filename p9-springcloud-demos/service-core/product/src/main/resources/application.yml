@@ -1,0 +1,52 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: service-product
+  profiles:
+    active: dev
+    # include: feign
+
+logging:
+  level:
+    root: INFO
+
+---
+# ---------- 开发环境 ----------
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import:
+      - nacos:common.properties?group=product
+      - nacos:database.properties?group=product
+
+  # SpringCloud-Nacos 配置
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:public}
+
+---
+# ---------- 生产环境 ----------
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import:
+      - nacos:common.properties?group=product
+      - nacos:database.properties?group=product
+      - nacos:hehe.properties?group=product
+
+  # SpringCloud-Nacos 配置
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        import-check:
+          enabled: false
+        namespace: ${spring.profiles.active:public}
