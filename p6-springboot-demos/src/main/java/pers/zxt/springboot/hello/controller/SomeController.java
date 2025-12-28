@@ -14,28 +14,31 @@ import pers.zxt.springboot.hello.MyDataSource;
 @Controller
 public class SomeController {
 
-    // 访问 springboot-hello/application.yml 配置文件中的值
+    // 使用 @Value 注解注入 springboot-hello/application.yml 配置文件中的值
     // 这个操作一般在service或者dao里执行，这里为了方便演示，就直接在controller里访问了
     // -------------------------------
-    // 访问配置文件中的单个值
-    @Value("${server.port}")
-    private Integer port;
-
+    // 访问配置文件中的自定义属性
     @Value("${dirs.docDir}")
     private String docDir;
 
     @Value("${dirs.tempDir}")
     private String tempDir;
 
-    @Value("${profile}")
-    private String profile;
-
-    // 使用自动装配将yml等配置文件中的数据封装到一个Environment对象中
-    @Autowired
-    private Environment env;
-
+    // 将数据源配置封装到一个MyDataSource对象中
     @Autowired
     private MyDataSource myDataSource;
+
+    // 访问spring相关配置
+    @Value("${server.port}")
+    private Integer port;
+
+    @Value("${spring.profiles.active:default}")  // 当前激活的环境名称
+    private String profile;
+
+    // ---------------------------------------
+    // 实际上，SpringBoot在启动时会自动将yml等配置文件中的数据封装到一个Environment对象中
+    @Autowired
+    private Environment env;
     // ---------------------------------------
 
     @RequestMapping("/hello")

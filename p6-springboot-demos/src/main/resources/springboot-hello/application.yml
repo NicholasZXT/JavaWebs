@@ -4,10 +4,10 @@
 server:
   port: 8080                          # Web 服务监听端口
   servlet:
-    context-path: /api                # 应用根路径（访问时需加 /api 前缀）
+    context-path: /hello              # 应用根路径（访问时需加 /api 前缀）
   tomcat:
     threads:
-      max: 200                        # Tomcat 最大工作线程数
+      max: 4                          # Tomcat 最大工作线程数
     connection-timeout: 5000          # 连接超时时间（毫秒）
 
 # ------------------------------
@@ -16,9 +16,16 @@ server:
 spring:
   # 激活的 profile（可选值：dev, test, prod），配置文件名必须为 application-{env-name}.yml
   # 这里采用了将多个环境配置文件划分到不同的配置文件中
-  # 还有一种方式是在此文件中使用 YAML 文档分隔符定义另一个环境的配置，见最底部的 test profile
+  # 还有一种方式是在此文件中使用 YAML 文档分隔符定义另一个环境的配置，见最底部的 local profile
   profiles:
     active: local
+
+  # SpringBoot 2.4 新引入的 Config Data API
+  config:
+    # 导入其他配置（比如Nacos之类的）
+    import:
+      - "classpath:springboot-hello/some-config.yml"
+      # - "optional:classpath:springboot-hello/some-config.yml"
 
   # 数据源配置（使用 HikariCP 连接池）
   # mybatis-spring-boot-starter 依赖需要的配置 —— hello 包中并不会用到，但是由于整个module的 POM 文件中引入了，所以必须需要配置
@@ -26,9 +33,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/springdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
-    password: 'mysql2022'                # 密码含特殊字符建议加引号
+    password: 'mysql2022'             # 密码含特殊字符建议加引号
     hikari:
-      maximum-pool-size: 20           # 连接池最大连接数
+      maximum-pool-size: 4            # 连接池最大连接数
       minimum-idle: 5                 # 最小空闲连接数
       idle-timeout: 30000             # 空闲连接超时（毫秒）
       connection-timeout: 20000       # 获取连接超时（毫秒）
@@ -44,14 +51,14 @@ spring:
   #       dialect: org.hibernate.dialect.MySQL8Dialect  # 指定数据库方言
 
   # Redis 配置示例（需引入 spring-boot-starter-data-redis）
-  redis:
-    host: localhost
-    port: 6379
-    timeout: 2000ms                   # 超时时间（支持 Duration 格式）
-    lettuce:
-      pool:
-        max-active: 8                 # 最大活跃连接数
-        max-idle: 4                   # 最大空闲连接数
+#  redis:
+#    host: localhost
+#    port: 6379
+#    timeout: 2000ms                   # 超时时间（支持 Duration 格式）
+#    lettuce:
+#      pool:
+#        max-active: 8                 # 最大活跃连接数
+#        max-idle: 4                   # 最大空闲连接数
 
   # 国际化消息配置
   messages:
@@ -90,10 +97,15 @@ dirs:
 spring:
   # 过时写法，在 profiles 中定义后续环境配置名称
   # profiles: local
-  # SpringBoot 2.4 开始推荐的写法
+  # SpringBoot 2.4 引入的 Config Data API —— 推荐写法
   config:
+    # 设置根据 spring.profiles.active 激活的 profile 来导入对应的配置文件
     activate:
       on-profile: local
+    # 导入其他配置（比如Nacos之类的），不过这里上面导入过了
+#    import:
+#      - "classpath:springboot-hello/some-config.yml"
+#      # - "optional:classpath:springboot-hello/some-config.yml"
 
 server:
   port: 8085
