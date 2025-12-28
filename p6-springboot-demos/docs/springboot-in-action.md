@@ -11,6 +11,20 @@
 + `domain`包下是3个普通的 Java Bean 对象，分别通过3种方式被引入spring容器。
 
 
+-------------------------------
+## hello
+
+`pers.zxt.springboot.hello` 包下是springboot的入门体验.
+
+`MyApplication`展示 SpringBoot 的使用，与之配合的内容如下：
++ resource下的`springboot-hello`里存放对应的配置文件
++ 配合 `controller` 包里的 `BootController` 使用
++ 这个简单示例里省略了 `service`、`dao`、`domain` 等包的使用，逻辑直接放在 `controller` 包的 `BootController` 里了
+
+这个用例展示了：
+1. springboot配置文件的使用，包括多环境配置，使用自定义变量
+2. 如何使用注解的方式快速创建一个 REST 接口服务
+
 ### SpringBoot配置文件
 
 SpringBoot 默认支持两种配置文件格式：YAML 和 Properties，推荐使用 YAML 格式。
@@ -45,20 +59,6 @@ spring:
       - "required:<配置源类型>:<配置标识>"  # 默认是 required
 ```
 上面的配置列表优先级遵循 **“后导入，优先级高”** 原则。
-
--------------------------------
-## hello
-
-`pers.zxt.springboot.hello` 包下是springboot的入门体验.
-
-`MyApplication`展示 SpringBoot 的使用，与之配合的内容如下：
-+ resource下的`springboot-hello`里存放对应的配置文件
-+ 配合 `controller` 包里的 `BootController` 使用
-+ 这个简单示例里省略了 `service`、`dao`、`domain` 等包的使用，逻辑直接放在 `controller` 包的 `BootController` 里了
-
-这个用例展示了：
-1. springboot配置文件的使用，包括多环境配置，使用自定义变量
-2. 如何使用注解的方式快速创建一个 REST 接口服务
 
 
 -------------------------------

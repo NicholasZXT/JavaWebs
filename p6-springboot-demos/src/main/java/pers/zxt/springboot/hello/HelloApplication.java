@@ -3,6 +3,7 @@ package pers.zxt.springboot.hello;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 
 /**
  * 1. 使用 @SpringBootApplication 注解标识 SpringBoot 启动入口类，
@@ -55,16 +56,58 @@ public class HelloApplication {
 
         // run 方法返回的实际上是 SpringBoot的 Context对象，可以获取其中装配的 bean 对象
         ApplicationContext ctx  = SpringApplication.run(HelloApplication.class, args);
-        System.out.println("ApplicationContext started.");
+        Environment env = ctx.getEnvironment();
+        String profile = env.getActiveProfiles()[0];
+        System.out.println(">>> ApplicationContext started with profile: " + profile);
+        //showSpringContextBeans(ctx);
+        showSpringContextBeansOfUserDefined(ctx, "pers.zxt.springboot.hello");
 
-        String[] beans = ctx.getBeanDefinitionNames();
-        int bean_num = beans.length;
-        System.out.println("ApplicationContext beans[" + bean_num + "]:");
+        // 展示 Spring Config API 获取的数据
+        System.out.println("===== Spring Config API 获取的数据 =====");
+
+        System.out.println("some.name = " + env.getProperty("some.name", "some.name not found"));
+        System.out.println("some.value = " + env.getProperty("some.value", "some.value not found"));
+
+    }
+
+    /**
+     * 显示Spring容器中所有 Bean
+     * @param ctx
+     */
+    public static void showSpringContextBeans(ApplicationContext ctx){
+        // 1. 获取所有 Bean 的名称数组
+        String[] allBeanNames = ctx.getBeanDefinitionNames();
+        // 2. 遍历打印所有 Bean
+        System.out.println("===== Spring 容器中所有 Bean 列表（共 " + allBeanNames.length + " 个） =====");
         int num = 1;
-        for (String bean: beans) {
-            System.out.println("[" + num + "]: " + bean);
-            num++;
+        for (String beanName : allBeanNames) {
+            // 获取 Bean 实例（可选，按需获取）
+            Object beanInstance = ctx.getBean(beanName);
+            // 打印 Bean 名称 + Bean 类型
+            System.out.printf("[" + num + "]: Bean 名称：%-15s | Bean 类型：%s%n", beanName, beanInstance.getClass().getName());
         }
+    }
+
+    /**
+     * 显示Spring容器中指定包下的所有 Bean
+     * @param applicationContext
+     * @param packageName
+     */
+    public static void showSpringContextBeansOfUserDefined(ApplicationContext applicationContext, String packageName){
+        // 1. 获取所有 Bean 的名称数组
+        String[] allBeanNames = applicationContext.getBeanDefinitionNames();
+        System.out.println("===== 用户自定义 Bean 列表（按包名前缀过滤） =====");
+        int userBeanCount = 0;
+        for (String beanName : allBeanNames) {
+            Object beanInstance = applicationContext.getBean(beanName);
+            String beanClassName = beanInstance.getClass().getName();
+            // 2. 判断该 Bean 的类名是否以用户包名前缀开头
+            if (beanClassName.startsWith(packageName)) {
+                userBeanCount++;
+                System.out.printf("[" + userBeanCount + "]: Bean 名称：%-15s | Bean 类型：%s%n", beanName, beanClassName);
+            }
+        }
+        System.out.println("===== 用户自定义 Bean 总数：" + userBeanCount + " 个 =====");
     }
 }
 
