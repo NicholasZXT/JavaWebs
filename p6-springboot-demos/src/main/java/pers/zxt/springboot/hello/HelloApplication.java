@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
  *     (1) yml配置的优先级比较高。
  *     (2) 配置文件的默认路径是 classpath，也就是 resources 下。
  *     (3) 如果像这里把配置文件都放在了 resources/springboot-hello 目录下，需要采用下面的方式进行设置
- *     (4) application.properties 配置文件里，尽量不要有中文，否则会导致乱码。
+ *     (4) application.properties 配置文件里，不要有中文，否则会导致乱码。
  */
 @SpringBootApplication
 public class HelloApplication {

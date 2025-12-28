@@ -7,17 +7,17 @@ import pers.zxt.springboot.config.domain.Student;
  * @Configuration: 表示当前类是作为spring容器的配置文件使用的，相当于 bean.xml
  * @ImportResource: 表示引入 xml 定义的spring配置文件，导入其中定义的bean对象
  * @PropertySource: 表示引入 properties 配置
- * @ComponentScan: 表示spring容器的包扫描路径
+ * @ComponentScan: 表示spring容器的包扫描路径，默认下是 声明该注解的配置类所在的包（package）及其所有子包。
  * 下面的配置中 引入 了如下的 bean 对象：
  *   1. spring-config/applicationContext.xml 中定义的 person
  *   2. spring-config/beans.xml 中定义的 myStudent
- *   3. 通过 ComponetScan 扫描到的 pers.zxt.springboot.config.domain.Teacher 对象，使用注解的方式定义，
+ *   3. 通过 @ComponentScan 扫描到的 pers.zxt.springboot.config.domain.Teacher 对象，使用注解的方式定义，
  *      并且从 spring-config/config.properties 中获取值
  */
 @Configuration
 @ImportResource(value={"classpath:spring-config/applicationContext.xml", "classpath:spring-config/beans.xml"})
 @PropertySource(value= "classpath:spring-config/config.properties")
-@ComponentScan(basePackages= "pers.zxt.springboot.config.domain")
+@ComponentScan(basePackages= "pers.zxt.springboot.config.domain")   // 指定了待扫描的package路径
 public class SpringConfig
 {
     public static void main(String[] args) {
