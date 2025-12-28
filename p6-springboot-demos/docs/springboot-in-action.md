@@ -2,12 +2,49 @@
 
 # 项目练习说明
 
+-------------------------------
 ## config
 
-`SpringConfig` 展示了使用 JavaConfig 来作为spring配置文件的方式，它的调试见`test`目录下的`SpringConfigTest`测试用例。  
+`SpringConfig` 展示了使用 Java Bean 来作为spring配置文件的方式，它的调试见`test`目录下的`SpringConfigTest`测试用例。  
 与之配套的内容如下：
 + resource下的`spring-config`里是对应的配置文件
 + `domain`包下是3个普通的 Java Bean 对象，分别通过3种方式被引入spring容器。
+
+
+### SpringBoot配置文件
+
+SpringBoot 默认支持两种配置文件格式：YAML 和 Properties，推荐使用 YAML 格式。
+
+SpringBoot配置文件遵循前缀匹配的方式来加载配置文件，并且这些前缀都有约定俗称，常用命名规则如下：
+
+| 配置类型                 | 命名格式                       | 示例                                                                                      |
+|----------------------|----------------------------|-----------------------------------------------------------------------------------------|
+| **基础设施级配置**          | **无前缀，直接顶级 key**           | `server.port`; `logging.level.com.example`; `management.endpoints.web.exposure.include` |
+| **Spring Boot 自身组件** | `spring.<子系统>.<属性>`        | `spring.main.banner-mode` ; `spring.task.execution.pool.core-size`                      |
+| **Spring Cloud 组件**  | `spring.cloud.<服务名>.<属性>`  | `spring.cloud.nacos.discovery.server-addr` ; `spring.cloud.gateway.routes[0].uri`       |
+| **第三方 Starter**      | `<框架名>.<属性>`（全小写，通常为项目 ID） | `mybatis.mapper-locations`; `dubbo.application.name`<br />`rocketmq.name-server`        |
+
+### Config Data API
+
+Spring Boot 于 2.4 引入的 Config Data API 是对配置加载机制的重大重构，它取代了传统的 bootstrap.yml 模式，
+成为 Spring Cloud 2020.0（Ilford）及以后版本中连接配置中心（如 Nacos、Consul、Vault 等）的推荐方式。
+
+Config Data API 有如下几个优势：
+- 统一配置入口：所有配置（本地 + 远程）都在 application.yml 中声明；
+- 声明式导入：通过 spring.config.import 显式指定外部配置源；
+- 支持多源组合：可同时导入 Nacos、Vault、Git、文件等。
+
+Config Data API 的唯一入口是 `application.yml`（或 `application.properties`）中的 `spring.config.import`。
+
+语法配置示例如下：
+```yml
+spring:
+  config:
+    import:
+      - "optional:<配置源类型>:<配置标识>"
+      - "required:<配置源类型>:<配置标识>"  # 默认是 required
+```
+上面的配置列表优先级遵循 **“后导入，优先级高”** 原则。
 
 -------------------------------
 ## hello
