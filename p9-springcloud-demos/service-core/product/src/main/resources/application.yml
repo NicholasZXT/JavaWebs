@@ -1,35 +1,58 @@
 server:
-  port: 8000
+  address: localhost
+  port: 8091
 
 spring:
   application:
     name: service-product
   profiles:
     active: dev
-    # include: feign
 
 logging:
   level:
     root: INFO
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss}] %-5level %logger{36} - %msg%n"
 
 ---
 # ---------- 开发环境 ----------
 spring:
+  # Config Data API
   config:
     activate:
       on-profile: dev
+    # 推荐在这里导入 Nacos 配置文件，而不是在下面的 spring.cloud.nacos.config 中配置
     import:
-      - nacos:common.properties?group=product
-      - nacos:database.properties?group=product
+      # 核心：导入并监听指定 namespace、group、dataId 的配置
+      # 格式：nacos:{dataId}?group={group}，可以使用有限的占位符替换
+      # 需要注意两点：
+      #  1. dataId需要包含文件扩展名，否则默认为.properties，无法识别yml格式的配置文件
+      #  2. namespace 无法在这里使用路径参数进行配置，必须要在 spring.cloud.nacos.config.namspace 中进行配置
+      #- nacos:config-product.yml?group=product&namespace=${spring.profiles.active}  # 无效
+      #- nacos:config-product.yml?group=product
+      # group也可以由 spring.cloud.nacos.config 里配置
+      - nacos:config-product.yml
 
   # SpringCloud-Nacos 配置
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
+      # 配置中心
       config:
         import-check:
           enabled: false
+        # 也可以在 spring.cloud.nacos.config 中进行更精细的配置，但推荐通过 Config Data API 进行导入。
         namespace: ${spring.profiles.active:public}
+        group: product
+        #file-extension: yml
+        #name: config-product.yml    # 注意，文件名称不是使用 dataId ，而是使用 name
+      # 服务注册/发现
+      discovery:
+        service: ${spring.application.name}
+        ip: localhost  # 服务注册的IP，默认为宿主机的IP
+        namespace: dev
+        # 由于默认下服务注册和发现都是在同组中进行的，不能跨group进行服务发现，所以这里的分组不能像配置中心那样每个服务一组
+        #group: product
 
 ---
 # ---------- 生产环境 ----------
@@ -38,14 +61,16 @@ spring:
     activate:
       on-profile: prod
     import:
-      - nacos:common.properties?group=product
-      - nacos:database.properties?group=product
-      - nacos:hehe.properties?group=product
+      - nacos:config-product.yml?group=product
 
   # SpringCloud-Nacos 配置
   cloud:
     nacos:
       server-addr: 127.0.0.1:8848
+      discovery:
+        service: ${spring.application.name}
+        namespace: prod
+        group: product
       config:
         import-check:
           enabled: false

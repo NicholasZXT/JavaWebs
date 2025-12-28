@@ -1,0 +1,58 @@
+# 以下配置存放在nacos中
+
+# -------- dev 环境 --------
+# group: user
+# dataId: config-user.yml
+# 注意，dataID 必须包含文件扩展名，否则默认为.properties，无法识别yml格式的配置文件
+conf:
+    env: dev
+    service: user-service
+    group: user-dev
+    some: some-value-user-dev
+
+---
+# group: product
+# dataId: config-product.yml
+conf:
+    env: dev
+    service: product-service
+    group: product-dev
+    some: some-value-product-dev
+
+---
+# group: order
+# dataId: config-order.yml
+conf:
+    env: dev
+    service: order-service
+    group: order-dev
+    some: some-value-order-dev
+
+
+# -------- prod 环境 --------
+---
+# group: user
+# dataId: config-user.yml
+conf:
+    env: prod
+    service: user-service
+    group: user-prod
+    some: some-value-user-prod
+
+---
+# group: product
+# dataId: config-product.yml
+conf:
+    env: prod
+    service: product-service
+    group: product-prod
+    some: some-value-product-prod
+
+---
+# group: order
+# dataId: config-order.yml
+conf:
+    env: prod
+    service: order-service
+    group: order-prod
+    some: some-value-order-prod
