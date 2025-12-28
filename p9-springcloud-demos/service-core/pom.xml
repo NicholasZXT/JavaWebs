@@ -60,18 +60,18 @@
         </dependency>
 
         <!-- 数据库相关 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.32</version>
-            <!--<scope>runtime</scope>-->
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-            <!-- 注意：Spring Boot 3 需要 MP 3.5.6+ -->
-            <version>3.5.7</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>mysql</groupId>-->
+        <!--    <artifactId>mysql-connector-java</artifactId>-->
+        <!--    <version>8.0.32</version>-->
+        <!--    &lt;!&ndash;<scope>runtime</scope>&ndash;&gt;-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--    <groupId>com.baomidou</groupId>-->
+        <!--    <artifactId>mybatis-plus-spring-boot3-starter</artifactId>-->
+        <!--    &lt;!&ndash; 注意：Spring Boot 3 需要 MP 3.5.6+ &ndash;&gt;-->
+        <!--    <version>3.5.7</version>-->
+        <!--</dependency>-->
 
         <!-- Nacos 服务发现 -->
         <dependency>
