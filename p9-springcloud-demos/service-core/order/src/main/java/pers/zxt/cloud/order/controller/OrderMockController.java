@@ -29,9 +29,10 @@ public class OrderMockController {
     @GetMapping("/create")
     public Result<Order> createOrderByRestTemplate(
             @RequestParam("uid") Long userId,
-            @RequestParam("pid") Long productId
+            @RequestParam("pid") Long productId,
+            @RequestParam(name = "v", defaultValue = "1", required = false) Integer version
     ){
-        Order order = orderService.createOrder(userId, productId);
+        Order order = orderService.createOrder(userId, productId, version);
         if (order == null){
             return Result.fail("创建订单失败");
         }
