@@ -1,45 +1,26 @@
 server:
-  port: 8080
+  address: localhost
+  port: 10080
+
+logging:
+  level:
+    root: INFO
+    pers.zxt.cloud.gateway: DEBUG
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss}] %-5level %logger{36} - %msg%n"
 
 spring:
   application:
     name: gateway
   profiles:
     active: dev
-    # include: route
+    # 引入路由配置(application-gateway-route.yml) -------------- KEY
+    include: gateway-route
+
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true               # 开启服务发现路由（lb://service-name）
-          lower-case-service-id: true
-      routes:
-        - id: user-service
-          uri: lb://user              # user 服务注册名
-          predicates:
-            - Path=/api/user/**
-          filters:
-            - StripPrefix=1           # 去掉 /api 前缀后转发给 user 服务
-
-        - id: product-service
-          uri: lb://product
-          predicates:
-            - Path=/api/product/**
-          filters:
-            - StripPrefix=1
-
-        - id: order-service
-          uri: lb://order
-          predicates:
-            - Path=/api/order/**
-          filters:
-            - StripPrefix=1
-
-
-logging:
-  level:
-    root: INFO
-
+      # 开启网关（默认值）
+      enabled: true
 
 # 可选：暴露 actuator 端点（用于 Sentinel 控制台）
 # management:
@@ -51,14 +32,12 @@ logging:
 #     health:
 #       show-details: always
 
-
 ---
 # ---------- 开发环境 ----------
 spring:
   config:
     activate:
       on-profile: dev
-
   # SpringCloud-Nacos 配置
   cloud:
     nacos:
@@ -67,6 +46,13 @@ spring:
         import-check:
           enabled: false
         namespace: ${spring.profiles.active:public}
+      # 服务注册/发现
+      discovery:
+        service: ${spring.application.name}
+        ip: localhost  # 服务注册的IP，默认为宿主机的IP
+        namespace: dev
+        # 由于默认下服务注册和发现都是在同组中进行的，不能跨group进行服务发现，所以这里的分组不能像配置中心那样每个服务一组
+        #group: user
 
 ---
 # ---------- 生产环境 ----------
@@ -74,7 +60,6 @@ spring:
   config:
     activate:
       on-profile: prod
-
   # SpringCloud-Nacos 配置
   cloud:
     nacos:
@@ -83,3 +68,10 @@ spring:
         import-check:
           enabled: false
         namespace: ${spring.profiles.active:public}
+      # 服务注册/发现
+      discovery:
+        service: ${spring.application.name}
+        ip: localhost  # 服务注册的IP，默认为宿主机的IP
+        namespace: prod
+        # 由于默认下服务注册和发现都是在同组中进行的，不能跨group进行服务发现，所以这里的分组不能像配置中心那样每个服务一组
+        #group: user

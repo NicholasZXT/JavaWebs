@@ -1,0 +1,59 @@
+spring:
+  cloud:
+    gateway:
+      # 开启服务发现路由（lb://service-name）
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      # 全局跨域配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-headers: '*'
+            allowed-methods: '*'
+
+      # 默认过滤器
+      default-filters:
+        - AddResponseHeader=X-Response-Abc, 123
+
+      # 路由设置，是一个路由数组
+      routes:
+        - id: user-route
+          uri: lb://service-user   # user 服务注册名
+          predicates:
+            - name: Path
+              args:
+                patterns: /api/user/**
+                matchTrailingSlash: true
+          filters:
+            #- StripPrefix=1    # 去掉 /api 前缀后转发给 user 服务
+            # 路径重写
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+            #- OnceToken=X-Response-Token, jwt
+          order: 1
+
+        - id: product-route
+          uri: lb://service-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - StripPrefix=1
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+          order: 2
+
+        - id: order-route
+          uri: lb://service-order
+          predicates:
+            - name: Path
+              args:
+                patterns: /api/order/**
+                matchTrailingSlash: true
+          filters:
+            - StripPrefix=1
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+            #- OnceToken=X-Response-Token, jwt
+          order: 1
+
