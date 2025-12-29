@@ -8,7 +8,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 @Configuration
 public class OrderConfig {
 
-    @LoadBalanced  // 注解式负载均衡
+    //@LoadBalanced  // 注解式负载均衡
     @Bean
     RestTemplate restTemplate(){
         return new RestTemplate();
