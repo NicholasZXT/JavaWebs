@@ -20,6 +20,9 @@
         <!-- 指定编译的scala版本，这个设置会被 scala-maven-plugin 使用，不太推荐手动设置 scala 版本，原因参见插件的说明-->
         <!--<scala.version>2.11.12</scala.version>-->
         <scala.version>2.12.18</scala.version>
+        <!-- scala-library 的默认作用域；不定义的话 <scope>${local.scope}</scope> 会变成字面量，
+             触发 Maven 的 "malformed project" 告警。如需只在本地使用可改成 provided。 -->
+        <local.scope>compile</local.scope>
     </properties>
 
     <dependencies>
@@ -78,6 +81,17 @@
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
             <scope>${local.scope}</scope>
+        </dependency>
+
+        <!-- ***************************************************** -->
+        <!-- JCL(Commons Logging) 门面，供 CommonsLogDemo 使用 -->
+        <!-- 注意：JCL 不支持 Log4j 2.x。若要让 JCL 的日志走 SLF4J/Logback，
+             应把本依赖替换为 org.slf4j:jcl-over-slf4j（二者不能同时存在）；
+             若要走 Log4j2，则改为引入 org.apache.logging.log4j:log4j-jcl。 -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
         </dependency>
 
         <!-- ***************************************************** -->

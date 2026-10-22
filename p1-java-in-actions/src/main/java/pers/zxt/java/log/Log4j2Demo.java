@@ -3,13 +3,21 @@ package pers.zxt.java.log;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 
 /**
+ * 演示直接使用 Log4j2 自带的 API（org.apache.logging.log4j.*）。
+ *
+ * 注意：Log4j2 的 API 和 SLF4J 是两套独立 API。当前 classpath 上同时存在
+ * log4j-core 和 logback-classic，但 SLF4J 只绑定到 logback-classic，
+ * 所以只有这里直接用 Log4j2 API 时才走 log4j2.xml 的配置。
  */
 public class Log4j2Demo {
     public static void main(String[] args) {
         Log4j2Demo logDemo = new Log4j2Demo();
         logDemo.logging();
+        logDemo.withThreadContext();
+        logDemo.withThrowable();
     }
 
     // 使用 LogManager 工厂函数 获取一个静态的 logger
@@ -38,10 +46,46 @@ public class Log4j2Demo {
         logger.fatal("Fatal message ...");
 
         // 字符串占位符
-        // 默认支持使用 {} 作为占位符
+        // 默认支持使用 {} 作为占位符（这也是官方推荐的写法，避免提前拼接字符串）
         logger.info("Info message for {}.", Log4j2Demo.class.getSimpleName());
         // 使用 String.format 的方式需要使用 LogManager.getFormatterLogger() 方法 —— 不过此时就不能使用上面的 {} 方式了
         //logger.info("Info message for %s.", Log4j2Demo.class.getSimpleName());
 
+        // 只在会输出日志时才做昂贵计算，避免无谓开销
+        if (logger.isDebugEnabled()) {
+            logger.debug("Debug message with costly payload: {}", expensivePayload());
+        }
+    }
+
+    /**
+     * 演示 ThreadContext（等价于 SLF4J 的 MDC），可用于把 traceId 打进日志。
+     * log4j2.xml 的 pattern 里用 %X{traceId} 输出。
+     *
+     * 注意：ThreadContext 基于 ThreadLocal，异步/线程池场景下会丢失，
+     * 且使用完必须清理（clearAll），否则线程复用时会把上下文带到下一个任务。
+     */
+    public void withThreadContext(){
+        ThreadContext.put("traceId", "trace-" + System.currentTimeMillis());
+        logger.info("带有 traceId 的日志（格式里 %X{traceId} 会显示它）");
+        ThreadContext.remove("traceId");
+        logger.info("已移除 traceId 的日志");
+    }
+
+    /**
+     * 演示异常日志：Throwable 必须作为最后一个参数传入，这样才会打印完整堆栈。
+     */
+    public void withThrowable(){
+        try {
+            int i = 1 / 0;
+        } catch (ArithmeticException e) {
+            // 推荐：把异常对象放在最后，会输出完整堆栈
+            logger.error("计算出错, 出错的表达式={}", "1/0", e);
+            // 不推荐：只拼消息，会丢掉堆栈
+            // logger.error("计算出错: " + e.getMessage());
+        }
+    }
+
+    private String expensivePayload(){
+        return "payload-" + System.nanoTime();
     }
 }

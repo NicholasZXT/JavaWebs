@@ -12,7 +12,21 @@
 <!--
 根节点 configuration 只有两个可配置属性：
  1. status: 用于指定Log4j本身的日志级别, 可选值：TRACE、DEBUG、INFO、WARN、ERROR
+    ⚠ 注意：从 Log4j 2.24.0 起该属性已被标记为 DEPRECATED，官方推荐改用系统属性
+    log4j2.statusLoggerLevel（如 -Dlog4j2.statusLoggerLevel=WARN）。
  2. monitorinterval: 指定自动重新配置的监测间隔时间，单位s，最小5s
+    ⚠ 热加载的已知限制：如果新旧配置里某个 appender 的 fileName 发生了变化，Log4j 为了"不丢日志"可能忽略该改动。
+
+配置文件查找顺序（本次只讨论正式配置，粒度从细到粗）：
+ 1. log4j2-test<contextName>.<ext>   （测试专用，优先级最高）
+ 2. log4j2-test.<ext>
+ 3. log4j2<contextName>.<ext>
+ 4. log4j2.<ext>                       （本文件）
+ 5. 都没有 → 使用内置 DefaultConfiguration：根级别 ERROR，输出到控制台
+<ext> 之间的优先级：properties(8) > yaml/yml(7) > json/jsn(6) > xml(5)，XML 最后兜底。
+可以用 -Dlog4j2.configurationFile=xxx.xml 覆盖位置。
+注意：yaml/json 格式需要额外的 Jackson 依赖（jackson-dataformat-yaml / jackson-databind），
+而 xml 是唯一不需要额外依赖的格式，所以推荐 xml。
 -->
 <configuration status="OFF">
     <!-- Properties 中自定义要用到的一些常量，后续会引用这些变量 -->
@@ -32,8 +46,11 @@
           %L 输出行号
           %M 输出所在方法名
           %l  输出语句所在的行数, 包括类名、方法名、文件名、行数
+          %X{key} 输出 ThreadContext（即 MDC）中的 key —— 常用于输出 traceId
+          ⚠ 注意：%L/%F/%M/%C/%l 都需要抓取调用栈，性能开销较大；
+            异步日志（AsyncLogger/AsyncAppender）下默认不输出位置信息，生产环境慎用。
         -->
-        <Property name="log.pattern">[%d{YYYY-MM-dd HH:mm:ss}][%t%L][%-5level] %logger{8} %msg%n</Property>
+        <Property name="log.pattern">[%d{YYYY-MM-dd HH:mm:ss}][%t/%X{traceId}][%-5level] %logger{8} %msg%n</Property>
         <!-- 定义文件名变量 -->
         <Property name="file.info.filename">logs/info.log</Property>
         <Property name="file.err.filename">logs/err.log</Property>
@@ -74,13 +91,25 @@
         <!-- Root Logger 没有 name 属性（也不需要），也不支持 additivity 属性，因为它没有父级-->
         <Root level="info">
             <!-- 指定使用哪个 Appender，ref对应于上面某个 <Appender> 里的名称，这里设置为输出到console，level设置日志级别为info-->
+            <!-- 说明：AppenderRef 上的 level 与 Root/Logger 上的 level 是"两级过滤"，两者都要通过才会输出。
+                 即 Root level="info" + AppenderRef level="info"，最终等价于只输出 info 及以上； 
+                 若 Root level="info"、AppenderRef level="error"，则只会输出 error 及以上。 -->
             <AppenderRef ref="console" level="info" />
         </Root>
 
         <!-- Logger 节点用于配置自定义的 Logger，它必须有 name 属性，这个 name 属性和 LogManager.getLogger(name) 是对应的，
-             通常用这个 Logger 的类全限定名称-->
+             通常用这个 Logger 的类全限定名称；
+             注意 Log4j2 的 logger 名称是"前缀匹配"的，所以既可以按类名精确匹配，也可以用包名前缀匹配整包。
+             本 Demo 用的是 LogManager.getLogger(Log4j2Demo.class.getSimpleName())，即简单类名 "Log4j2Demo" -->
+        <!-- 按类全限定名匹配（与代码 LogManager.getLogger(Log4j2Demo.class) 对应） -->
+        <Logger name="pers.zxt.java.log.Log4j2Demo" additivity="false">
+            <AppenderRef ref="console" level="trace"/>
+            <AppenderRef ref="info" level="info" />
+            <AppenderRef ref="err" level="error" />
+        </Logger>
+
+        <!-- 按简单类名匹配（与 Demo 里 LogManager.getLogger(Log4j2Demo.class.getSimpleName()) 对应） -->
         <!-- additivity 可以取值 "true" 或 "false"，默认 "true"，表示是否继承 Root Logger 的配置. -->
-        <!--<Logger name="Log4j2Demo" additivity="true">-->
         <Logger name="Log4j2Demo" additivity="false">
             <!--如果继承了 Root Logger 的配置(additivity="true")，由于 Root Logger 也配置了 Console 的 Appender，对于 info 级别
             以上的日志，会看到同一条日志被输出了两次！-->

@@ -2,8 +2,19 @@
 <!--
 根节点必须是 configuration，可配置的属性有 3 个：
  1. scan: true表示配置文件如果发生改变，自动加载；
- 2. scanPeriod: 配置自动加载的事件间隔，默认单位为毫秒；
- 3. debug: false表示不打印Logback内部日志
+ 2. scanPeriod: 配置自动加载的事件间隔，默认单位为毫秒；这里写 "600 seconds" 也可以（支持单位后缀）
+ 3. debug: false表示不打印Logback内部日志 —— 排查"配置不生效"时可临时改成 true
+
+查找顺序（找到第一个就用，不会合并）：
+ 1. logback-test.xml（通常放在 src/test/resources，优先级最高）
+ 2. logback.xml（本文件）
+ 3. 都没有则用内置 BasicConfigurator：root=DEBUG，只输出到控制台
+也可以用 -Dlogback.configurationFile=/path/to/xxx.xml 指定。
+
+本文件对使用 SLF4J API 的代码生效（LogbackDemo / Slf4jDemo），
+因为 logback-classic 是当前 classpath 上唯一的 SLF4J binding。
+常用格式符：%d 时间 %thread 线程 %-5level 级别（左对齐占5位） %logger{50} logger名（最长50） %msg 消息 %n 换行
+（MDC 用 %X{key} 输出，例如 %X{traceId}；异步/线程池场景注意 MDC 会丢失）
 -->
 <configuration scan="false" scanPeriod="600 seconds" debug="false">
     <!-- contextName 节点用于设置上下文对象 LoggerContext 的名称，默认是default，用于标识应用 -->
@@ -13,7 +24,7 @@
     <property name="log.home" value="logs"/>
     <property name="file.appender.name" value="logback.fileAppender.log"/>
     <property name="file.roll.name" value="logback.fileRolling.log"/>
-    <property name="log.format" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%-5level][%logger{50}] %msg%n"/>
+    <property name="log.format" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%X{traceId}][%-5level][%logger{50}] %msg%n"/>
 
     <!-- appender 有两个必须提供的属性：name是自定义名称，class是对应的appender全限定类名-->
     <!-- Logback 提供的常见 appender 如下:
@@ -33,7 +44,7 @@
             <!-- 详细的格式化设置参考官方文档 [Chapter 6: Layouts](https://logback.qos.ch/manual/layouts.html) -->
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度,%msg：日志消息，%n是换行符-->
             <!--<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%-5level][%logger{50}] %msg%n</pattern>-->
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%level][%logger{50}] %msg%n</pattern>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%X{traceId}][%level][%logger{50}] %msg%n</pattern>
             <!-- outputPatternAsHeader 设置是否在日志头部输出当前使用的 pattern，方便后续解析，默认是 false-->
             <outputPatternAsHeader>false</outputPatternAsHeader>
         </encoder>
@@ -51,40 +62,43 @@
         </encoder>
     </appender>
 
-    <!-- 输出到文件，并进行轮换，轮换策略为每天生成日志文件 -->
+    <!-- 输出到文件，并同时按时间和大小轮换（每天产生一个新文件，单文件超过 10MB 也会切分） -->
     <appender name="roll" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 设置当前活跃的日志文件名称，而轮换的日志文件名称见下面的 rollingPolicy 里，如果不设置，也会使用下面 rollingPolicy 里设置的文件名-->
         <file>${log.home}/${file.roll.name}</file>
         <append>true</append>
         <!-- rollingPolicy 用于设置轮换的策略，常见策略（实现类）如下：
           - ch.qos.logback.core.rolling.TimeBasedRollingPolicy，时间轮换 —— 这个用的比较多
-          - ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy，时间+大小轮换
+            注意：它本身也实现了 TriggeringPolicy 接口，所以不能再单独配 SizeBasedTriggeringPolicy，
+            否则 Logback 会输出 "A triggering policy of type ... was already set" 警告，且行为不确定。
+          - ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy，时间 + 大小轮换 —— 想要"按天 + 按大小"就用它
           - ch.qos.logback.core.rolling.FixedWindowRollingPolicy，固定窗口轮换
+          参考 https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
         -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志轮换输出的文件名规则，必须设置，而且文件必须有  %d{} 指定日期格式，以此来推断轮换时间-->
+            <!-- SizeAndTimeBasedRollingPolicy 要求 %i 下标和 %d 同时出现在文件名里-->
             <!-- %d{} 指定轮换时间间隔，yyyy-MM-dd 表示按天轮换（这也是默认值）-->
             <!-- 由于上面的 file 设置了当前活跃的日志文件名，这里设置的就是轮换的历史日志文件名-->
             <!-- 如果文件名称以 .gz 或者 .zip 结尾，还会开启历史日志压缩的功能-->
-            <!--<FileNamePattern>${log.home}/logback.fileRolling.%d{yyyy-MM-dd}.log</FileNamePattern>-->
-            <FileNamePattern>${log.home}/logback.fileRolling.%d{yyyy-MM-dd_HH-mm}.log</FileNamePattern>
-            <!--历史日志最大数量-->
+            <!--<FileNamePattern>${log.home}/logback.fileRolling.%d{yyyy-MM-dd}.%i.log</FileNamePattern>-->
+            <FileNamePattern>${log.home}/logback.fileRolling.%d{yyyy-MM-dd_HH-mm}.%i.log.gz</FileNamePattern>
+            <!-- 单个日志文件的最大大小，超过即切分出一个新的 %i 文件 -->
+            <MaxFileSize>10MB</MaxFileSize>
+            <!--历史日志最大数量（按天算，保留 5 天）-->
             <MaxHistory>5</MaxHistory>
-            <!-- 日志总大小 -->
+            <!-- 日志总大小上限 -->
             <TotalSizeCap>50MB</TotalSizeCap>
         </rollingPolicy>
-        <!-- triggeringPolicy 用于设置轮换的时机，常用的有 ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy，基于文件大小触发轮换-->
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <!--日志文件最大的大小-->
-            <MaxFileSize>10MB</MaxFileSize>
-        </triggeringPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${log.format}</pattern>
         </encoder>
     </appender>
 
     <!-- 配置具体的Logger，name设置名称，对应于某一个包名或者某个类名；level设置日志级别；additivity=false不继承上级Logger的配置-->
-    <logger name="BasicGrammars.log.LogbackDemo" level="debug" additivity="true">
+    <!-- 注意：name 必须和代码里 LoggerFactory.getLogger(XXX.class) 得到的名称一致，否则这段配置不会生效 -->
+    <!-- 这里用包名匹配整包，比逐个类名配置更省事 -->
+    <logger name="pers.zxt.java.log.LogbackDemo" level="debug" additivity="true">
         <!-- 指定 Appender -->
         <!-- additivity=true 时，如果设置了下面的 console，会和 ROOT 重复，导致控制台上 info 以上的信息输出2次-->
         <!--<appender-ref ref="console"/>-->
@@ -94,8 +108,8 @@
         <!--<appender-ref>console</appender-ref>-->
     </logger>
 
-    <!-- 配合 lombok 使用-->
-    <logger name="BasicGrammars.log.Slf4jDemo" level="debug" additivity="false">
+    <!-- 配合 lombok 使用：@Slf4j 生成的 logger 名称就是类全限定名 -->
+    <logger name="pers.zxt.java.log.Slf4jDemo" level="debug" additivity="false">
         <appender-ref ref="console"/>
     </logger>
 
